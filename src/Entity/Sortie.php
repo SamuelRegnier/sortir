@@ -34,9 +34,6 @@ class Sortie
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infosSortie = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $etat = null;
-
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Site $site = null;
@@ -134,18 +131,6 @@ class Sortie
     public function setInfosSortie(?string $infosSortie): self
     {
         $this->infosSortie = $infosSortie;
-
-        return $this;
-    }
-
-    public function getEtat(): ?int
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(?int $etat): self
-    {
-        $this->etat = $etat;
 
         return $this;
     }
