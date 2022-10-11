@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     </head>
     <body>
+        {% if app.user %}
         <header>
             <nav>
                 <ul>
@@ -21,7 +22,7 @@
             </nav>
             <hr>
         </header>
-
+        {% endif %}
         <main>
         {% block body %}{% endblock %}
         </main>
