@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Form\ParticipantType;
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,20 +13,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilController extends AbstractController
 {
-    #[Route('/profil/{id}', name: 'profil_affichageProfil')]
+    #[Route('/profil', name: 'profil_affichageProfil')]
     public function affichageProfil(
-        ParticipantRepository $participantRepository,
+        EntityManagerInterface $em,
         Request $request,
-        $id
     ): Response
     {
-        $profil = new Participant();
+        $profil = $this->getUser();
         $formProfil = $this->createForm(ParticipantType::class,$profil);
 
         $formProfil->handleRequest($request);
 
-        return $this->render('profil/index.html.twig', [
-            'controller_name' => 'ProfilController',
-        ]);
+        if ($formProfil->isSubmitted() && $formProfil->isValid()) {
+            $em->persist($request);
+            $em->flush();
+            return $this->redirectToRoute('accueil_index');
+        }
+
+        return $this->renderForm('profil/index.html.twig',
+            compact('formProfil'));
     }
 }
