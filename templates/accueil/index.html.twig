@@ -2,6 +2,87 @@
 
 {% block title %}{{parent()}}|Accueil{% endblock %}
 
-{% block body %}
 
+{% block body %}
+    <h2>Date du jour : {{'now'|date('d/m/Y') }}</h2>
+    <h2>Participant :  {{ app.user.pseudo }}</h2>
+    <form>
+        <fieldset>
+            <legend>Filtrer les sorties</legend>
+            <div>
+                <label for="site">Site : </label>
+                <select name="site" id="site">
+                    {% for site in sites %}
+                    <option value="{{ site.nom|lower }}">{{ site.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="search">Le nom de la sortie contient : </label>
+                <input type="search" id="search" placeholder="search">
+            </div>
+            <div>
+                <label for="dateDebut">Entre </label>
+                <input type="date" id="dateDebut">
+                <label for="dateFin"> et </label>
+                <input type="date" id="dateFin">
+            </div>
+            <div>
+                <input type="checkbox" id="sortiesOrga">
+                <label for="sortiesOrgaOrga">Sorties dont je suis l'organisateur/trice</label>
+                <input type="checkbox" id="sortiesInscrit">
+                <label for="sortiesInscrit">Sorties auxquelles je suis inscrit/e</label>
+                <input type="checkbox" id="sortiesNonInscrit">
+                <label for="sortiesNonInscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
+                <input type="checkbox" id="sortiesPassees">
+                <label for="sortiesPassees">Sorties passées</label>
+            </div>
+            <input type="submit">
+        </fieldset>
+    </form>
+    <table>
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>inscrits/places</th>
+            <th>Etat</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+        </tr>
+{#        {% for sortie in sorties %}#}
+{#            <tr>#}
+{#                <td>{{ sortie.nom }}</td>#}
+{#                <td></td>#}
+{#                <td></td>#}
+{#                <td>{{ sortie.participants }}/{{ sortie.nbInscriptionsMax }}</td>#}
+{#                <td>{{ sortie.etats }}</td>#}
+{#                <td></td>#}
+{#                <td>{{ sortie.organisateur }}</td>#}
+{#                         <td>#}{#  {% if sortie.organisateur == app.user.pseudo %}}#}
+{#                        {% switch sortie.etats.id %}#}
+{#                            {% case 1 %}#}
+{#                                <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Modifier - Publier</a>#}
+{#                            {% case 2 %}#}
+{#                                <a href="{{ path('sortie_affichage', {'id': sortie.id}) }}">Afficher - </a>#}
+{#                                <a href="{{ path('sortie_annule', {'id': sortie.id}) }}">Annuler</a>#}
+{#                            {% default %}#}
+{#                        {% endswitch %}#}
+{#                    {% else %}#}
+{#                        {% switch sortie.etats.id %}#}
+{#                            {% case 1 %}#}
+{#                            {% case 2 %}#}
+{#                                {% if app.user.actif == true %}#}
+{#                                    <a href="{{ path('sortie_annule', {'id': sortie.id}) }}">Se désister</a>#}
+{#                                {% if app.user.actif == true %}#}
+{#                                    <a href="{{ path('sortie_annule', {'id': sortie.id}) }}">S'inscrire</a>#}
+{#                        {% default %}#}
+{#                        {% endswitch %}#}
+{#                    {% endif %}#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+    </table>
+    <a href="" class="btn btn-warning">Créer une sortie</a>
 {% endblock %}
