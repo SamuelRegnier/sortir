@@ -30,9 +30,6 @@ class ParticipantType extends AbstractType
             ->add('email',TextType::class,[
                 'label' => 'Email',
             ])
-            ->add('password',null,[
-                'label' => 'Password',
-            ])
             ->add('site',EntityType::class,[
                 'class' => Site::class,
                 'choice_label' => 'nom',

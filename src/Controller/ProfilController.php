@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Form\ParticipantType;
-use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilController extends AbstractController
 {
-    #[Route('/profil', name: 'profil_affichageProfil')]
+    #[Route('accueil/profil', name: 'profil_affichageProfil')]
     public function affichageProfil(
         EntityManagerInterface $em,
         Request $request,
@@ -25,7 +23,7 @@ class ProfilController extends AbstractController
         $formProfil->handleRequest($request);
 
         if ($formProfil->isSubmitted() && $formProfil->isValid()) {
-            $em->persist($request);
+            $em->persist($profil);
             $em->flush();
             return $this->redirectToRoute('accueil_index');
         }
