@@ -1,6 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/symfony,phpstorm,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=symfony,phpstorm,windows
-
+.idea
 ### PhpStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -207,5 +207,4 @@ $RECYCLE.BIN/
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
-/vendor/
 ###< symfony/framework-bundle ###
