@@ -2,6 +2,52 @@
 
 {% block title %}{{parent()}}|Accueil{% endblock %}
 
-{% block body %}
 
+{% block body %}
+    <h1>Filtrer les sorties</h1>
+    <table>
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>inscrits/places</th>
+            <th>Etat</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+        </tr>
+        {% for sortie in sorties %}
+            <tr>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.dateHeureDebut }}</td>
+                <td>{{ sortie.dateLimiteInscription }}</td>
+                <td>{{ sortie.participants }}/{{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.etats }}</td>
+                <td>{#{{  }}#}</td>
+                <td>{{ sortie.organisateur }}</td>
+                <td>{#{% if sortie.organisateur == app.user.pseudo %}#}
+{#                        {% switch sortie.etats.id %}#}
+{#                            {% case 1 %}#}
+{#                                <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Modifier - Publier</a>#}
+{#                            {% case 2 %}#}
+{#                                <a href="{{ path('sortie_affichage', {'id': sortie.id}) }}">Afficher - </a>#}
+{#                                <a href="{{ path('sortie_annule', {'id': sortie.id}) }}">Annuler</a>#}
+{#                            {% default %}#}
+{#                        {% endswitch %}#}
+{#                    {% else %}#}
+{#                        {% switch sortie.etats.id %}#}
+{#                            {% case 1 %}#}
+{#                            {% case 2 %}#}
+{#                                {% if app.user.actif == true %}#}
+{#                                    <a href="{{ path('sortie_annule', {'id': sortie.id}) }}">Se désister</a>#}
+{#                                {% if app.user.actif == true %}#}
+{#                                    <a href="{{ path('sortie_annule', {'id': sortie.id}) }}">S'inscrire</a>#}
+{#                        {% default %}#}
+{#                        {% endswitch %}#}
+{#                    {% endif %}#}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('app_creer_sortie') }}" class="btn btn-warning">Créer une sortie</a>
 {% endblock %}
