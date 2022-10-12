@@ -54,4 +54,13 @@ class SortieController extends AbstractController
             'lieu'=>$lieu
     ]);
     }
+
+    #[Route('/sortie/detail/{id}', name: 'sortie_detail', requirements: ['id' => '\d+'])]
+    public function detail(Sortie $id): Response
+    {
+        return $this->render('sortie/detail.html.twig', [
+            "sortie" => $id
+        ]);
+    }
+
 }
