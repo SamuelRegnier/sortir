@@ -8,6 +8,7 @@ use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
+use App\Repository\SiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,22 +22,24 @@ class SortieController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         EtatRepository $etatRepository,
-        LieuRepository  $lieuRepository
+        LieuRepository  $lieuRepository,
+        SiteRepository  $siteRepository
     ): Response
     {
 
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-        $this->getUser();
+        $user = $this->getUser();
         $sortie = new Sortie();
         $etat = $etatRepository->findOneBy(array('id'=> 1));
+        $site = $siteRepository->findOneBy(array('id'=>$user->getSite()));
 
-        $sortie->setOrganisateur($this->getUser());
+        $sortie->setOrganisateur($user);
         $sortie->setEtats($etat);
+        $sortie->setSite($site);
 
         $lieu = $lieuRepository->findOneBy(array('id'=>$sortie->getLieux()));
-
 
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
@@ -45,9 +48,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            return $this->render('accueil/index.html.twig', [
-                'controller_name' => 'SortieController',
-            ]);
+            return $this->redirectToRoute('accueil_index');
         }
         return $this->render('creer_sortie/index.html.twig',[
             'form'=>$form->createView(),
