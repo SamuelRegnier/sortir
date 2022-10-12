@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}|Profil{% endblock %}
+
+{% block body %}
+    <h1>Mon Profil</h1>
+    {{ form_start(formProfil) }}
+    {{ form_widget(formProfil) }}
+    <input type="submit" value="Modifier">
+    <input type="submit" value="Retour" href="{{ path('accueil_index') }}">
+    {{ form_end(formProfil) }}
+{% endblock %}
