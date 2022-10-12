@@ -29,6 +29,7 @@ class SortieType extends AbstractType
                     'class'=>Lieu::class,
                     'choice_label'=>'nom',
                     'label'=>'Lieu :'
+
             ])
 
     ;}
