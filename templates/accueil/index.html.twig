@@ -9,7 +9,7 @@
     <form>
         <fieldset>
             <legend>Filtrer les sorties</legend>
-            <div>
+            <div class="filtre">
                 <div>
                     <label for="site">Site : </label>
                     <select name="site" id="site">
@@ -39,7 +39,9 @@
                 <input type="checkbox" id="sortiesPassees">
                 <label for="sortiesPassees">Sorties passées</label>
             </div>
-            <input type="submit" value="Rechercher">
+            <div>
+                <input type="submit" value="Rechercher">
+            </div>
         </fieldset>
     </form>
     <table>
@@ -86,5 +88,5 @@
 {#            </tr>#}
 {#        {% endfor %}#}
     </table>
-    <a href="" class="btn btn-warning">Créer une sortie</a>
+    <a href="{{ path('app_creer_sortie') }}" class="btn btn-warning">Créer une sortie</a>
 {% endblock %}
