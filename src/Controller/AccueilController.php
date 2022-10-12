@@ -30,7 +30,7 @@ class AccueilController extends AbstractController
     #[Route('/sortie/detail/{id}', name:'sortie_detail', requirements: ['id'=>'\d+'])]
     public function detail(Sortie $id):response
     {
-        return $this->render('sortie/detail', [
+        return $this->render('sortie/detail.html.twig', [
             "sortie" => $id
         ]);
     }

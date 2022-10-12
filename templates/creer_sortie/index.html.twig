@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CreerSortieController!{% endblock %}
+{% block javascripts %}<script src="{{ asset('JavaScript/script.js') }}" defer></script>{% endblock %}
+
+{% block body %}
+<h1>Créer une Sortie</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Enregistrer">
+    {{ form_end(form) }}
+    <a href="{{ path('accueil_index') }}"><button >Annuler</button></a>
+
+{% endblock %}
