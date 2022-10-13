@@ -18,6 +18,7 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank]
     #[Assert\Length(
         max: 30,
         maxMessage: "Le nom ne doit pas comporter plus de 30 charactères"
@@ -55,13 +56,13 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $lieux = null;
 
-    #[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Inscription::class, orphanRemoval: true)]
-    private Collection $sortie;
+    #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class, orphanRemoval: true)]
+    private Collection $inscriptions_sortie;
 
     public function __construct()
     {
         $this->participants = new ArrayCollection();
-        $this->inscriptions = new ArrayCollection();
+        $this->inscriptions_sortie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -192,27 +193,27 @@ class Sortie
     /**
      * @return Collection<int, Inscription>
      */
-    public function getInscriptions(): Collection
+    public function getInscriptionsSortie(): Collection
     {
-        return $this->inscriptions;
+        return $this->inscriptions_sortie;
     }
 
-    public function addInscription(Inscription $inscription): self
+    public function addInscriptionsSortie(Inscription $inscriptionsSortie): self
     {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions->add($inscription);
-            $inscription->setInscription($this);
+        if (!$this->inscriptions_sortie->contains($inscriptionsSortie)) {
+            $this->inscriptions_sortie->add($inscriptionsSortie);
+            $inscriptionsSortie->setSortie($this);
         }
 
         return $this;
     }
 
-    public function removeInscription(Inscription $inscription): self
+    public function removeInscriptionsSortie(Inscription $inscriptionsSortie): self
     {
-        if ($this->inscriptions->removeElement($inscription)) {
+        if ($this->inscriptions_sortie->removeElement($inscriptionsSortie)) {
             // set the owning side to null (unless already changed)
-            if ($inscription->getInscription() === $this) {
-                $inscription->setInscription(null);
+            if ($inscriptionsSortie->getSortie() === $this) {
+                $inscriptionsSortie->setSortie(null);
             }
         }
 

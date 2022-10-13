@@ -41,6 +41,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Site $site = null;
 
+
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
     private Collection $sorties;
 
@@ -57,13 +58,13 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Inscription::class, orphanRemoval: true)]
-    private Collection $inscriptions;
+    private Collection $inscriptions_participant;
 
     public function __construct()
     {
         $this->participants = new ArrayCollection();
         $this->sorties = new ArrayCollection();
-        $this->inscriptions = new ArrayCollection();
+        $this->inscriptions_participant = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,6 +221,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
      * @return Collection<int, Sortie>
      */
@@ -253,27 +255,27 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Inscription>
      */
-    public function getInscriptions(): Collection
+    public function getInscriptionsParticipant(): Collection
     {
-        return $this->inscriptions;
+        return $this->inscriptions_participant;
     }
 
-    public function addInscription(Inscription $inscription): self
+    public function addInscriptionsParticipant(Inscription $inscriptionsParticipant): self
     {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions->add($inscription);
-            $inscription->setParticipant($this);
+        if (!$this->inscriptions_participant->contains($inscriptionsParticipant)) {
+            $this->inscriptions_participant->add($inscriptionsParticipant);
+            $inscriptionsParticipant->setParticipant($this);
         }
 
         return $this;
     }
 
-    public function removeInscription(Inscription $inscription): self
+    public function removeInscriptionsParticipant(Inscription $inscriptionsParticipant): self
     {
-        if ($this->inscriptions->removeElement($inscription)) {
+        if ($this->inscriptions_participant->removeElement($inscriptionsParticipant)) {
             // set the owning side to null (unless already changed)
-            if ($inscription->getParticipant() === $this) {
-                $inscription->setParticipant(null);
+            if ($inscriptionsParticipant->getParticipant() === $this) {
+                $inscriptionsParticipant->setParticipant(null);
             }
         }
 

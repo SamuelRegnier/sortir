@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Repository\ParticipantRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
@@ -28,11 +29,26 @@ class AccueilController extends AbstractController
         ]);
     }
 
-    #[Route('/sortie/detail/{id}', name:'sortie_detail', requirements: ['id'=>'\d+'])]
-    public function detail(Sortie $id):response
+    #[Route('/sortie/detail/{id}', name:'_inscription_sortie', requirements: ['id'=>'\d+'])]
+    public function inscription(
+        Sortie $id,
+        SortieRepository $sortieRepository,
+        ParticipantRepository $participantRepository
+    ):response
     {
-        return $this->render('sortie/detail.html.twig', [
-            "sortie" => $id
+        $inscrit = true;
+        $sortie = $sortieRepository->findOneBy(array('id'=>$id));
+        $user = $this->getUser();
+        $participant = $participantRepository->findOneBy(array('id'=>$user->getId()));
+
+//        $sortie->addParticipant($participant);
+        $participant->addParticipant($sortie);
+
+
+
+        return $this->redirectToRoute('accueil_index', [
+            "sortie" => $id,
+            'inscrit'=>$inscrit
         ]);
     }
 }

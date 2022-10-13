@@ -15,13 +15,13 @@ class Inscription
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    private ?\DateTimeInterface $date_inscription = null;
 
-    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    #[ORM\ManyToOne(inversedBy: 'inscriptions_sortie')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Sortie $sortie = null;
 
-    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    #[ORM\ManyToOne(inversedBy: 'inscriptions_participant')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Participant $participant = null;
 
@@ -30,14 +30,14 @@ class Inscription
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDateInscription(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->date_inscription;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDateInscription(\DateTimeInterface $date_inscription): self
     {
-        $this->date = $date;
+        $this->date_inscription = $date_inscription;
 
         return $this;
     }
