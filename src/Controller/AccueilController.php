@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Inscription;
 use App\Entity\Sortie;
+use App\Repository\InscriptionRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
@@ -29,26 +31,5 @@ class AccueilController extends AbstractController
         ]);
     }
 
-    #[Route('/sortie/detail/{id}', name:'_inscription_sortie', requirements: ['id'=>'\d+'])]
-    public function inscription(
-        Sortie $id,
-        SortieRepository $sortieRepository,
-        ParticipantRepository $participantRepository
-    ):response
-    {
-        $inscrit = true;
-        $sortie = $sortieRepository->findOneBy(array('id'=>$id));
-        $user = $this->getUser();
-        $participant = $participantRepository->findOneBy(array('id'=>$user->getId()));
 
-//        $sortie->addParticipant($participant);
-        $participant->addParticipant($sortie);
-
-
-
-        return $this->redirectToRoute('accueil_index', [
-            "sortie" => $id,
-            'inscrit'=>$inscrit
-        ]);
-    }
 }
