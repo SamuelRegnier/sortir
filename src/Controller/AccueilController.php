@@ -15,14 +15,15 @@ class AccueilController extends AbstractController
 {
     #[Route('/', name: '_index')]
     public function index(SortieRepository $sortieRepository,
-                          SiteRepository $siteRepository
+                          SiteRepository $siteRepository,
+
     ): Response
     {
 //        dd($sortieRepository->findAll());
-//        $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findAll();
         $sites = $siteRepository->findAll();
         return $this->render('accueil/index.html.twig', [
-//            "sorties"=>$sorties,
+            "sorties"=>$sorties,
             "sites"=>$sites
         ]);
     }

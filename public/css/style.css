@@ -2,3 +2,14 @@
 
 
 }
+
+.affSortie {
+    display: flex;
+    flex-direction: row;
+}
+
+#map {
+    float: left;
+    height: 100%;
+    width: 50%;
+}

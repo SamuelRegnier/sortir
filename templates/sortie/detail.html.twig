@@ -2,27 +2,95 @@
 
 {% block title %}{{parent()}}|Sortie{% endblock %}
 
+{% block javascripts %}
+    <script src="https://maps.google.com/maps/api/js?key=[AJOUTEZ_VOTRE_CLE_API_ICI]" type="text/javascript"></script>
+    <script async type="text/javascript">
+        // On initialise la latitude et la longitude de Paris (centre de la carte)
+        var lat = {% if sortie.lieux.latitude == null %}
+                        47.218371
+                    {% else %}
+                         {{ sortie.lieux.latitude }}
+                    {% endif %};
+        var lon = {% if sortie.lieux.latitude == null %}
+                        -1.553621
+                    {% else %}
+                        {{ sortie.lieux.longitude }}
+                    {% endif %};
+        var map = null;
+        // Fonction d'initialisation de la carte
+        function initMap() {
+            // Créer l'objet "map" et l'insèrer dans l'élément HTML qui a l'ID "map"
+            map = new google.maps.Map(document.getElementById("map"), {
+                // Nous plaçons le centre de la carte avec les coordonnées ci-dessus
+                center: new google.maps.LatLng(lat, lon),
+                // Nous définissons le zoom par défaut
+                zoom: 11,
+                // Nous définissons le type de carte (ici carte routière)
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                // Nous activons les options de contrôle de la carte (plan, satellite...)
+                mapTypeControl: true,
+                // Nous désactivons la roulette de souris
+                scrollwheel: false,
+                mapTypeControlOptions: {
+                    // Cette option sert à définir comment les options se placent
+                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+                },
+                // Activation des options de navigation dans la carte (zoom...)
+                navigationControl: true,
+                navigationControlOptions: {
+                    // Comment ces options doivent-elles s'afficher
+                    style: google.maps.NavigationControlStyle.ZOOM_PAN
+                }
+            });
+        }
+        window.onload = function(){
+            initMap();
+        };
+    </script>
+    <style type="text/css">
+        #map{ /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+            height:300px;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <h1>Afficher une sortie</h1>
-    <div>
+    <div class="affSortie">
         <div>
-            <p>Nom de la sortie : {% sortie.nom %}</p>
-            <p>Date et heure de la sortie : {% sortie.dateHeureDebut %}</p>
-            <p>Date limite d'inscription : {% sortie.dateLimiteInscription %}</p>
-            <p>Nombre de places : {% sortie.nbInscriptionsMax %}</p>
-            <p>Durée : {% sortie.duree %} minutes</p>
-            <p>Description et infos : {% sortie.infosSortie %}</p>
+            <p>Nom de la sortie : </p>
+            <p>Date et heure de la sortie : </p>
+            <p>Date limite d'inscription : </p>
+            <p>Nombre de places : </p>
+            <p>Durée : </p>
+            <p>Description et infos : </p>
         </div>
         <div>
-            <p>Lieu : {% sortie.lieux.nom %}</p>
-            <p>Rue : {% sortie.lieux.rue %}</p>
-            <p>Ville : {% sortie.lieux.villes %}</p>
-            <p>Code Postal : {% sortie.lieux.villes.codePostal %}</p>
-            <p>Latitude : {% sortie.lieux.latitude %}</p>
-            <p>Longitude : {% sortie.lieux.longitude %}</p>
+            <p>{{ sortie.nom }}</p>
+            <p>{{ sortie.dateHeureDebut|date('d-m-Y H:i:s') }}</p>
+            <p>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</p>
+            <p>{{ sortie.nbInscriptionsMax }}</p>
+            <p>{{ sortie.duree }} minutes</p>
+            <p>{{ sortie.infosSortie }}</p>
+        </div>
+        <div>
+            <p>Lieu : </p>
+            <p>Rue : </p>
+            <p>Ville : </p>
+            <p>Code Postal : </p>
+            <p>Latitude : </p>
+            <p>Longitude : </p>
+        </div>
+        <div>
+            <p>{{ sortie.site.nom }}</p>
+            <p>{{ sortie.lieux.rue }}</p>
+            <p>{{ sortie.lieux.villes.nom }}</p>
+            <p>{{ sortie.lieux.villes.codePostal }}</p>
+            <p>{{ sortie.lieux.latitude }}</p>
+            <p>{{ sortie.lieux.longitude }}</p>
         </div>
     </div>
-    <div>
+    <div class="affSortie">
         <div>
             <h3>Liste des participants inscrit</h3>
             <table>
@@ -34,11 +102,16 @@
                     {% for participant in sortie %}
                         <td>{{ participant.pseudo }}</td>
                         <td>{{ particiant.prenom }} {{ participant.nom }}</td>
+                    {% endfor %}
                 </tr>
             </table>
         </div>
         <div>
-
+            <div id="map"></div>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+
 {% endblock %}
