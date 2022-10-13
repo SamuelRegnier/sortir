@@ -44,9 +44,6 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Site $site = null;
 
-    #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'participantsSortie')]
-    private Collection $participants;
-
     #[ORM\ManyToOne(inversedBy: 'organisateur')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Participant $organisateur = null;
@@ -59,9 +56,13 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $lieux = null;
 
+    #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class, orphanRemoval: true)]
+    private Collection $inscriptions_sortie;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->inscriptions_sortie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,33 +154,6 @@ class Sortie
         return $this;
     }
 
-    /**
-     * @return Collection<int, Participant>
-     */
-    public function getParticipants(): Collection
-    {
-        return $this->participants;
-    }
-
-    public function addParticipant(Participant $participant): self
-    {
-        if (!$this->participants->contains($participant)) {
-            $this->participants->add($participant);
-            $participant->addParticipant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(Participant $participant): self
-    {
-        if ($this->participants->removeElement($participant)) {
-            $participant->removeParticipant($this);
-        }
-
-        return $this;
-    }
-
     public function getOrganisateur(): ?Participant
     {
         return $this->organisateur;
@@ -212,6 +186,36 @@ class Sortie
     public function setLieux(?Lieu $lieux): self
     {
         $this->lieux = $lieux;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptionsSortie(): Collection
+    {
+        return $this->inscriptions_sortie;
+    }
+
+    public function addInscriptionsSortie(Inscription $inscriptionsSortie): self
+    {
+        if (!$this->inscriptions_sortie->contains($inscriptionsSortie)) {
+            $this->inscriptions_sortie->add($inscriptionsSortie);
+            $inscriptionsSortie->setSortie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscriptionsSortie(Inscription $inscriptionsSortie): self
+    {
+        if ($this->inscriptions_sortie->removeElement($inscriptionsSortie)) {
+            // set the owning side to null (unless already changed)
+            if ($inscriptionsSortie->getSortie() === $this) {
+                $inscriptionsSortie->setSortie(null);
+            }
+        }
 
         return $this;
     }
