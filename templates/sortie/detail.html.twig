@@ -3,53 +3,13 @@
 {% block title %}{{parent()}}|Sortie{% endblock %}
 
 {% block javascripts %}
-    <script src="https://maps.google.com/maps/api/js?key=[AJOUTEZ_VOTRE_CLE_API_ICI]" type="text/javascript"></script>
-    <script async type="text/javascript">
-        // On initialise la latitude et la longitude de Paris (centre de la carte)
-        var lat = {% if sortie.lieux.latitude == null %}
-                        47.218371
-                    {% else %}
-                         {{ sortie.lieux.latitude }}
-                    {% endif %};
-        var lon = {% if sortie.lieux.latitude == null %}
-                        -1.553621
-                    {% else %}
-                        {{ sortie.lieux.longitude }}
-                    {% endif %};
-        var map = null;
-        // Fonction d'initialisation de la carte
-        function initMap() {
-            // Créer l'objet "map" et l'insèrer dans l'élément HTML qui a l'ID "map"
-            map = new google.maps.Map(document.getElementById("map"), {
-                // Nous plaçons le centre de la carte avec les coordonnées ci-dessus
-                center: new google.maps.LatLng(lat, lon),
-                // Nous définissons le zoom par défaut
-                zoom: 11,
-                // Nous définissons le type de carte (ici carte routière)
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                // Nous activons les options de contrôle de la carte (plan, satellite...)
-                mapTypeControl: true,
-                // Nous désactivons la roulette de souris
-                scrollwheel: false,
-                mapTypeControlOptions: {
-                    // Cette option sert à définir comment les options se placent
-                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
-                },
-                // Activation des options de navigation dans la carte (zoom...)
-                navigationControl: true,
-                navigationControlOptions: {
-                    // Comment ces options doivent-elles s'afficher
-                    style: google.maps.NavigationControlStyle.ZOOM_PAN
-                }
-            });
-        }
-        window.onload = function(){
-            initMap();
-        };
-    </script>
-    <style type="text/css">
-        #map{ /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
-            height:300px;
+{#    <script>#}
+{#        let map = L.map('map').setView([51.505, -0.09], 13);#}
+{#        let marker = L.marker([51.5, -0.09]).addTo(map);#}
+{#    </script>#}
+    <style>
+        #map {
+            height: 200px;
         }
     </style>
 {% endblock %}
@@ -113,5 +73,27 @@
 {% endblock %}
 
 {% block script %}
+    <script type="text/javascript">
+        function initialize() {
+            let map = L.map('map').setView([48.833, 2.333], 7); // LIGNE 18
 
+            let osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+            });
+
+            map.addLayer(osmLayer);
+        }
+    </script>
 {% endblock %}
+
+{#var lat = {% if sortie.lieux.latitude == null %}#}
+{#    47.218371#}
+{#{% else %}#}
+{#    {{ sortie.lieux.latitude }}#}
+{#                    {% endif %};#}
+{#var lon = {% if sortie.lieux.latitude == null %}#}
+{#    -1.553621#}
+{#{% else %}#}
+{#    {{ sortie.lieux.longitude }}#}
+{#                    {% endif %};#}
