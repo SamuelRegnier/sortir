@@ -62,7 +62,9 @@
                 <td>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</td>
                 <td>/{{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etats.libelle }}</td>
-                <td></td>
+
+
+
                 <td></td>
                 <td><a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a></td>
 {#                    <td>{{ sortie.organisateur }}#}
@@ -80,9 +82,9 @@
 {#                            {% case 1 %}#}
 {#                            {% case 2 %}#}
 {#                                {% if app.user.actif == true %}#}
-{#                                    <a href="{{ path('sortie_annule', {'id': sortie.id}) }}">Se désister</a>#}
+                                    <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
 {#                                {% if app.user.actif == true %}#}
-                                    <a href="{{ path('accueil_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+                                    <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
 {#                        {% default %}#}
 {#                        {% endswitch %}#}
 {#                    {% endif %}#}
