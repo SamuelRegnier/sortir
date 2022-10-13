@@ -90,22 +90,22 @@ class ProfilController extends AbstractController
         Request $request,
     ): Response
     {
+        $ancienProfil = $this->getUser();
         $profil = $this->getUser();
-        $mdp = $profil->getPassword();
         $formMdp = $this->createForm(MotDePasseType::class,$profil);
 
         $formMdp->handleRequest($request);
 
         if ($formMdp->isSubmitted() && $formMdp->isValid()) {
-            $hashMdpActuel = $passwordHasher->hashPassword(
-                $profil,
+            $hashMdpActuel = $passwordHasher->isPasswordValid(
+                $ancienProfil,
                 $formMdp->get('Password')->getData()
             );
-            if ($hashMdpActuel == $mdp && $formMdp->get('NouveauPassword')->getData() == $formMdp->get('ConfirmationPassword')->getData()) {
+            if ($hashMdpActuel && $formMdp->get('NouveauPassword')->getData() == $formMdp->get('ConfirmationPassword')->getData()) {
                 $profil->setPassword(
                     $passwordHasher->hashPassword(
                     $profil,
-                    $formMdp->get('Nouveaupassword')->getData()
+                    $formMdp->get('NouveauPassword')->getData()
                     )
                 );
                 $em->persist($profil);
