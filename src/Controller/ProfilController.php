@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
+use App\Form\CreationProfilType;
 use App\Form\MotDePasseType;
 use App\Form\ParticipantType;
-use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,42 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilController extends AbstractController
 {
+    #[Route('accueil/profil/creation', name: 'profil_creerProfil')]
+    public function creerProfil(
+        EntityManagerInterface $em,
+        UserPasswordHasherInterface $passwordHasher,
+        Request $request,
+    ): Response
+    {
+        $profil = new Participant();
+        $formProfil = $this->createForm(CreationProfilType::class,$profil);
+
+        $formProfil->handleRequest($request);
+
+        if ($formProfil->isSubmitted() && $formProfil->isValid()) {
+            if($formProfil->get('password')->getData() == $formProfil->get('confirmationPassword')->getData()) {
+                $profil->setPassword(
+                    $passwordHasher->hashPassword(
+                        $profil,
+                        $formProfil->get('password')->getData()
+                    )
+                );
+                $profil->setRoles([]);
+                $profil->setActif(true);
+                $this->addFlash('success', 'Création du profil réalisé avec succès!');
+                $em->persist($profil);
+                $em->flush();
+                return $this->redirectToRoute('accueil_index');
+            }
+            $this->addFlash('danger', 'Erreur lors de la confirmation du mot de passe!');
+            return $this->redirectToRoute('profil_creerProfil');
+        }
+
+        return $this->renderForm('profil/creation.html.twig',
+            compact('formProfil')
+        );
+    }
+
     #[Route('accueil/profil/affichage', name: 'profil_affichageProfil')]
     public function affichageProfil(): Response
     {
@@ -49,7 +86,7 @@ class ProfilController extends AbstractController
     #[Route('accueil/profil/modifier/mdp', name: 'profil_modifierMdp')]
     public function modifierMdp(
         EntityManagerInterface $em,
-        UserPasswordHasherInterface $hasher,
+        UserPasswordHasherInterface $passwordHasher,
         Request $request,
     ): Response
     {
@@ -60,12 +97,17 @@ class ProfilController extends AbstractController
         $formMdp->handleRequest($request);
 
         if ($formMdp->isSubmitted() && $formMdp->isValid()) {
-            $mdpActuel = $formMdp->get('Password');
-            $hashMdpActuel = $hasher->encodePassword($profil, $mdpActuel);
-            if ($hashMdpActuel == $mdp && $formMdp->get('NouveauPassword') == $formMdp->get('ConfirmationPassword')) {
-                $nouveauMdp = $formMdp->get('NouveauPassword');
-                $hashNouveauMdp = $hasher->encodePassword($profil, $nouveauMdp);
-                $profil->setPassword($hashNouveauMdp);
+            $hashMdpActuel = $passwordHasher->hashPassword(
+                $profil,
+                $formMdp->get('Password')->getData()
+            );
+            if ($hashMdpActuel == $mdp && $formMdp->get('NouveauPassword')->getData() == $formMdp->get('ConfirmationPassword')->getData()) {
+                $profil->setPassword(
+                    $passwordHasher->hashPassword(
+                    $profil,
+                    $formMdp->get('Nouveaupassword')->getData()
+                    )
+                );
                 $em->persist($profil);
                 $em->flush();
                 $this->addFlash('success', 'Mot de passe modifié avec succès!');
