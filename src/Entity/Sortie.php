@@ -18,7 +18,7 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
-    #[Assert\NotBlank('Merci d\'entrer un nom')]
+    #[Assert\NotBlank]
     #[Assert\Length(
         max: 30,
         maxMessage: "Le nom ne doit pas comporter plus de 30 charactères"
@@ -35,7 +35,6 @@ class Sortie
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank('Merci d\'entrer un nombre maximum de participants')]
     private ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(type: Types::TEXT)]

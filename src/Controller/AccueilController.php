@@ -29,9 +29,11 @@ class AccueilController extends AbstractController
     }
 
     #[Route('/sortie/detail/{id}', name:'sortie_detail', requirements: ['id'=>'\d+'])]
-    public function detail(Sortie $id):response
+    public function inscription(Sortie $id):response
     {
-        return $this->render('sortie/detail.html.twig', [
+        $inscrit = false;
+
+        return $this->render('accueil/index.html.twig', [
             "sortie" => $id
         ]);
     }
