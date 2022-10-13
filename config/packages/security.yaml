@@ -19,8 +19,10 @@ security:
             custom_authenticator: App\Security\AppAuthenticator
             logout:
                 path: app_logout
-                # where to redirect after logout
-                target: vitrine_vitrine
+                target: app_login
+            remember_me:
+                secret:   '%kernel.secret%'
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

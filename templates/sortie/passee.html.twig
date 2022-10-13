@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% for passee in sortiePassees %}
+    <p>{{ passee.nom }}</p>
+{% endfor %}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

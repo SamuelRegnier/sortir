@@ -64,4 +64,36 @@ class SortieController extends AbstractController
         ]);
     }
 
+
+    // Sorties dont je suis l'organisateur
+
+    #[Route('/sortie/organisateur', name: 'sortie_organisateur')]
+    public function SortieOrganisteur(
+        SortieRepository $SortieRepository,
+    ): Response
+    {
+        $user = $this->getUser();
+        $sorties = $SortieRepository->findBy([
+            'organisateur' => $user->getId()
+        ]);
+        return $this->render('sortie/organisateur.html.twig', [
+            'sorties' => $sorties
+        ]);
+    }
+
+    // Sorties passees
+
+    #[Route('/sortie/passee', name: 'sortie_passee')]
+    public function SortiePassee(
+        SortieRepository $SortieRepository,
+    ): Response
+    {
+        $sortiePassees = $SortieRepository->findBy([
+            'etats' => '5'
+        ]);
+        return $this->render('sortie/passee.html.twig', [
+            'sortiePassees' => $sortiePassees
+        ]);
+    }
+
 }
