@@ -20,10 +20,13 @@
             <nav>
                 <ul>
                     <li><a href="{{ path('accueil_index') }}">Accueil</a></li>
-                    <li><a href="#">Villes</a></li>
-                    <li><a href="#">Sites</a></li>
                     <li><a href="{{ path('profil_affichageProfil') }}">Mon profil</a></li>
                     <li><a href="{{ path('app_logout') }}">Se Déconnecter</a></li>
+                    {% if app.user.administrateur %}
+                    <li><a href="{{ path('profil_creerProfil') }}">Créer profil</a></li>
+                    <li><a href="{{ path('app_lieu_ajout') }}">Villes</a></li>
+                    <li><a href="#">Sites</a></li>
+                    {% endif %}
                 </ul>
             </nav>
             <hr>

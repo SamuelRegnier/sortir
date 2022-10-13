@@ -41,8 +41,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Site $site = null;
 
-    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'participantsSortie')]
-    private Collection $participants;
 
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
     private Collection $sorties;
@@ -59,10 +57,14 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Inscription::class, orphanRemoval: true)]
+    private Collection $inscriptions_participant;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
         $this->sorties = new ArrayCollection();
+        $this->inscriptions_participant = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,29 +221,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Sortie>
-     */
-    public function getParticipants(): Collection
-    {
-        return $this->participants;
-    }
-
-    public function addParticipant(Sortie $participant): self
-    {
-        if (!$this->participants->contains($participant)) {
-            $this->participants->add($participant);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(Sortie $participant): self
-    {
-        $this->participants->removeElement($participant);
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Sortie>
@@ -267,6 +246,36 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($organisation->getOrganisateur() === $this) {
                 $organisation->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptionsParticipant(): Collection
+    {
+        return $this->inscriptions_participant;
+    }
+
+    public function addInscriptionsParticipant(Inscription $inscriptionsParticipant): self
+    {
+        if (!$this->inscriptions_participant->contains($inscriptionsParticipant)) {
+            $this->inscriptions_participant->add($inscriptionsParticipant);
+            $inscriptionsParticipant->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscriptionsParticipant(Inscription $inscriptionsParticipant): self
+    {
+        if ($this->inscriptions_participant->removeElement($inscriptionsParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($inscriptionsParticipant->getParticipant() === $this) {
+                $inscriptionsParticipant->setParticipant(null);
             }
         }
 
