@@ -60,13 +60,13 @@
                 </tr>
                 <tr>
                     {% for participant in sortie %}
-                        <td>{{ participant.pseudo }}</td>
+                        <td><a href="{{ path('profil_affichageProfilInscrit', {'id' : participant.id}) }}">{{ participant.pseudo }}</a></td>
                         <td>{{ particiant.prenom }} {{ participant.nom }}</td>
                     {% endfor %}
                 </tr>
             </table>
         </div>
-        <div>
+        <div onload="initialize()">
             <div id="map"></div>
         </div>
     </div>
@@ -77,12 +77,11 @@
         function initialize() {
             let map = L.map('map').setView([48.833, 2.333], 7); // LIGNE 18
 
-            let osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
-                attribution: '© OpenStreetMap contributors',
-                maxZoom: 19
-            });
-
-            map.addLayer(osmLayer);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+            var marker = L.marker([51.5, -0.09]).addTo(map);
         }
     </script>
 {% endblock %}

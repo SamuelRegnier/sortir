@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Entity\Sortie;
 use App\Form\CreationProfilType;
 use App\Form\MotDePasseType;
 use App\Form\ParticipantType;
+use App\Repository\InscriptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,5 +122,14 @@ class ProfilController extends AbstractController
 
         return $this->renderForm('profil/motDePasse.html.twig',
             compact('formMdp'));
+    }
+
+    #[Route('accueil/profil/affichage/{id}', name: 'profil_affichageProfilInscrit', requirements: ['id' => '\d+'])]
+    public function affichageProfilInscrit(Participant $idParticipant, InscriptionRepository $inscriptionRepository): Response
+    {
+        return $this->render('profil/affichage_profil_inscrit.html.twig', [
+            "affichageProfilInscrit" => $idParticipant,
+        ]);
+
     }
 }
