@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ profil.pseudo }}</h1>
+    <p>{{ profil.nom }}</p>
+    <p>{{ profil.prenom }}</p>
+    <p>{{ profil.telephone }}</p>
+    <p>{{ profil.email }}</p>
+    <p>{{ profil.site.nom }}</p>
+    <a href="{{ path('profil_modifierProfil') }}"><input type="button" value="Modifier"></a>
+    <a href="{{ path('accueil_index') }}"><input type="button" value="Retour"></a>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Modification Mot De Passe</h1>
+    {{ form_start(formMdp) }}
+    {{ form_widget(formMdp) }}
+    <input type="submit" value="Valider">
+    <a href="{{ path('profil_modifierProfil') }}"><input type="button" value="Retour"></a>
+    {{ form_end(formMdp) }}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

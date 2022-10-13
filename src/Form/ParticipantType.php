@@ -16,23 +16,19 @@ class ParticipantType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class,[
-                'label' => 'Nom',
+                'label' => 'Nom : ',
             ])
             ->add('prenom',TextType::class,[
-                'label' => 'Prenom',
+                'label' => 'Prenom : ',
             ])
             ->add('pseudo',TextType::class,[
-                'label' => 'Pseudo',
+                'label' => 'Pseudo : ',
             ])
             ->add('telephone',TextType::class,[
-                'label' => 'Telephone',
+                'label' => 'Telephone : ',
             ])
             ->add('email',TextType::class,[
-                'label' => 'Email',
-            ])
-            ->add('site',EntityType::class,[
-                'class' => Site::class,
-                'choice_label' => 'nom',
+                'label' => 'Email : ',
             ])
         ;
     }
