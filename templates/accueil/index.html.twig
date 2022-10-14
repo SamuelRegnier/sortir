@@ -66,19 +66,20 @@
                 {% for inscrit in inscription %}
                 {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id%}
                         <td>X</td>
+                        estInscrit = true
                     {% endif %}
                 {% endfor %}
                 <td>{{ sortie.organisateur.pseudo }}</td>
                 <td>
                     <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a> -
-                    {% for inscrit in inscription %}
-                        {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
+{#                    {% for inscrit in inscription %}#}
+                        {% if estInscrit %}
                             <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
                         {% endif %}
-                        {% if inscrit.participant.id != app.user.id %}
+                        {% if not estInscrit %}
                             <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
                         {% endif %}
-                    {% endfor %}
+{#                    {% endfor %}#}
                 </td>
                 <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
 {#                    <td>{{ sortie.organisateur }}#}

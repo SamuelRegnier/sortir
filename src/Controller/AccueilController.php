@@ -24,15 +24,15 @@ class AccueilController extends AbstractController
     ): Response
     {
 //        dd($sortieRepository->findAll());
+
         $sorties = $sortieRepository->findAll();
         $sites = $siteRepository->findAll();
         $inscription = $inscriptionRepository->findAll();
+        
         return $this->render('accueil/index.html.twig', [
             "sorties"=>$sorties,
             "sites"=>$sites,
             'inscription'=>$inscription
         ]);
     }
-
-
 }

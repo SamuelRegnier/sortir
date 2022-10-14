@@ -54,8 +54,9 @@ class InscriptionController extends AbstractController
         $inscription = $inscriptionRepository->findOneBy(array('sortie'=>$sortie->getId()));
 
         $nbParticipants = $sortie->getNombreParticipants();
-        $sortie->setNombreParticipants($nbParticipants - 1);
-
+        if ($nbParticipants != 0) {
+            $sortie->setNombreParticipants($nbParticipants - 1);
+        }
         $entityManager->remove($inscription);
         $entityManager->flush();
 
