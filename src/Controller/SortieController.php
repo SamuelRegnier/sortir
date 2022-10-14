@@ -59,7 +59,9 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($inscription);
+            if (!$user->isAdministrateur()) {
+                $entityManager->persist($inscription);
+            }
             $entityManager->persist($sortie);
             $entityManager->flush();
             return $this->redirectToRoute('accueil_index');
