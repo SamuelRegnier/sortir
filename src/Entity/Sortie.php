@@ -59,6 +59,9 @@ class Sortie
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class, orphanRemoval: true)]
     private Collection $inscriptions_sortie;
 
+    #[ORM\Column]
+    private ?int $nombreParticipants = null;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -216,6 +219,18 @@ class Sortie
                 $inscriptionsSortie->setSortie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNombreParticipants(): ?int
+    {
+        return $this->nombreParticipants;
+    }
+
+    public function setNombreParticipants(int $nombreParticipants): self
+    {
+        $this->nombreParticipants = $nombreParticipants;
 
         return $this;
     }

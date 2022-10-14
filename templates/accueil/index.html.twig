@@ -60,7 +60,7 @@
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.dateHeureDebut|date('d-m-Y H:i:s') }}</td>
                 <td>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</td>
-                <td>/{{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.nombreParticipants }}/{{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etats.libelle }}</td>
 
                 {% for inscrit in inscription %}
@@ -75,7 +75,8 @@
                     {% for inscrit in inscription %}
                         {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
                             <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
-                        {% else %}
+                        {% endif %}
+                        {% if inscrit.participant.id != app.user.id %}
                             <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
                         {% endif %}
                     {% endfor %}
