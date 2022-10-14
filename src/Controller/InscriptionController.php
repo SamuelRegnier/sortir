@@ -29,13 +29,15 @@ class InscriptionController extends AbstractController
         $inscription->setDateInscription(new \dateTime());
         $inscription->setSortie($sortie);
         $inscription->setParticipant($user);
-        $sortie->setNombreParticipants(+1);
+        $nbParticipants = $sortie->getNombreParticipants();
+        $sortie->setNombreParticipants($nbParticipants + 1);
 
         $entityManager->persist($inscription);
         $entityManager->flush();
 
 
         return $this->redirectToRoute('accueil_index', [
+
         ]);
     }
 
@@ -48,9 +50,11 @@ class InscriptionController extends AbstractController
     ):response
     {
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
-        $user = $this->getUser();
 
         $inscription = $inscriptionRepository->findOneBy(array('sortie'=>$sortie->getId()));
+
+        $nbParticipants = $sortie->getNombreParticipants();
+        $sortie->setNombreParticipants($nbParticipants - 1);
 
         $entityManager->remove($inscription);
         $entityManager->flush();

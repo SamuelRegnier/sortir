@@ -32,7 +32,6 @@ class SortieController extends AbstractController
         InscriptionRepository $inscriptionRepository
     ): Response
     {
-
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
@@ -45,14 +44,18 @@ class SortieController extends AbstractController
         $sortie->setOrganisateur($user);
         $sortie->setEtats($etat);
         $sortie->setSite($site);
-            if ($user->isAdministrateur()) {
-                $sortie->setNombreParticipants(0);
-            }
-            if (!$user->isAdministrateur()) {
-                $sortie->setNombreParticipants(1);
-            }
-        $lieu = $lieuRepository->findOneBy(array('id'=>$sortie->getLieux()));
 
+        if ($user->isAdministrateur()) {
+            $sortie->setNombreParticipants(0);
+        }
+        if (!$user->isAdministrateur()) {
+            $inscription = new Inscription();
+            $inscription -> setSortie($sortie);
+            $inscription->setParticipant($user);
+            $inscription->setDateInscription(new \dateTime());
+            $sortie->setNombreParticipants(1);
+        }
+        $lieu = $lieuRepository->findOneBy(array('id'=>$sortie->getLieux()));
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
@@ -65,13 +68,12 @@ class SortieController extends AbstractController
             $entityManager->persist($inscription);
             $entityManager->persist($sortie);
             $entityManager->flush();
-
             return $this->redirectToRoute('accueil_index');
         }
         return $this->render('creer_sortie/index.html.twig',[
             'form'=>$form->createView(),
             'lieu'=>$lieu
-    ]);
+        ]);
     }
 
     #[Route('/sortie/detail/{id}', name: 'sortie_detail', requirements: ['id' => '\d+'])]
