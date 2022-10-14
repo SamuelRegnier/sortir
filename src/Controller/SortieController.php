@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Lieu;
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\InscriptionRepository;
 use App\Repository\LieuRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,10 +61,17 @@ class SortieController extends AbstractController
     }
 
     #[Route('/sortie/detail/{id}', name: 'sortie_detail', requirements: ['id' => '\d+'])]
-    public function detail(Sortie $id): Response
+    public function detail(Sortie $id,
+                            ParticipantRepository $participantRepository,
+                            InscriptionRepository $inscriptionRepository
+    ): Response
     {
+        $Participant = $participantRepository->findAll();
+        $inscription = $inscriptionRepository->findAll();
         return $this->render('sortie/detail.html.twig', [
-            "sortie" => $id
+            "sortie" => $id,
+            "participant" => $Participant,
+            "inscription" => $inscription
         ]);
     }
 

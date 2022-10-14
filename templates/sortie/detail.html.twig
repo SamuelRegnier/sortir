@@ -59,9 +59,11 @@
                     <th>Nom</th>
                 </tr>
                 <tr>
-                    {% for inscription in sortie %}
-                        <td><a href="{{ path('profil_affichageProfilInscrit', {'id' : sortie.participants.id}) }}"></a></td>
-                        <td>{{ particiant.prenom }} {{ participant.nom }}</td>
+                    {% for idSortie in inscription %}
+                        <td>
+                            <a href="{{ path('profil_affichageProfilInscrit', {'id' : idSortie.participant.id}) }}">{{ idSortie.participant.pseudo }}</a>
+                        </td>
+                        <td>{{ idSortie.participant.prenom }} {{ idSortie.participant.nom }}</td>
                     {% endfor %}
                 </tr>
             </table>
