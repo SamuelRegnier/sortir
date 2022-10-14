@@ -69,6 +69,7 @@
                         estInscrit = true
                     {% endif %}
                 {% endfor %}
+
                 <td>{{ sortie.organisateur.pseudo }}</td>
                 <td>
                     <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a> -
@@ -81,7 +82,9 @@
                         {% endif %}
 {#                    {% endfor %}#}
                 </td>
-                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+
+
+{#                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>#}
 {#                    <td>{{ sortie.organisateur }}#}
 {#                         <td>  {% if sortie.organisateur == app.user.pseudo %}}#}
 {#                        {% switch sortie.etats.id %}#}
@@ -96,7 +99,7 @@
 {#                        {% switch sortie.etats.id %}#}
 {#                            {% case 1 %}#}
 {#                            {% case 2 %}#}
-
+                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
 {#                        {% default %}#}
 {#                        {% endswitch %}#}
 {#                    {% endif %}#}

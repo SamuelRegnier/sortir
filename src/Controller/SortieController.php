@@ -40,6 +40,7 @@ class SortieController extends AbstractController
         $etat = $etatRepository->findOneBy(array('id'=> 1));
         $site = $siteRepository->findOneBy(array('id'=>$user->getSite()));
 
+
         $sortie->setOrganisateur($user);
         $sortie->setEtats($etat);
         $sortie->setSite($site);
@@ -57,6 +58,11 @@ class SortieController extends AbstractController
         $lieu = $lieuRepository->findOneBy(array('id'=>$sortie->getLieux()));
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
+
+        $inscription = new Inscription();
+        $inscription -> setSortie($sortie);
+        $inscription->setParticipant($user);
+        $inscription->setDateInscription(new \dateTime());
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$user->isAdministrateur()) {

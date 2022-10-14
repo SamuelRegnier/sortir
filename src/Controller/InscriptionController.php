@@ -24,17 +24,21 @@ class InscriptionController extends AbstractController
     {
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $user = $this->getUser();
+        $listeInscrit = $inscriptionRepository->findBy(array('sortie'=>$sortie));
 
-        $inscription = new Inscription();
-        $inscription->setDateInscription(new \dateTime());
-        $inscription->setSortie($sortie);
-        $inscription->setParticipant($user);
-        $nbParticipants = $sortie->getNombreParticipants();
-        $sortie->setNombreParticipants($nbParticipants + 1);
 
-        $entityManager->persist($inscription);
-        $entityManager->flush();
+        if(!$sortie->getOrganisateur() == $user and !$user == $listeInscrit->participant) {
+            $inscription = new Inscription();
+            $inscription->setDateInscription(new \dateTime());
+            $inscription->setSortie($sortie);
+            $inscription->setParticipant($user);
+            $nbParticipants = $sortie->getNombreParticipants();
+            $sortie->setNombreParticipants($nbParticipants + 1);
 
+            $entityManager->persist($inscription);
+            $entityManager->flush();
+
+        }
 
         return $this->redirectToRoute('accueil_index', [
 
@@ -51,15 +55,19 @@ class InscriptionController extends AbstractController
     {
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
 
+
         $inscription = $inscriptionRepository->findOneBy(array('sortie'=>$sortie->getId()));
 
+        if(!$sortie->getOrganisateur() == $this->getUser()){
         $nbParticipants = $sortie->getNombreParticipants();
-        if ($nbParticipants != 0) {
-            $sortie->setNombreParticipants($nbParticipants - 1);
-        }
-        $entityManager->remove($inscription);
-        $entityManager->flush();
 
+            if($nbParticipants != 0){
+                $sortie->setNombreParticipants($nbParticipants - 1);
+            }
+
+            $entityManager->remove($inscription);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('accueil_index', [
         ]);
     }
