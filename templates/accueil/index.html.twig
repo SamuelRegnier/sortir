@@ -63,14 +63,23 @@
                 <td>/{{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etats.libelle }}</td>
 
-                
                 {% for inscrit in inscription %}
                 {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id%}
                         <td>X</td>
                     {% endif %}
                 {% endfor %}
                 <td>{{ sortie.organisateur.pseudo }}</td>
-                <td><a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a></td>
+                <td>
+                    <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a> -
+                    {% for inscrit in inscription %}
+                        {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
+                            <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
+                        {% else %}
+                            <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
 {#                    <td>{{ sortie.organisateur }}#}
 {#                         <td>  {% if sortie.organisateur == app.user.pseudo %}}#}
 {#                        {% switch sortie.etats.id %}#}
@@ -85,10 +94,7 @@
 {#                        {% switch sortie.etats.id %}#}
 {#                            {% case 1 %}#}
 {#                            {% case 2 %}#}
-{#                                {% if app.user.actif == true %}#}
-                                   <td> <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a></td>
-{#                                {% if app.user.actif == true %}#}
-                                   <td> <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a></td>
+
 {#                        {% default %}#}
 {#                        {% endswitch %}#}
 {#                    {% endif %}#}
