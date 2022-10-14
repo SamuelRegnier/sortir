@@ -74,7 +74,8 @@
                     {% for inscrit in inscription %}
                         {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
                             <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
-                        {% else %}
+                        {% endif %}
+                        {% if inscrit.participant.id != app.user.id %}
                             <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
                         {% endif %}
                     {% endfor %}
