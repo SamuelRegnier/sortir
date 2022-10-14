@@ -63,8 +63,7 @@
                 <td>/{{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etats.libelle }}</td>
 
-
-
+                
                 {% for inscrit in inscription %}
                 {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id%}
                         <td>X</td>
