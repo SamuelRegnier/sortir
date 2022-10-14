@@ -29,10 +29,11 @@ class InscriptionController extends AbstractController
         $inscription->setDateInscription(new \dateTime());
         $inscription->setSortie($sortie);
         $inscription->setParticipant($user);
+        $sortie->setNombreParticipants(+1);
 
         $entityManager->persist($inscription);
         $entityManager->flush();
-        
+
 
         return $this->redirectToRoute('accueil_index', [
         ]);

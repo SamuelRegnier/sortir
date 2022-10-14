@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Etat;
+use App\Entity\Inscription;
 use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
@@ -27,7 +28,8 @@ class SortieController extends AbstractController
         EntityManagerInterface $entityManager,
         EtatRepository $etatRepository,
         LieuRepository  $lieuRepository,
-        SiteRepository  $siteRepository
+        SiteRepository  $siteRepository,
+        InscriptionRepository $inscriptionRepository
     ): Response
     {
 
@@ -54,7 +56,13 @@ class SortieController extends AbstractController
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
+        $inscription = new Inscription();
+        $inscription -> setSortie($sortie);
+        $inscription->setParticipant($user);
+        $inscription->setDateInscription(new \dateTime());
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($inscription);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
