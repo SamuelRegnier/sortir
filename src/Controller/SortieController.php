@@ -37,6 +37,7 @@ class SortieController extends AbstractController
         $etat = $etatRepository->findOneBy(array('id'=> 1));
         $site = $siteRepository->findOneBy(array('id'=>$user->getSite()));
 
+
         $sortie->setOrganisateur($user);
         $sortie->setEtats($etat);
         $sortie->setSite($site);

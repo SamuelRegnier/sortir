@@ -68,6 +68,7 @@
                         <td>X</td>
                     {% endif %}
                 {% endfor %}
+
                 <td>{{ sortie.organisateur.pseudo }}</td>
                 <td>
                     <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a> -
@@ -79,7 +80,10 @@
                         {% endif %}
                     {% endfor %}
                 </td>
-                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+
+                {% for nbParticipant in participant %}
+
+{#                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>#}
 {#                    <td>{{ sortie.organisateur }}#}
 {#                         <td>  {% if sortie.organisateur == app.user.pseudo %}}#}
 {#                        {% switch sortie.etats.id %}#}

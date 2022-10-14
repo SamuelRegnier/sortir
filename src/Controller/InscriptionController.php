@@ -32,10 +32,9 @@ class InscriptionController extends AbstractController
 
         $entityManager->persist($inscription);
         $entityManager->flush();
-
+        
 
         return $this->redirectToRoute('accueil_index', [
-
         ]);
     }
 
