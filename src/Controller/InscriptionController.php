@@ -18,6 +18,7 @@ class InscriptionController extends AbstractController
     public function inscription(
         Sortie $id,
         SortieRepository $sortieRepository,
+        InscriptionRepository $inscriptionRepository,
         EntityManagerInterface $entityManager
     ):response
     {
@@ -32,8 +33,8 @@ class InscriptionController extends AbstractController
         $entityManager->persist($inscription);
         $entityManager->flush();
 
+
         return $this->redirectToRoute('accueil_index', [
-            "listeInscrit"=>$inscription,
 
         ]);
     }
@@ -52,12 +53,9 @@ class InscriptionController extends AbstractController
         $inscription = $inscriptionRepository->findOneBy(array('sortie'=>$sortie->getId()));
 
         $entityManager->remove($inscription);
-
         $entityManager->flush();
 
         return $this->redirectToRoute('accueil_index', [
-            "listeInscrit"=>$inscription,
-
         ]);
     }
 

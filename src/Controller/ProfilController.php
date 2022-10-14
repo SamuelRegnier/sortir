@@ -8,6 +8,7 @@ use App\Form\CreationProfilType;
 use App\Form\MotDePasseType;
 use App\Form\ParticipantType;
 use App\Repository\InscriptionRepository;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -125,7 +126,7 @@ class ProfilController extends AbstractController
     }
 
     #[Route('accueil/profil/affichage/{id}', name: 'profil_affichageProfilInscrit', requirements: ['id' => '\d+'])]
-    public function affichageProfilInscrit(Participant $idParticipant, InscriptionRepository $inscriptionRepository): Response
+    public function affichageProfilInscrit(Participant $idParticipant, SortieRepository $sortieRepository, InscriptionRepository $inscriptionRepository): Response
     {
         return $this->render('profil/affichage_profil_inscrit.html.twig', [
             "affichageProfilInscrit" => $idParticipant,
