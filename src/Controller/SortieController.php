@@ -40,7 +40,12 @@ class SortieController extends AbstractController
         $sortie->setOrganisateur($user);
         $sortie->setEtats($etat);
         $sortie->setSite($site);
-
+            if ($user->isAdministrateur()) {
+                $sortie->setNombreParticipants(0);
+            }
+            if (!$user->isAdministrateur()) {
+                $sortie->setNombreParticipants(1);
+            }
         $lieu = $lieuRepository->findOneBy(array('id'=>$sortie->getLieux()));
 
         $form = $this->createForm(SortieType::class, $sortie);
