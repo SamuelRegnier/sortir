@@ -45,7 +45,7 @@ class SortieRepository extends ServiceEntityRepository
     /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
-    public function findByExampleField($organisateur, $site, $estInscrit, $pasInscrit, $passee, $nom, $date1, $date2 ,$user): array
+    public function findByFiltre($organisateur, $site, $estInscrit, $pasInscrit, $passee, $nom, $date1, $date2 ,$user): array
    {
        $db = $this->createQueryBuilder('s');
 

@@ -6,7 +6,7 @@
 {% block body %}
     <h2>Date du jour : {{'now'|date('d/m/Y') }}</h2>
     <h2>Participant :  {{ app.user.pseudo }}</h2>
-    <form action="" method="post">
+    <form action="{{ path('accueil_index') }}" method="post">
         <fieldset>
             <legend>Filtrer les sorties</legend>
             <div class="filtre">
@@ -59,7 +59,6 @@
             <th scope="col">Actions</th>
         </tr>
         {% for sortie in sorties %}
-            <tr>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.dateHeureDebut|date('d-m-Y H:i:s') }}</td>
                 <td>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</td>
