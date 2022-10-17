@@ -26,7 +26,7 @@ class InscriptionController extends AbstractController
         $user = $this->getUser();
         $dejaInscrit = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
 
-        if($sortie->getEtats() == 3){
+        if($sortie->getEtats()->getId() == 3){
             return $this->redirectToRoute('accueil_index');
         }
         if(isset($dejaInscrit)){
@@ -57,14 +57,14 @@ class InscriptionController extends AbstractController
     {
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $nbParticipants = $sortie->getNombreParticipants();
-        $inscription = $inscriptionRepository->findOneBy(array('sortie'=>$sortie->getId()));
         $user = $this->getUser();
+        $inscription = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
 
         if ($sortie->getOrganisateur() === $user) {
             return $this->redirectToRoute('accueil_index');
         }
 
-        if ($user !== $inscription->getParticipant()) {
+        if(is_null($inscription)){
             return $this->redirectToRoute('accueil_index');
         }
 
