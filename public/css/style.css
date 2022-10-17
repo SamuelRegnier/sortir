@@ -1,5 +1,5 @@
 body {
-    cursor: url("../image/Boule de bowling 64px.png"), pointer;
+
 }
 
 .filtre {
@@ -74,13 +74,13 @@ body {
     transition: all 1s ease;
     font-family: 'Silkscreen', cursive;
     font-size: 72px;
-    cursor: url("../image/Bière 64px.png"), pointer;
+    cursor: url("../image/Boule de bowling 64px.png"), pointer;
 }
 
 .containerVitrine .entreeLogin a {
     text-decoration: none;
     color: #5eb5e0;
-    cursor: url("../image/Bière 64px.png"), pointer;
+    cursor: url("../image/Boule de bowling 64px.png"), pointer;
 }
 
 .containerVitrine:hover .entreeLogin:hover {
