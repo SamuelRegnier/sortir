@@ -22,6 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
+    // Créer une sortie
+
     #[Route('/creer/sortie', name: 'app_creer_sortie')]
     public function index(
         Request $request,
@@ -93,6 +95,53 @@ class SortieController extends AbstractController
         ]);
     }
 
+    // Page annulation d'une sortie
+
+    #[Route('/sortie/annulation/{id}', name: 'sortie_annulation', requirements: ['id'=>'\d+'])]
+    public function SortieAnnulation(
+        Sortie $id,
+    ): Response
+    {
+        return $this->render('sortie/annulation.html.twig', [
+            "sortie" => $id,
+        ]);
+    }
+
+    // Annuler une sortie
+
+    #[Route('/sortie/annulee/{id}', name: 'sortie_annulee', requirements: ['id'=>'\d+'])]
+    public function SortieAnnulee(
+        Sortie $id,
+        SortieRepository $SortieRepository,
+        InscriptionRepository $inscriptionRepository,
+        EtatRepository $etatRepository,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $user = $this->getUser();
+        $sortie = $SortieRepository->find($id);
+        $etat = $etatRepository->findOneBy(array('id'=> 6));
+
+        if ($sortie->getOrganisateur() === $user) {
+            $sortie->setEtats($etat);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('accueil_index');
+    }
+
+    // Afficher sortie annulée
+
+    #[Route('/sortie/annulee/detail/{id}', name: 'sortie_annulee_Detail', requirements: ['id'=>'\d+'])]
+    public function SortieAnnuleeDetail(
+        Sortie $id,
+    ): Response
+    {
+        return $this->render('sortie/annulee_detail.html.twig', [
+            "sortie" => $id,
+        ]);
+    }
+
     // Filtres
 
     #[Route('/sortie/passee', name: 'sortie_passee')]
@@ -127,5 +176,4 @@ class SortieController extends AbstractController
             'sortieNonIncrit'=>$sortieNonIncrit
         ]);
     }
-
 }

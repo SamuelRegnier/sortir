@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if app.user.id == sortie.organisateur.id and sortie.etats.id != 6 %}
+        <h1>Annuler une sortie</h1>
+        <div class="affSortie">
+            <div>
+                <p>Nom de la sortie : </p>
+                <p>Date de la sortie : </p>
+                <p>Site organisateur : </p>
+                <p>Lieu : </p>
+            </div>
+            <div>
+                <p>{{ sortie.nom }}</p>
+                <p>{{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
+                <p>{{ sortie.site.nom }}</p>
+                <p>{{ sortie.lieux.nom }}</p>
+            </div>
+        </div>
+        <a href="{{ path('sortie_annulee', {'id': sortie.id}) }}"><input type="submit" value="Enregistrer"></a>
+        <input type="button" value="Annuler" onclick="history.back()">
+    {% endif %}
+{% endblock %}
