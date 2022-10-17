@@ -18,7 +18,7 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message:'Merci d\'ajouter un titre')]
     #[Assert\Length(
         max: 30,
         maxMessage: "Le nom ne doit pas comporter plus de 30 charactères"
@@ -26,18 +26,28 @@ class Sortie
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThan('today', message:'La date de création d\'un évènement est à J+1 ')]
+    #[Assert\NotBlank(message:'Merci de saisir une date de début d\'évènement')]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Positive(message:'La durée de l\'évènement ne peut pas être négatif')]
     private ?int $duree = null;
 
+    #[Assert\GreaterThan('today',  message:'La date limite d\'inscription doit être fixée au minimum à J+1 ')]
+    #[Assert\Expression('this.getDateLimiteInscription() < this.getDateHeureDebut()', message: 'La date limite d\'inscription doit être inférieur à la date de la sortie proposée')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+
+    #[Assert\NotBlank(message:'Merci d\'indiquer la date limite d\'inscription')]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Positive(message:'Le nombre de participant ne peut pas être négatif')]
     private ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message:'Merci d\'ajouter une description de l\'évènement')]
     private ?string $infosSortie = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]

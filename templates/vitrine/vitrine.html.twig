@@ -1,49 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{#    <img src="{{ asset('image/logotest.png') }}" alt="Activités">#}
-{#    <a href="{{ path('app_login') }}">Ready To Go ?!</a>#}
-    <section>
-        <div>
-            <span><img src="{{ asset('image/ENIEcole.jpg') }}" alt="Activités" height="200px"
-                       width="200px"></span>
+    <div class="bodyVitrine">
+        <div class="containerVitrine">
+            <div class="divIndividuelle">
+                <a href="https://www.eni-ecole.fr/" target="_blank"><img class="imageVitrine" src="{{ asset('image/ENIEcole.jpg') }}" alt="Activités" title="Site Web"></a>
+            </div>
+            <div class="divIndividuelle">
+                <a href="{{ asset('image/Vitrine_Titi.jpg') }}" target="_blank"><img class="imageVitrine" src="{{ asset('image/Vitrine_Titi.jpg') }}" alt="Activités"></a>
+            </div>
+            <div class="divIndividuelle">
+                <a href="{{ asset('image/Vitrine_TSA.jpg') }}" target="_blank"><img class="imageVitrine" src="{{ asset('image/Vitrine_TSA.jpg') }}" alt="Activités"></a>
+            </div>
+            <div class="divIndividuelle">
+                <a href="{{ asset('image/Vitrine_MD.jpg') }}" target="_blank"><img class="imageVitrine" src="{{ asset('image/Vitrine_MD.jpg') }}" alt="Activités"></a>
+            </div>
+            <div class="divIndividuelle">
+                <a href="{{ asset('image/Vitrine_MA.jpg') }}" target="_blank"><img class="imageVitrine" src="{{ asset('image/Vitrine_MA.jpg') }}" alt="Activités"></a>
+            </div>
+            <div class="cachee">
+
+            </div>
+            <div class="entreeLogin">
+                <a href="{{ path('app_login') }}">Ready To Go ?!</a>
+            </div>
+            <div class="tenor-gif-embed divIndividuelle" data-postid="16068708">
+            </div>
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            <div class="divIndividuelle">
+                <a href="{{ asset('image/157978.gif') }}" target="_blank"><img class="imageVitrine" src="{{ asset('image/157978.gif') }}" alt="Activités"></a>
+            </div>
+            <div class="divIndividuelle">
+
+            </div>
+            <div class="divIndividuelle">
+
+            </div>
+            <div class="divIndividuelle">
+                <a href="{{ asset('image/Vitrine_Tyrolienne.gif') }}" target="_blank"><img class="imageVitrine" src="{{ asset('image/Vitrine_Tyrolienne.gif') }}" alt="Activités"></a>
+            </div>
+            <div class="divIndividuelle">
+                <a href="https://fr-fr.facebook.com/EniEcoleInformatique/" target="_blank"><img class="imageVitrine" src="{{ asset('image/ENIEcole.jpg') }}" alt="Activités" title="Facebook"></a>
+            </div>
         </div>
-        <div>
-            <span><img src="{{ asset('image/logotest.png') }}" alt="Activités" height="200px"
-                       width="200px"></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span><a href="{{ path('app_login') }}">Ready To Go ?!</a></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-        <div>
-            <span></span>
-        </div>
-    </section>
+    </div>
 {% endblock %}

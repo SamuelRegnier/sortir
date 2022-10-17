@@ -19,20 +19,23 @@ class AccueilController extends AbstractController
     #[Route('/', name: '_index')]
     public function index(SortieRepository $sortieRepository,
                           SiteRepository $siteRepository,
-                          InscriptionRepository $inscriptionRepository
+                          InscriptionRepository $inscriptionRepository,
+                          ParticipantRepository $participantRepository
 
     ): Response
     {
 //        dd($sortieRepository->findAll());
-
         $sorties = $sortieRepository->findAll();
         $sites = $siteRepository->findAll();
         $inscription = $inscriptionRepository->findAll();
-        
+        $participant = $participantRepository->findAll();
         return $this->render('accueil/index.html.twig', [
             "sorties"=>$sorties,
             "sites"=>$sites,
-            'inscription'=>$inscription
+            "inscription"=>$inscription,
+            "participant"=>$participant
         ]);
     }
+
+
 }

@@ -16,6 +16,7 @@ class Site
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:'Merci d\'ajouter un nom à ce site')]
     private ?string $nom = null;
 
     #[ORM\OneToMany(mappedBy: 'participantsSite', targetEntity: Participant::class)]
