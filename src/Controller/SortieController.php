@@ -95,37 +95,5 @@ class SortieController extends AbstractController
 
     // Filtres
 
-    #[Route('/sortie/passee', name: 'sortie_passee')]
-    public function SortiePassee(
-        SortieRepository $SortieRepository,
-        InscriptionRepository $inscriptionRepository
-    ): Response
-    {
-        $user = $this->getUser();
-        // Sorties dont je suis l'organisateur
-        $sortiesOrganisateur = $SortieRepository->findBy([
-            'organisateur' => $user->getId()
-        ]);
-        // Sorties passes
-        $sortiePassees = $SortieRepository->findBy([
-            'etats' => '5'
-        ]);
-        // sorties auxquelles je suis inscrit
-        $sortieIncrit = $inscriptionRepository->findBy([
-           'participant'=> $user->getId()
-        ]);
-        // Sorties auxquelles je ne suis pas inscrit
-        $sortieNonIncrit = $inscriptionRepository->findBy([
-            'participant'=> !$user->getId()
-        ]);
-
-
-        return $this->render('sortie/passee.html.twig', [
-            'sortiesOrganisateur' => $sortiesOrganisateur,
-            'sortiePassees' => $sortiePassees,
-            'sortieInscrit' => $sortieIncrit,
-            'sortieNonIncrit'=>$sortieNonIncrit
-        ]);
-    }
 
 }
