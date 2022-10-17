@@ -21,10 +21,9 @@ class AccueilController extends AbstractController
                           SiteRepository $siteRepository,
                           InscriptionRepository $inscriptionRepository,
                           ParticipantRepository $participantRepository
-
     ): Response
     {
-//        dd($sortieRepository->findAll());
+
         $sorties = $sortieRepository->findAll();
         $sites = $siteRepository->findAll();
         $inscription = $inscriptionRepository->findAll();
