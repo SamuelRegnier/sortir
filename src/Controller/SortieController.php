@@ -37,12 +37,11 @@ class SortieController extends AbstractController
         }
         $user = $this->getUser();
         $sortie = new Sortie();
-        $etat = $etatRepository->findOneBy(array('id'=> 1));
+        $etatCreee = $etatRepository->findOneBy(array('id'=> 1));
+        $etatOuvert = $etatRepository->findOneBy(array('id'=> 2));
         $site = $siteRepository->findOneBy(array('id'=>$user->getSite()));
 
-
         $sortie->setOrganisateur($user);
-        $sortie->setEtats($etat);
         $sortie->setSite($site);
 
         if ($user->isAdministrateur()) {
@@ -59,12 +58,13 @@ class SortieController extends AbstractController
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
-        $inscription = new Inscription();
-        $inscription -> setSortie($sortie);
-        $inscription->setParticipant($user);
-        $inscription->setDateInscription(new \dateTime());
-
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($request->query->get('selectionner')){
+                $sortie->setEtats($etatCreee);
+            }
+            if (!$request->query->get('selectionner')){
+                $sortie->setEtats($etatOuvert);
+            }
             if (!$user->isAdministrateur()) {
                 $entityManager->persist($inscription);
             }

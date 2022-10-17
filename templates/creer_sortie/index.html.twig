@@ -8,9 +8,9 @@
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" value="Enregistrer">
+    <a href="{{ path('app_lieu_ajout') }}"><button>+</button></a>
+    <input type="submit" value="Valider">
     {{ form_end(form) }}
-    <a href=""><button>+</button></a>
     <a href="{{ path('accueil_index') }}"><button >Annuler</button></a>
 
 {% endblock %}

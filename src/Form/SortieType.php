@@ -7,6 +7,7 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -31,7 +32,7 @@ class SortieType extends AbstractType
                 'constraints'=>[
                     new notBlank()
                 ]])
-            ->add('dateLimiteInscription', DateType::class,['label'=>'Date limite d\'inscription :',
+            ->add('dateLimiteInscription', DateTimeType::class,['label'=>'Date limite d\'inscription :',
                 'constraints'=>[
                     new notBlank()
                 ]])
@@ -54,7 +55,15 @@ class SortieType extends AbstractType
                 ]
 
             ])
-
+            ->add('selectionner',ChoiceType::class,[
+                'mapped' => false,
+                'expanded' => true,
+                'choices' => [
+                    'Enregistrer' => true,
+                    'Publier' => false,
+                ],
+                'label' => 'Veuillez faire un choix : ',
+            ])
     ;}
 
     public function configureOptions(OptionsResolver $resolver): void
