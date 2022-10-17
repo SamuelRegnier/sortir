@@ -13,22 +13,45 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class,['label'=>'Nom de la sortie:'])
-            ->add('dateHeureDebut', DateTimeType::class,['label'=>'Date et Heure de la sortie :'])
-            ->add('dateLimiteInscription', DateType::class,['label'=>'Date limite d\'inscription :'])
-            ->add('nbInscriptionsMax', TextType::class,['label'=>'Nombre de place :'])
+            ->add('nom', TextType::class,[
+                'label'=>'Nom de la sortie:',
+                'constraints'=>[
+                    new notBlank(),
+                    new length(['max'=> 30])
+                ]])
+            ->add('dateHeureDebut', DateTimeType::class,['label'=>'Date et Heure de la sortie :',
+                'constraints'=>[
+                    new notBlank()
+                ]])
+            ->add('dateLimiteInscription', DateType::class,['label'=>'Date limite d\'inscription :',
+                'constraints'=>[
+                    new notBlank()
+                ]])
+            ->add('nbInscriptionsMax', TextType::class, [
+                'label'=>'Nombre de place :',
+                'constraints'=>[
+                    new notBlank()
+                ]])
             ->add('duree', NumberType::class,['label'=>'Durée :'])
-            ->add('infosSortie', TextType::class, ['label'=>'Descritpion Sortie :'])
+            ->add('infosSortie', TextType::class, ['label'=>'Descritpion Sortie :',
+                'constraints'=>[
+                    new notBlank(),
+                ]])
             ->add('lieux', EntityType::class,[
                     'class'=>Lieu::class,
                     'choice_label'=>'nom',
-                    'label'=>'Lieu :'
+                    'label'=>'Lieu :',
+                'constraints'=>[
+                    new notBlank()
+                ]
 
             ])
 

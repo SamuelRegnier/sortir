@@ -1,9 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <p>Sorties passees : </p>
 {% for passee in sortiePassees %}
     <p>{{ passee.nom }}</p>
 {% endfor %}
+    <p>Sorties auxquelles je suis inscrit :</p>
+    {% for inscrit in sortieInscrit %}
+        <p>{{ inscrit.sortie.nom }}</p>
+    {% endfor %}
+    <p>Sorties dont je suis l'organisateur :</p>
+    {% for sortie in sortiesOrganisateur %}
+        <p>{{ sortie.nom }}</p>
+        <p>{{ sortie.infosSortie }}</p>
+    {% endfor %}
+    <p>Sorties auxquelles je ne suis pas inscrit :</p>
+    {% for nonInscrit in sortieNonIncrit %}
+        <p>{{ nonInscrit.sortie.nom }}</p>
+
+    {% endfor %}
 {% endblock %}
 
 {% block title %}

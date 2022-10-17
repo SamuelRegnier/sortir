@@ -24,20 +24,26 @@ class InscriptionController extends AbstractController
     {
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $user = $this->getUser();
+        $dejaInscrit = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
 
-        $inscription = new Inscription();
-        $inscription->setDateInscription(new \dateTime());
-        $inscription->setSortie($sortie);
-        $inscription->setParticipant($user);
-        $nbParticipants = $sortie->getNombreParticipants();
-        $sortie->setNombreParticipants($nbParticipants + 1);
+        if($sortie->getEtats() == 3){
+            return $this->redirectToRoute('accueil_index');
+        }
+        if(isset($dejaInscrit)){
+            return $this->redirectToRoute('accueil_index');
+        }
+        if($sortie->getOrganisateur() !== $user) {
+            $inscription = new Inscription();
+            $inscription->setDateInscription(new \dateTime());
+            $inscription->setSortie($sortie);
+            $inscription->setParticipant($user);
+            $nbParticipants = $sortie->getNombreParticipants();
+            $sortie->setNombreParticipants($nbParticipants + 1);
 
-        $entityManager->persist($inscription);
-        $entityManager->flush();
-
-
+            $entityManager->persist($inscription);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('accueil_index', [
-
         ]);
     }
 
@@ -50,17 +56,22 @@ class InscriptionController extends AbstractController
     ):response
     {
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
-
-        $inscription = $inscriptionRepository->findOneBy(array('sortie'=>$sortie->getId()));
-
         $nbParticipants = $sortie->getNombreParticipants();
-        $sortie->setNombreParticipants($nbParticipants - 1);
+        $inscription = $inscriptionRepository->findOneBy(array('sortie'=>$sortie->getId()));
+        $user = $this->getUser();
 
+        if ($sortie->getOrganisateur() === $user) {
+            return $this->redirectToRoute('accueil_index');
+        }
+
+        if ($user !== $inscription->getParticipant()) {
+            return $this->redirectToRoute('accueil_index');
+        }
+
+        $sortie->setNombreParticipants($nbParticipants - 1);
         $entityManager->remove($inscription);
         $entityManager->flush();
-
-        return $this->redirectToRoute('accueil_index', [
-        ]);
+        return $this->redirectToRoute('accueil_index');
     }
 
 }

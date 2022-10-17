@@ -15,6 +15,7 @@ class Inscription
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\Expression('this.getDateInscription() <= sortie.getDateLimiteInscription()', message: 'La date limite d\'inscription est dépassée')]
     private ?\DateTimeInterface $date_inscription = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions_sortie')]

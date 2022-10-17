@@ -82,7 +82,7 @@
                         {% endif %}
                     {% endfor %}
                 </td>
-                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+{#                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>#}
 {#                    <td>{{ sortie.organisateur }}#}
 {#                         <td>  {% if sortie.organisateur == app.user.pseudo %}}#}
 {#                        {% switch sortie.etats.id %}#}
@@ -97,7 +97,8 @@
 {#                        {% switch sortie.etats.id %}#}
 {#                            {% case 1 %}#}
 {#                            {% case 2 %}#}
-
+                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+                <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
 {#                        {% default %}#}
 {#                        {% endswitch %}#}
 {#                    {% endif %}#}
