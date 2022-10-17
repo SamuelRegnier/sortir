@@ -22,6 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
+    // Créer une sortie
+
     #[Route('/creer/sortie', name: 'app_creer_sortie')]
     public function index(
         Request $request,
@@ -93,39 +95,54 @@ class SortieController extends AbstractController
         ]);
     }
 
-    // Filtres
+    // Page annulation d'une sortie
 
-    #[Route('/sortie/passee', name: 'sortie_passee')]
-    public function SortiePassee(
+    #[Route('/sortie/annulation/{id}', name: 'sortie_annulation', requirements: ['id'=>'\d+'])]
+    public function SortieAnnulation(
+        Sortie $id,
+    ): Response
+    {
+        return $this->render('sortie/annulation.html.twig', [
+            "sortie" => $id,
+        ]);
+    }
+
+    // Annuler une sortie
+
+    #[Route('/sortie/annulee/{id}', name: 'sortie_annulee', requirements: ['id'=>'\d+'])]
+    public function SortieAnnulee(
+        Sortie $id,
         SortieRepository $SortieRepository,
-        InscriptionRepository $inscriptionRepository
+        InscriptionRepository $inscriptionRepository,
+        EtatRepository $etatRepository,
+        EntityManagerInterface $entityManager
     ): Response
     {
         $user = $this->getUser();
-        // Sorties dont je suis l'organisateur
-        $sortiesOrganisateur = $SortieRepository->findBy([
-            'organisateur' => $user->getId()
-        ]);
-        // Sorties passes
-        $sortiePassees = $SortieRepository->findBy([
-            'etats' => '5'
-        ]);
-        // sorties auxquelles je suis inscrit
-        $sortieIncrit = $inscriptionRepository->findBy([
-           'participant'=> $user->getId()
-        ]);
-        // Sorties auxquelles je ne suis pas inscrit
-        $sortieNonIncrit = $inscriptionRepository->findBy([
-            'participant'=> !$user->getId()
-        ]);
+        $sortie = $SortieRepository->find($id);
+        $etat = $etatRepository->findOneBy(array('id'=> 6));
 
+        if ($sortie->getOrganisateur() === $user) {
+            $sortie->setEtats($etat);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('accueil_index');
+    }
 
-        return $this->render('sortie/passee.html.twig', [
-            'sortiesOrganisateur' => $sortiesOrganisateur,
-            'sortiePassees' => $sortiePassees,
-            'sortieInscrit' => $sortieIncrit,
-            'sortieNonIncrit'=>$sortieNonIncrit
+    // Afficher sortie annulée
+
+    #[Route('/sortie/annulee/detail/{id}', name: 'sortie_annulee_Detail', requirements: ['id'=>'\d+'])]
+    public function SortieAnnuleeDetail(
+        Sortie $id,
+    ): Response
+    {
+        return $this->render('sortie/annulee_detail.html.twig', [
+            "sortie" => $id,
         ]);
     }
+
+    // Filtres
+
 
 }
