@@ -44,6 +44,7 @@
             </div>
         </fieldset>
     </form>
+
     <table>
         <tr>
             <th>Nom de la sortie</th>
@@ -55,6 +56,7 @@
             <th>Organisateur</th>
             <th>Actions</th>
         </tr>
+        <div class="scroller">
         {% for sortie in sorties %}
             <tr>
                 <td>{{ sortie.nom }}</td>
@@ -105,6 +107,8 @@
 {#                </td>#}
             </tr>
         {% endfor %}
+        </div>
     </table>
+
     <a href="{{ path('app_creer_sortie') }}" class="btn btn-warning">Créer une sortie</a>
 {% endblock %}
