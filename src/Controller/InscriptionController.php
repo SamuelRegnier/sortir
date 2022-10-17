@@ -26,7 +26,7 @@ class InscriptionController extends AbstractController
         $user = $this->getUser();
         $dejaInscrit = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
 
-        if($sortie->getEtats() == 3){
+        if($sortie->getEtats()->getId() == 3){
             return $this->redirectToRoute('accueil_index');
         }
         if(isset($dejaInscrit)){
