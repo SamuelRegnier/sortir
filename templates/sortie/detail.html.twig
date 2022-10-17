@@ -58,14 +58,14 @@
                     <th>Pseudo</th>
                     <th>Nom</th>
                 </tr>
-                <tr>
-                    {% for idSortie in inscription %}
+                {% for idParticipant in inscription %}
+                    <tr>
                         <td>
-                            <a href="{{ path('profil_affichageProfilInscrit', {'id' : idSortie.participant.id}) }}">{{ idSortie.participant.pseudo }}</a>
+                            <a href="{{ path('profil_affichageProfilInscrit', {'id' : idParticipant.participant.id}) }}">{{ idParticipant.participant.pseudo }}</a>
                         </td>
-                        <td>{{ idSortie.participant.prenom }} {{ idSortie.participant.nom }}</td>
-                    {% endfor %}
-                </tr>
+                        <td>{{ idParticipant.participant.prenom }} {{ idParticipant.participant.nom }}</td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
         <div onload="initialize()">

@@ -64,7 +64,7 @@
                 <td>{{ sortie.etats.libelle }}</td>
 
                 {% for inscrit in inscription %}
-                {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id%}
+                {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
                         <td>X</td>
                     {% endif %}
                 {% endfor %}
@@ -72,11 +72,13 @@
                 <td>
                     <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a> -
                     {% for inscrit in inscription %}
-                        {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
-                            <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
-                        {% endif %}
-                        {% if inscrit.participant.id != app.user.id %}
-                            <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+                        {% if app.user.id != sortie.organisateur.id %}
+                            {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
+                                <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
+                            {% endif %}
+                            {% if inscrit.participant.id != app.user.id and inscrit.sortie.id == sortie.id %}
+                                <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </td>

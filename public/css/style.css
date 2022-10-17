@@ -1,6 +1,16 @@
+body {
+    cursor: url("../image/Boule de bowling 64px.png"), pointer;
+}
+
 .filtre {
 
 
+}
+
+.imageVitrine {
+    max-height: 100%;
+    max-width: 100%;
+    cursor: url("../image/Bière 64px.png"), pointer;
 }
 
 .affSortie {
@@ -14,14 +24,15 @@
     width: 50%;
 }
 
-section {
-    min-height: 100vh;
+.bodyVitrine {
+    background: black;
 }
 
-section{
+.containerVitrine {
     display:flex;
     flex-wrap:wrap;
     width:95%;
+    min-height: 100vh;
     margin-left:auto;
     margin-right:auto;
     justify-content:space-between;
@@ -29,7 +40,7 @@ section{
     align-content:center;
 }
 
-section div{
+.containerVitrine .divIndividuelle, .containerVitrine .cachee {
     height:200px;
     width:200px;
     margin-bottom:10px;
@@ -37,9 +48,69 @@ section div{
     display:flex;
     align-items:center;
     justify-content:center;
-    border: solid black;
+    border: 5px solid #5eb5e0;
+    transition: all 1s ease;
 }
 
-section div:nth-child(7){
+.containerVitrine .divIndividuelle:hover {
+    margin-bottom:10px;
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border: 5px solid #ffc800;
+    transform: scale(1.5);
+}
+
+.containerVitrine .entreeLogin {
+    height:200px;
     width:100%;
+    margin-bottom:10px;
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border: 5px solid #5eb5e0;
+    transition: all 1s ease;
+    font-family: 'Silkscreen', cursive;
+    font-size: 72px;
+    cursor: url("../image/Bière 64px.png"), pointer;
+}
+
+.containerVitrine .entreeLogin a {
+    text-decoration: none;
+    color: #5eb5e0;
+    cursor: url("../image/Bière 64px.png"), pointer;
+}
+
+.containerVitrine:hover .entreeLogin:hover {
+    margin-bottom:10px;
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border: 5px solid #ffc800;
+    font-family: 'Silkscreen', cursive;
+    font-size: 72px;
+    text-align: center;
+    transform: scale(1.5);
+}
+
+.containerVitrine .entreeLogin a:hover {
+    text-decoration: none;
+    color: #ffc800;
+}
+
+@media (min-width:768px) and (max-width: 1388px) {
+
+    .containerVitrine .cachee {
+        visibility: hidden;
+        /*display: none;*/
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+
+
 }
