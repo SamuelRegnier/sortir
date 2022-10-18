@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Lieu;
-use App\Entity\Site;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -56,12 +55,14 @@ class SortieType extends AbstractType
                 ]])
             ->add('selectionner',ChoiceType::class,[
                 'mapped' => false,
+                'label' => 'Veuillez faire un choix : ',
                 'expanded' => true,
+                'multiple' => false,
                 'choices' => [
                     'Enregistrer' => true,
                     'Publier' => false,
                 ],
-                'label' => 'Veuillez faire un choix : ',
+
             ])
     ;}
 
