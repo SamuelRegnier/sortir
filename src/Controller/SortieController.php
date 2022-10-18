@@ -60,8 +60,7 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd($request->query->get('sortie[selectionner]'));
-            if ($request->query->get('sortie[selectionner]'==0)){
+            if ($request->get("sortie")["selectionner"]){
                 $sortie->setEtats($etatCreee);
             } else {
                 $sortie->setEtats($etatOuvert);
