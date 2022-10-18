@@ -68,8 +68,11 @@
                     <td>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</td>
                     <td>{{ sortie.nombreParticipants }}/{{ sortie.nbInscriptionsMax }}</td>
                     <td>
-                        {% if sortie.etats.id != 6 %}
+                        {% if sortie.etats.id != 6 and sortie.etats.id != 2 %}
                             {{ sortie.etats.libelle }}
+                        {% endif %}
+                        {% if sortie.etats.id == 2 %}
+                            <font color="#32cd32">{{ sortie.etats.libelle }}</font>
                         {% endif %}
                         {% if sortie.etats.id == 6 %}
                             <font color="red">{{ sortie.etats.libelle }}</font>
@@ -82,17 +85,20 @@
                         {% endif %}
                     {% endfor %}
                     </td>
-                    <td>{{ sortie.organisateur.pseudo }}</td>
+                    <td><a href="{{ path('profil_affichageProfilInscrit', {'id' : sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
                     <td>
-                        {% if sortie.etats.id == 1 %} {# En création #}
+                        {# En création #}
+                        {% if sortie.etats.id == 1 %}
                             {% if app.user.id == sortie.organisateur.id %}
-                                <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Modifier</a>
+                                <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Modifier</a> {# route à modifier #}
                             {% endif %}
                         {% endif %}
 
-                        {% if sortie.etats.id == 2 %} {# Ouverte #}
+                        {# Ouverte #}
+                        {% if sortie.etats.id == 2 %}
                             <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
-                            {% if (app.user.id != sortie.organisateur.id or app.user.administrateur == 1) %}
+                            {% if app.user.id != sortie.organisateur.id %}
+                                {# or app.user.administrateur == 1 #}
                                 {% for inscrit in inscription %}
                                     {% if inscrit.participant != app.user and inscrit.sortie.id == sortie.id %}
                                         <span> - </span>
@@ -110,7 +116,8 @@
                             {% endif %}
                         {% endif %}
 
-                        {% if sortie.etats.id == 3 %} {# Fermée #}
+                        {# Clôturée #}
+                        {% if sortie.etats.id == 3 %}
                             <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
                             {% for inscrit in inscription %}
                                 {% if app.user.id != sortie.organisateur.id %}
@@ -121,20 +128,23 @@
                                 {% endif %}
                                 {% if app.user.id == sortie.organisateur.id %}
                                     <span> - </span>
-                                    <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Annuler</a>
+                                    <a href="{{ path('sortie_annulation', {'id': sortie.id}) }}">Annuler</a>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
 
-                        {% if sortie.etats.id == 4 %} {# En cours #}
+                        {# En cours #}
+                        {% if sortie.etats.id == 4 %}
                             <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
                         {% endif %}
 
-                        {% if sortie.etats.id == 5 %} {# Passée #}
+                        {# Passée #}
+                        {% if sortie.etats.id == 5 %}
                             <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
                         {% endif %}
 
-                        {% if sortie.etats.id == 6 %} {# Annulée #}
+                        {# Annulée #}
+                        {% if sortie.etats.id == 6 %}
                             <span><font color="red">Sortie annulée !</font> - (<a href="{{ path('sortie_annulee_Detail', {'id': sortie.id}) }}">Détail</a>)</span>
                         {% endif %}
                     </td>

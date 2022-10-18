@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -52,9 +53,7 @@ class SortieType extends AbstractType
                     'label'=>'Lieu :',
                 'constraints'=>[
                     new notBlank()
-                ]
-
-            ])
+                ]])
             ->add('selectionner',ChoiceType::class,[
                 'mapped' => false,
                 'expanded' => true,
