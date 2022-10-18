@@ -45,41 +45,41 @@ class SortieRepository extends ServiceEntityRepository
     /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
-    public function findByExampleField($organisateur, $site, $estInscrit, $pasInscrit, $passee, $nom, $date1, $date2 ,$user): array
+    public function findByFiltre($organisateur, $site, $estInscrit, $pasInscrit, $passee, $nom, $date1, $date2 ,$user): array
    {
        $db = $this->createQueryBuilder('s');
 
             if($organisateur != null){
-                $db->where('s.organisateur = orga');
-                $db->setParameter('orga', $organisateur);
+                $db->where('s.organisateur = organisateur');
+                $db->setParameter('organisateur', '$organisateur');
             }
             if($site != null){
                 $db->where('s.site = site');
-                $db->setParameter('site', $site);
+                $db->setParameter('site', '$site');
             }
             if($estInscrit){
                 $db->join('s.inscriptions_sortie', 'ins');
                 $db->where('ins.participant = inscrit');
-                $db->setParameter('inscrit', $estInscrit);
+                $db->setParameter('inscrit', '$estInscrit');
             }
             if($pasInscrit){
                 $db->join('s.inscriptions_sortie', 'ins');
-                $db->where('ins.participant != pasInscrit');
-                $db->setParameter('pasInscrit', $pasInscrit);
+                $db->where('ins.participant = pasInscrit');
+                $db->setParameter('pasInscrit', '$pasInscrit');
             }
             if($passee){
                 $db->where('s.etats = etat');
-                $db->setParameter('etat', $passee);
+                $db->setParameter('etat', '$passee');
             }
             if($nom){
                 $db->where('s.nom CONTAINS nom');
-                $db->setParameter('nom', $nom);
+                $db->setParameter('nom', '$nom');
             }
             if($date1 != null && $date2 != null){
                 $db->where('s.dateHeureDebut > date1');
                 $db->andWhere('s.dateHeureDebut < date2');
-                $db->setParameter('date1', $date1);
-                $db->setParameter('date2', $date2);
+                $db->setParameter('date1', '$date1');
+                $db->setParameter('date2', '$date2');
             }
 
         return $db

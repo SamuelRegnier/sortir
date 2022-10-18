@@ -7,7 +7,7 @@
     <h4>Date du jour : {{'now'|date('d/m/Y') }}</h4>
     <h4>Participant :  {{ app.user.pseudo }}</h4>
     <hr>
-    <form action="" method="post">
+    <form action="{{ path('accueil_index') }}" method="post">
         <fieldset>
             <legend>Filtrer les sorties</legend>
             <div class="affSortie">
@@ -17,7 +17,7 @@
                         <select name="site" id="site">
                             <option value="selectDeBase" disabled selected>Selectionner un site</option>
                             {% for site in sites %}
-                            <option value="{{ site.nom|lower }}">{{ site.nom }}</option>
+                            <option value="{{ site.id }}">{{ site.nom }}</option>
                             {% endfor %}
                         </select>
                     </div>
