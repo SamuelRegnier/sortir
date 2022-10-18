@@ -31,7 +31,6 @@ class SortieController extends AbstractController
         EtatRepository $etatRepository,
         LieuRepository  $lieuRepository,
         SiteRepository  $siteRepository,
-        InscriptionRepository $inscriptionRepository
     ): Response
     {
         if (!$this->getUser()) {
@@ -61,10 +60,11 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($request->query->get('selectionner')){
+
+            if ($request->query->get('selectionner', true)){
                 $sortie->setEtats($etatCreee);
             }
-            if (!$request->query->get('selectionner')){
+            if ($request->query->get('selectionner', false)){
                 $sortie->setEtats($etatOuvert);
             }
             if (!$user->isAdministrateur()) {
@@ -113,8 +113,8 @@ class SortieController extends AbstractController
     public function SortieAnnulee(
         Sortie $id,
         SortieRepository $SortieRepository,
-        InscriptionRepository $inscriptionRepository,
         EtatRepository $etatRepository,
+        InscriptionRepository $inscriptionRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
