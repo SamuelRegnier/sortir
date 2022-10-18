@@ -51,6 +51,8 @@ class MajEtatCommand extends Command
         $dateFormatee = strtotime($date);
 
         foreach ($sortiesOuvertes as $sortieOuverte) {
+            $participantsSortieOuverte = $sortieOuverte->getNombreParticipants();
+            dd($participantsSortieOuverte);
             $dateSortieOuverte = $sortieOuverte->getDateLimiteInscription()->format('Y-m-d H:i:s');
             $dateSortieOuverteFormatee = strtotime($dateSortieOuverte);
             if ($dateFormatee > $dateSortieOuverteFormatee) {
