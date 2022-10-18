@@ -59,12 +59,14 @@
                     <th scope="col">Nom</th>
                 </tr>
                 {% for idParticipant in inscription %}
+                    {% if idParticipant.sortie.id == sortie.id %}
                     <tr>
                         <td>
                             <a href="{{ path('profil_affichageProfilInscrit', {'id' : idParticipant.participant.id}) }}">{{ idParticipant.participant.pseudo }}</a>
                         </td>
                         <td>{{ idParticipant.participant.prenom }} {{ idParticipant.participant.nom }}</td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
             </table>
         </div>

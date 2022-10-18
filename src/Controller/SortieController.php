@@ -113,8 +113,8 @@ class SortieController extends AbstractController
     public function SortieAnnulee(
         Sortie $id,
         SortieRepository $SortieRepository,
-        InscriptionRepository $inscriptionRepository,
         EtatRepository $etatRepository,
+        InscriptionRepository $inscriptionRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
