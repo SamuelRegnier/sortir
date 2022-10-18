@@ -79,11 +79,11 @@
                         {% endif %}
                     </td>
                     <td>
-                    {% for inscrit in inscription %}
-                        {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
-                            X
-                        {% endif %}
-                    {% endfor %}
+                        {% for inscrit in inscription %}
+                            {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
+                                X
+                            {% endif %}
+                        {% endfor %}
                     </td>
                     <td><a href="{{ path('profil_affichageProfilInscrit', {'id' : sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
                     <td>
@@ -100,7 +100,7 @@
                             {% if app.user.id != sortie.organisateur.id %}
                                 {# or app.user.administrateur == 1 #}
                                 {% for inscrit in inscription %}
-                                    {% if inscrit.participant != app.user and inscrit.sortie.id == sortie.id %}
+                                    {% if inscrit.participant.id != app.user.id and inscrit.sortie.id == sortie.id %}
                                         <span> - </span>
                                         <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
                                     {% endif %}
@@ -152,5 +152,7 @@
             {% endfor %}
         </table>
     </div>
-    <a href="{{ path('app_creer_sortie') }}" class="btn btn-warning">Créer une sortie</a>
+    <div class="affSortie">
+        <a href="{{ path('app_creer_sortie') }}" class="btn btn-warning">Créer une sortie</a>
+    </div>
 {% endblock %}
