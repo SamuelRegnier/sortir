@@ -2,6 +2,13 @@ body {
 
 }
 
+nav li{
+    list-style: none;
+}
+nav li a {
+    text-decoration: none;
+}
+
 .affSortie {
     display: flex;
     flex-direction: row;

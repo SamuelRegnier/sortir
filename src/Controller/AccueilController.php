@@ -33,30 +33,30 @@ class AccueilController extends AbstractController
 
         if($request->request) {
 
-            if ($request->request->get('organisateur')) {
-                $organisateur = $this->getUser()->getId();
-            } else {
+            if ($request->request->get('sortiesOrga')) {
+                $organisateur = $this->getUser();
+            }else{
                 $organisateur = null;
             }
             if($request->request->get('site')){
-                $site = 'site';
+                $site = $request->request->get('site');
             } else {
                 $site = null;
             }
             if($nom = $request->request->get('search')){
-
+                $nom = '%'.$request->request->get('search').'%';
             }
             if($dateDebut = $request->request->get('dateDebut')){
-                $dateDebut = 'dateDebut';
+                $dateDebut = $request->request->get('dateDebut');
             }
             if($dateFin = $request->request->get('dateFin')){
-                $dateFin = 'dateFin';
+                $dateFin = $request->request->get('dateFin');
             }
             if($inscrit = $request->request->get('sortiesInscrit')){
-                $inscrit= $this->getUser();
+                $inscrit = $this->getUser();
             }
             if($nonInscrit = $request->request->get('sortiesNonInscrit')){
-                $nonInscrit = !$this->getUser();
+                $nonInscrit = $this->getUser();
             }
             if($sortiesPassees = $request->request->get('sortiesPassees')){
                 $sortiesPassees = 5;
@@ -70,8 +70,6 @@ class AccueilController extends AbstractController
                 "inscription"=>$inscription,
                 "participant"=>$participant,
             ]);
-
-
         }
 
         return $this->render('accueil/index.html.twig', [
