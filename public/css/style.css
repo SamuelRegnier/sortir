@@ -2,11 +2,32 @@ body {
 
 }
 
+nav ul{
+    background: #5eb5e0;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    opacity: 0.9;
+}
 nav li{
     list-style: none;
+    display: inline-block;
+    float: right;
+    font-size: 1.1em;
 }
 nav li a {
     text-decoration: none;
+    text-align: center;
+    padding: 12px 12px;
+    color: white;
+    display: block;
+    border: 1px solid #5eb5e0;
+}
+nav li a:hover{
+    background-color: deepskyblue;
+    transition: 0.2s ease-in-out;
+    transform: scale(1.04);
+    opacity: 0.95;
 }
 
 .affSortie {
@@ -41,11 +62,9 @@ nav li a {
     max-width: 100%;
     cursor: url("../image/Bière 64px.png"), pointer;
 }
-
 .bodyVitrine {
     background: black;
 }
-
 .containerVitrine {
     display:flex;
     flex-wrap:wrap;
