@@ -51,35 +51,39 @@ class MajEtatCommand extends Command
         $dateFormatee = strtotime($date);
 
         foreach ($sortiesOuvertes as $sortieOuverte) {
-            //dd($date);
-            //dd($sortieOuverte->getDateLimiteInscription());
-            $dateSortieOuverte = $sortieOuverte->getDateLimiteInscription();
+            $dateSortieOuverte = $sortieOuverte->getDateLimiteInscription()->format('Y-m-d H:i:s');
             $dateSortieOuverteFormatee = strtotime($dateSortieOuverte);
             if ($dateFormatee > $dateSortieOuverteFormatee) {
-                dd($date);
                 $sortieOuverte->setEtats($cloturee);
                 $this->manager->persist($sortieOuverte);
                 $this->manager->flush();
             }
         }
-
-        //dd($cloturee);
-        //dd($sortiesOuvertes);
-
         foreach ($sortiesCloturees as $sortieCloturee) {
-            if ($date > $sortieCloturee->getDateHeureDebut()) {
+            $dateSortieCloturee = $sortieCloturee->getDateHeureDebut()->format('Y-m-d H:i:s');
+            $dateSortieClotureeFormatee = strtotime($dateSortieCloturee);
+            if ($dateFormatee > $dateSortieClotureeFormatee) {
                 $sortieCloturee->setEtats($enCours);
                 $this->manager->persist($sortieCloturee);
             }
         }
         foreach ($sortiesEnCours as $sortieEnCours) {
-            if ($date > $sortieEnCours->getDateHeureDebut() + $sortieEnCours->getDuree()) {
+            $dateSortieEnCours = date_create($sortieEnCours->getDateHeureDebut()->format('Y-m-d H:i:s'));
+            $sortieEnCoursDuree = strval($sortieEnCours->getDuree());
+            $dateSortieEnCoursModifiee = date_modify($dateSortieEnCours, "+$sortieEnCoursDuree minutes");
+            $dateSortieEnCoursModifieeFormatee = $dateSortieEnCoursModifiee ->format('Y-m-d H:i:s');
+            $dateSortieEnCoursFormatee = strtotime($dateSortieEnCoursModifieeFormatee);
+            if ($dateFormatee > $dateSortieEnCoursFormatee) {
                 $sortieEnCours->setEtats($passee);
                 $this->manager->persist($sortieEnCours);
             }
         }
         foreach ($sortiesPassees as $sortiePassee) {
-            if ($date > $sortiePassee->getDateHeureDebut() + $sortiePassee->getDateHeureDebut()->add(new \DateInterval('P30D'))) {
+            $dateSortiePassee = date_create($sortiePassee->getDateHeureDebut()->format('Y-m-d H:i:s'));
+            $dateSortiePasseeModifiee = date_modify( $dateSortiePassee, "+30 days");
+            $dateSortieArchivee = $dateSortiePasseeModifiee->format('Y-m-d H:i:s');
+            $dateSortieArchiveFormatee = strtotime($dateSortieArchivee);
+            if ($dateFormatee > $dateSortieArchiveFormatee) {
                 $sortieEnCours->setEtats($archivee);
                 $this->manager->persist($sortiePassee);
             }
