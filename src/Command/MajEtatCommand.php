@@ -39,6 +39,7 @@ class MajEtatCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $sortiesOuvertes = $this->sortieRepository->findBy(['etats'=>2]);
+        $ouverte = $this->etatRepository->findOneBy(array('id'=> 2));
         $sortiesCloturees = $this->sortieRepository->findBy(['etats'=>3]);
         $cloturee = $this->etatRepository->findOneBy(array('id'=> 3));
         $sortiesEnCours = $this->sortieRepository->findBy(['etats'=>4]);
@@ -51,14 +52,22 @@ class MajEtatCommand extends Command
         $dateFormatee = strtotime($date);
 
         foreach ($sortiesOuvertes as $sortieOuverte) {
-            $participantsSortieOuverte = $sortieOuverte->getNombreParticipants();
-            dd($participantsSortieOuverte);
+            $inscriptionsSortieOuverte = $sortieOuverte->getNombreParticipants();
+            $inscriptionsMax = $sortieOuverte->getNbInscriptionsMax();
             $dateSortieOuverte = $sortieOuverte->getDateLimiteInscription()->format('Y-m-d H:i:s');
             $dateSortieOuverteFormatee = strtotime($dateSortieOuverte);
-            if ($dateFormatee > $dateSortieOuverteFormatee) {
+            if (($dateFormatee > $dateSortieOuverteFormatee) and ($inscriptionsSortieOuverte >= $inscriptionsMax)) {
                 $sortieOuverte->setEtats($cloturee);
                 $this->manager->persist($sortieOuverte);
                 $this->manager->flush();
+            }
+        }
+        foreach ($sortiesCloturees as $sortieCloturee) {
+            $inscriptionsSortieCloturee = $sortieCloturee->getNombreParticipants();
+            $inscriptionsMax = $sortieCloturee->getNbInscriptionsMax();
+            if ($inscriptionsSortieCloturee < $inscriptionsMax) {
+                $sortieCloturee->setEtats($ouverte);
+                $this->manager->persist($sortieCloturee);
             }
         }
         foreach ($sortiesCloturees as $sortieCloturee) {
