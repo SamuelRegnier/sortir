@@ -15,7 +15,7 @@
                     <select name="site" id="site">
                         <option value="selectDeBase" disabled selected>Selectionner un site</option>
                         {% for site in sites %}
-                        <option value="{{ site.nom|lower }}">{{ site.nom }}</option>
+                        <option value="{{ site.id }}">{{ site.nom }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div>
-                <input type="checkbox" id="sortiesOrga" name="sortiesOrga">
-                <label for="sortiesOrga">Sorties dont je suis l'organisateur/trice</label><br>
+                <input type="checkbox" id="organisateur" name="organisateur">
+                <label for="organisateur">Sorties dont je suis l'organisateur/trice</label><br>
                 <input type="checkbox" id="sortiesInscrit" name="sortiesInscrit">
                 <label for="sortiesInscrit">Sorties auxquelles je suis inscrit/e</label><br>
                 <input type="checkbox" id="sortiesNonInscrit" name="sortiesNonInscrit">

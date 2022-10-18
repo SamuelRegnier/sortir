@@ -30,24 +30,56 @@ class AccueilController extends AbstractController
         $inscription = $inscriptionRepository->findAll();
         $participant = $participantRepository->findAll();
 
-        $site = $request->query->get('site');
-        $nom = $request->query->get('search');
-        $dateDebut = $request->query->get('dateDebut');
-        $dateFin = $request->query->get('dateFin');
-        $organisateur = $request->query->get('sortiesOrga');
-        $inscrit = $request->query->get('sortiesInscrit');
-        $nonInscrit = $request->query->get('sortiesNonInscrit');
-        $sortiesPassees = $request->query->get('sortiesPassees');
 
-        $filtre = $sortieRepository->findByFiltre($organisateur, $site, $inscrit, $nonInscrit, $sortiesPassees, $nom, $dateDebut, $dateFin, $this->getUser());
+        if($request->request) {
 
+            if ($request->request->get('organisateur')) {
+                $organisateur = $this->getUser()->getId();
+            } else {
+                $organisateur = null;
+            }
+            if($request->request->get('site')){
+                $site = 'site';
+            } else {
+                $site = null;
+            }
+            if($nom = $request->request->get('search')){
+
+            }
+            if($dateDebut = $request->request->get('dateDebut')){
+                $dateDebut = 'dateDebut';
+            }
+            if($dateFin = $request->request->get('dateFin')){
+                $dateFin = 'dateFin';
+            }
+            if($inscrit = $request->request->get('sortiesInscrit')){
+                $inscrit= $this->getUser();
+            }
+            if($nonInscrit = $request->request->get('sortiesNonInscrit')){
+                $nonInscrit = !$this->getUser();
+            }
+            if($sortiesPassees = $request->request->get('sortiesPassees')){
+                $sortiesPassees = 5;
+            }
+
+            $sortie = $sortieRepository->findByFiltre($organisateur, $site, $inscrit, $nonInscrit, $sortiesPassees, $nom, $dateDebut, $dateFin, $this->getUser());
+
+            return $this->render('accueil/index.html.twig',[
+                'sorties'=>$sortie,
+                "sites"=>$sites,
+                "inscription"=>$inscription,
+                "participant"=>$participant,
+            ]);
+
+
+        }
 
         return $this->render('accueil/index.html.twig', [
             "sorties"=>$sorties,
             "sites"=>$sites,
             "inscription"=>$inscription,
             "participant"=>$participant,
-            "filtre"=>$filtre
+
         ]);
     }
 
