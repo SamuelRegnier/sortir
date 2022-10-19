@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}| Modifier sortie{% endblock %}
+{% block javascripts %}<script src="{{ asset('JavaScript/script.js') }}" defer></script>{% endblock %}
+
+{% block body %}
+    <h1>Publier une Sortie</h1>
+    <div class="affSortie">
+        <div>
+            <p>Nom de la sortie : </p>
+            <p>Date et Heure de la sortie : </p>
+            <p>Date et Heure limite d'inscription : </p>
+            <p>Nombre de places : </p>
+            <p>Durée : </p>
+            <p>Description sortie : </p>
+            <p>Lieu : </p>
+            <p>Ville : </p>
+            <p>Rue : </p>
+            <p>Code postal : </p>
+        </div>
+        <div>
+            <p>{{ sortie.nom }}</p>
+            <p>{{ sortie.dateHeureDebut|date('d-m-Y h:i:s') }}</p>
+            <p>{{ sortie.dateLimiteInscription|date('d-m-Y h:i:s') }}</p>
+            <p>{{ sortie.NbInscriptionsMax }}</p>
+            <p>{{ sortie.duree }}</p>
+            <p>{{ sortie.infosSortie }}</p>
+            <p>{{ sortie.lieux.nom }}</p>
+            <p>{{ sortie.lieux.villes.nom }}</p>
+            <p>{{ sortie.lieux.rue }}</p>
+            <p>{{ sortie.lieux.villes.codePostal }}</p>
+        </div>
+    </div>
+    <h1>Etes-vous sûr de vouloir publier la sortie</h1>
+    <a href="{{ path('sortie_publier', {'id': sortie.id}) }}"><input type="button" value="Valider"></a>
+    <input type="button" value="Retour" onclick="history.back()">
+
+{% endblock %}
+
