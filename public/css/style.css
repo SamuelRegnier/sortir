@@ -30,6 +30,10 @@ nav li a:hover{
     opacity: 0.95;
 }
 
+footer{
+    text-align: center;
+}
+
 .affSortie {
     display: flex;
     flex-direction: row;
@@ -149,9 +153,14 @@ nav li a:hover{
 
 @media screen and (max-width: 767px) {
 
-
 }
-footer{
-    text-align: center;
 
+#bodyLogin{
+    min-height: 100vh;
+    background-color: black;
+    color: #5eb5e0;
 }
+#bodyMain{
+    margin-top: 50vh;
+}
+
