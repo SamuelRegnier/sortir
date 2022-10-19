@@ -3,6 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    <div class="container text-center d-flex justify-content-around">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -13,25 +14,30 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
+
     <h1 class="h3 mb-3 font-weight-normal">Se Connecter</h1>
+
         <div class="row g-3 align-items-center">
-            <div class="col-auto">
+            <div class="col-4">
                 <label for="inputEmail">Email</label>
             </div>
-            <div class="col-auto">
+            <div class="col-8">
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
             </div>
-            <div class="col-auto">
+        </div>
+    <br>
+        <div class="row g-3 align-items-center">
+            <div class="col-4">
                 <label for="inputPassword">Password</label>
             </div>
-            <div class="col-auto">
+            <div class="col-8">
                 <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
             </div>
         </div>
             <input type="hidden" name="_csrf_token"
                 value="{{ csrf_token('authenticate') }}">
 
-        <div class="checkbox mb-3">
+        <div class="checkbox mb-6">
             <label>
                 <input type="checkbox" name="_remember_me"> Se souvenir de moi
             </label>
@@ -40,5 +46,7 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Se Connecter
     </button>
+
 </form>
+    </div>
 {% endblock %}
