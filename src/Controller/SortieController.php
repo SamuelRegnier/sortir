@@ -139,8 +139,4 @@ class SortieController extends AbstractController
             "sortie" => $id,
         ]);
     }
-
-    // Filtres
-
-
 }
