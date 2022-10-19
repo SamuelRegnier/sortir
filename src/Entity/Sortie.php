@@ -72,7 +72,7 @@ class Sortie
     #[ORM\Column]
     private ?int $nombreParticipants = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $motifAnnulation = null;
 
     public function __construct()
@@ -253,10 +253,11 @@ class Sortie
         return $this->motifAnnulation;
     }
 
-    public function setMotifAnnulation(string $motifAnnulation): self
+    public function setMotifAnnulation(?string $motifAnnulation): self
     {
         $this->motifAnnulation = $motifAnnulation;
 
         return $this;
     }
+
 }
