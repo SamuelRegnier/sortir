@@ -72,6 +72,9 @@ class Sortie
     #[ORM\Column]
     private ?int $nombreParticipants = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $motifAnnulation = null;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -241,6 +244,18 @@ class Sortie
     public function setNombreParticipants(int $nombreParticipants): self
     {
         $this->nombreParticipants = $nombreParticipants;
+
+        return $this;
+    }
+
+    public function getMotifAnnulation(): ?string
+    {
+        return $this->motifAnnulation;
+    }
+
+    public function setMotifAnnulation(string $motifAnnulation): self
+    {
+        $this->motifAnnulation = $motifAnnulation;
 
         return $this;
     }
