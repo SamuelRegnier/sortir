@@ -160,7 +160,17 @@ footer{
     background-color: black;
     color: #5eb5e0;
 }
-#bodyMain{
-    margin-top: 50vh;
+#titreLogin{
+    margin-top: 80px;
+    padding-bottom: 80px;
+}
+#buttonLogin{
+    margin-top: 50px;
+}
+#buttonLogin:hover{
+    color: deepskyblue;
+    transition: 0.2s ease-in-out;
+    transform: scale(1.06);
+    opacity: 0.95;
 }
 
