@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CreerSortieController!{% endblock %}
+{% block title %}{{ parent() }}| Creer sortie{% endblock %}
 {% block javascripts %}<script src="{{ asset('JavaScript/script.js') }}" defer></script>{% endblock %}
 
 {% block body %}
-<h1>Créer une Sortie</h1>
+    <h1>Créer une Sortie</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <a href="{{ path('app_lieu_ajout') }}"><button>Nouveau lieu</button></a>
-    <input type="submit" value="Valider">
+    <input type="submit" value="Enregistrer" name="enregistrer">
+    <input type="submit" value="Publier" name="publier">
     {{ form_end(form) }}
     <a href="{{ path('accueil_index') }}"><button >Annuler</button></a>
 

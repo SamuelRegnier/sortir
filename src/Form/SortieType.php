@@ -53,17 +53,6 @@ class SortieType extends AbstractType
                 'constraints'=>[
                     new notBlank()
                 ]])
-            ->add('selectionner',ChoiceType::class,[
-                'mapped' => false,
-                'label' => 'Veuillez faire un choix : ',
-                'expanded' => true,
-                'multiple' => false,
-                'choices' => [
-                    'Enregistrer' => true,
-                    'Publier' => false,
-                ],
-
-            ])
     ;}
 
     public function configureOptions(OptionsResolver $resolver): void

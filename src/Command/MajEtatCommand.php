@@ -56,7 +56,7 @@ class MajEtatCommand extends Command
             $inscriptionsMax = $sortieOuverte->getNbInscriptionsMax();
             $dateSortieOuverte = $sortieOuverte->getDateLimiteInscription()->format('Y-m-d H:i:s');
             $dateSortieOuverteFormatee = strtotime($dateSortieOuverte);
-            if (($dateFormatee > $dateSortieOuverteFormatee) and ($inscriptionsSortieOuverte >= $inscriptionsMax)) {
+            if (($dateFormatee > $dateSortieOuverteFormatee) or ($inscriptionsSortieOuverte == $inscriptionsMax)) {
                 $sortieOuverte->setEtats($cloturee);
                 $this->manager->persist($sortieOuverte);
                 $this->manager->flush();
@@ -65,7 +65,7 @@ class MajEtatCommand extends Command
         foreach ($sortiesCloturees as $sortieCloturee) {
             $inscriptionsSortieCloturee = $sortieCloturee->getNombreParticipants();
             $inscriptionsMax = $sortieCloturee->getNbInscriptionsMax();
-            if ($inscriptionsSortieCloturee < $inscriptionsMax) {
+            if (($dateFormatee < $dateSortieOuverteFormatee) and ($inscriptionsSortieCloturee < $inscriptionsMax)) {
                 $sortieCloturee->setEtats($ouverte);
                 $this->manager->persist($sortieCloturee);
             }
