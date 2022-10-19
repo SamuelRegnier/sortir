@@ -24,8 +24,62 @@ class SortieController extends AbstractController
 {
     // Créer une sortie
 
-    #[Route('/creer/sortie', name: 'app_creer_sortie')]
-    public function index(
+    #[Route('/creer/sortie', name: 'sortie_creer')]
+    public function creer(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EtatRepository $etatRepository,
+        LieuRepository  $lieuRepository,
+        SiteRepository  $siteRepository,
+    ): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $user = $this->getUser();
+        $sortie = new Sortie();
+        $etatCreee = $etatRepository->findOneBy(array('id'=> 1));
+        $etatOuvert = $etatRepository->findOneBy(array('id'=> 2));
+        $site = $siteRepository->findOneBy(array('id'=>$user->getSite()));
+
+        $sortie->setOrganisateur($user);
+        $sortie->setSite($site);
+
+        if ($user->isAdministrateur()) {
+            $sortie->setNombreParticipants(0);
+        }
+        if (!$user->isAdministrateur()) {
+            $inscription = new Inscription();
+            $inscription -> setSortie($sortie);
+            $inscription->setParticipant($user);
+            $inscription->setDateInscription(new \dateTime());
+            $sortie->setNombreParticipants(1);
+        }
+        $lieu = $lieuRepository->findOneBy(array('id'=>$sortie->getLieux()));
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($request->get("sortie")["selectionner"]){
+                $sortie->setEtats($etatCreee);
+            } else {
+                $sortie->setEtats($etatOuvert);
+            }
+            if (!$user->isAdministrateur()) {
+                $entityManager->persist($inscription);
+            }
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            return $this->redirectToRoute('accueil_index');
+        }
+        return $this->render('creer_sortie/index.html.twig',[
+            'form'=>$form->createView(),
+            'lieu'=>$lieu
+        ]);
+    }
+
+    #[Route('/modifier/sortie', name: 'sortie_modifier')]
+    public function modifier(
         Request $request,
         EntityManagerInterface $entityManager,
         EtatRepository $etatRepository,

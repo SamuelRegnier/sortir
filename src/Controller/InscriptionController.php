@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Inscription;
 use App\Entity\Sortie;
+use App\Repository\EtatRepository;
 use App\Repository\InscriptionRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
@@ -19,12 +20,14 @@ class InscriptionController extends AbstractController
         Sortie $id,
         SortieRepository $sortieRepository,
         InscriptionRepository $inscriptionRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        EtatRepository $etatRepository
     ):response
     {
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $user = $this->getUser();
         $dejaInscrit = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
+        $etat = $etatRepository->findOneBy(array('id'=> 3));
 
         if(isset($dejaInscrit)){
             return $this->redirectToRoute('accueil_index');
@@ -36,6 +39,10 @@ class InscriptionController extends AbstractController
             $inscription->setParticipant($user);
             $nbParticipants = $sortie->getNombreParticipants();
             $sortie->setNombreParticipants($nbParticipants + 1);
+
+            if($sortie->getNombreParticipants() == $sortie->getNbInscriptionsMax()){
+                $sortie->setEtats($etat);
+            }
 
             $entityManager->persist($inscription);
             $entityManager->flush();
@@ -49,20 +56,24 @@ class InscriptionController extends AbstractController
         Sortie $id,
         SortieRepository $sortieRepository,
         EntityManagerInterface $entityManager,
-        InscriptionRepository $inscriptionRepository
+        InscriptionRepository $inscriptionRepository,
+        EtatRepository $etatRepository
     ):response
     {
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $nbParticipants = $sortie->getNombreParticipants();
         $user = $this->getUser();
         $inscription = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
+        $etat = $etatRepository->findOneBy(array('id'=> 2));
 
         if ($sortie->getOrganisateur() === $user) {
             return $this->redirectToRoute('accueil_index');
         }
-
         if(is_null($inscription)){
             return $this->redirectToRoute('accueil_index');
+        }
+        if($sortie->getNombreParticipants() == $sortie->getNbInscriptionsMax()){
+            $sortie->setEtats($etat);
         }
 
         $sortie->setNombreParticipants($nbParticipants - 1);
