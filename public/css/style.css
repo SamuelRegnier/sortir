@@ -2,6 +2,7 @@ body {
 
 }
 
+/************************* NAVBAR **********************/
 nav ul{
     background: #5eb5e0;
     width: 100%;
@@ -29,11 +30,13 @@ nav li a:hover{
     transform: scale(1.04);
     opacity: 0.95;
 }
+/************************* FOOTER **********************/
 
 footer{
     text-align: center;
 }
 
+/************************* AFFICHER SORTIES **********************/
 .affSortie {
     display: flex;
     flex-direction: row;
@@ -41,6 +44,7 @@ footer{
     align-items:center;
     align-content:center;
 }
+/************************* VITRINE **********************/
 
 /*Taille de la map*/
 #map {
@@ -139,6 +143,7 @@ footer{
     color: #ffc800;
 }
 
+/************************* LOGIN **********************/
 #bodyLogin{
     min-height: 100vh;
     background-color: black;
