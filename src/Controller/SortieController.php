@@ -7,6 +7,7 @@ use App\Entity\Inscription;
 use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
+use App\Form\AnnulationSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\InscriptionRepository;
@@ -16,16 +17,19 @@ use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SortieController extends AbstractController
 {
     // Créer une sortie
 
-    #[Route('/creer/sortie', name: 'sortie_creer')]
+    #[Route('/sortie/creer', name: 'sortie_creer')]
     public function creer(
+        HttpClientInterface $client,
         Request $request,
         EntityManagerInterface $entityManager,
         EtatRepository $etatRepository,
@@ -60,7 +64,8 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($request->get("sortie")["selectionner"]){
+            //if ($request->get("sortie")["selectionner"]){
+            if ($request->get("enregistrer")){
                 $sortie->setEtats($etatCreee);
             } else {
                 $sortie->setEtats($etatOuvert);
@@ -68,68 +73,121 @@ class SortieController extends AbstractController
             if (!$user->isAdministrateur()) {
                 $entityManager->persist($inscription);
             }
+
+            $detailLieu = $request->get("sortie")["lieux"];
+            $lieu = $lieuRepository->find($detailLieu);
+//            dd($lieu);
+            $nomLieu = $lieu->getNom();
+//            dd($nomLieu);
+            $rueLieu = $lieu->getRue();
+//            dd($rueLieu);
+
+            $this->client = $client;
+            $response = $this->client->request(
+                'GET',
+                'http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$nomLieu
+            );
+
+            $content = $response->toArray();
+
+//            $json=file_get_contents('http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$nomLieu);
+//            $obj = json_decode($json, true);
+            $latitude = $content[0]['lat'];
+//            dd($latitude);
+            $longitude = $content[0]['lon'];
+            $lieu->setLatitude($latitude);
+            $lieu->setlongitude($longitude);
+
             $entityManager->persist($sortie);
             $entityManager->flush();
             return $this->redirectToRoute('accueil_index');
         }
-        return $this->render('creer_sortie/index.html.twig',[
+        return $this->render('sortie/creer_sortie.html.twig',[
             'form'=>$form->createView(),
             'lieu'=>$lieu
         ]);
     }
 
-    #[Route('/modifier/sortie', name: 'sortie_modifier')]
+    #[Route('/sortie/modifier/{id}', name: 'sortie_modifier', requirements: ['id' => '\d+'])]
     public function modifier(
         Request $request,
         EntityManagerInterface $entityManager,
+        SortieRepository $sortieRepository,
         EtatRepository $etatRepository,
         LieuRepository  $lieuRepository,
-        SiteRepository  $siteRepository,
+        Sortie $id
     ): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-        $user = $this->getUser();
-        $sortie = new Sortie();
+        $user = $this->getUser()->getId();
+        $sortie = $sortieRepository->findOneBy(array('id'=>$id));
+        $etatSortie = $sortie->getEtats();
+        $organisateur = $sortie->getOrganisateur()->getId();
         $etatCreee = $etatRepository->findOneBy(array('id'=> 1));
-        $etatOuvert = $etatRepository->findOneBy(array('id'=> 2));
-        $site = $siteRepository->findOneBy(array('id'=>$user->getSite()));
 
-        $sortie->setOrganisateur($user);
-        $sortie->setSite($site);
+        if ($user != $organisateur or $etatSortie != $etatCreee) {
+            return $this->redirectToRoute('accueil_index');
+        }
 
-        if ($user->isAdministrateur()) {
-            $sortie->setNombreParticipants(0);
-        }
-        if (!$user->isAdministrateur()) {
-            $inscription = new Inscription();
-            $inscription -> setSortie($sortie);
-            $inscription->setParticipant($user);
-            $inscription->setDateInscription(new \dateTime());
-            $sortie->setNombreParticipants(1);
-        }
         $lieu = $lieuRepository->findOneBy(array('id'=>$sortie->getLieux()));
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($request->get("sortie")["selectionner"]){
-                $sortie->setEtats($etatCreee);
-            } else {
-                $sortie->setEtats($etatOuvert);
+            if (!$request->get("supprimer")) {
+                if ($request->get("enregistrer")) {
+                    $sortie->setEtats($etatCreee);
+                    $entityManager->persist($sortie);
+                    $entityManager->flush();
+                    return $this->redirectToRoute('accueil_index');
+                } else {
+                    $entityManager->persist($sortie);
+                    $entityManager->flush();
+                    return $this->render('sortie/publier_sortie.html.twig',
+                        compact('sortie')
+                    );
+                }
             }
-            if (!$user->isAdministrateur()) {
-                $entityManager->persist($inscription);
-            }
-            $entityManager->persist($sortie);
-            $entityManager->flush();
-            return $this->redirectToRoute('accueil_index');
+            return $this->render('sortie/supprimer_sortie.html.twig',
+                compact('sortie')
+            );
         }
-        return $this->render('creer_sortie/index.html.twig',[
+        return $this->render('sortie/modifier_sortie.html.twig',[
             'form'=>$form->createView(),
             'lieu'=>$lieu
         ]);
+    }
+
+    #[Route('/sortie/publier/{id}', name: 'sortie_publier', requirements: ['id' => '\d+'])]
+    public function publier(
+        EntityManagerInterface $entityManager,
+        SortieRepository $sortieRepository,
+        EtatRepository $etatRepository,
+        Sortie $id
+    ): Response
+    {
+        $sortie = $sortieRepository->findOneBy(array('id'=>$id));
+        $etatOuvert = $etatRepository->findOneBy(array('id'=> 2));
+        $etat = $sortie->setEtats($etatOuvert);
+        $this->addFlash('success', 'Publication de la sortie réalisée avec succès!');
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('accueil_index');
+    }
+
+    #[Route('/sortie/supprimer/{id}', name: 'sortie_supprimer', requirements: ['id' => '\d+'])]
+    public function supprimer(
+        EntityManagerInterface $entityManager,
+        SortieRepository $sortieRepository,
+        Sortie $id
+    ): Response
+    {
+        $sortie = $sortieRepository->findOneBy(array('id'=>$id));
+        $this->addFlash('success', 'Suppression de la sortie réalisée avec succès!');
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('accueil_index');
     }
 
     #[Route('/sortie/detail/{id}', name: 'sortie_detail', requirements: ['id' => '\d+'])]
@@ -147,18 +205,6 @@ class SortieController extends AbstractController
         ]);
     }
 
-    // Page annulation d'une sortie
-
-    #[Route('/sortie/annulation/{id}', name: 'sortie_annulation', requirements: ['id'=>'\d+'])]
-    public function SortieAnnulation(
-        Sortie $id,
-    ): Response
-    {
-        return $this->render('sortie/annulation.html.twig', [
-            "sortie" => $id,
-        ]);
-    }
-
     // Annuler une sortie
 
     #[Route('/sortie/annulee/{id}', name: 'sortie_annulee', requirements: ['id'=>'\d+'])]
@@ -167,19 +213,27 @@ class SortieController extends AbstractController
         SortieRepository $SortieRepository,
         EtatRepository $etatRepository,
         InscriptionRepository $inscriptionRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Request $request
     ): Response
     {
         $user = $this->getUser();
         $sortie = $SortieRepository->find($id);
         $etat = $etatRepository->findOneBy(array('id'=> 6));
 
-        if ($sortie->getOrganisateur() === $user) {
-            $sortie->setEtats($etat);
-            $entityManager->persist($sortie);
-            $entityManager->flush();
-        }
-        return $this->redirectToRoute('accueil_index');
+        $formMotifAnnulation = $this->createForm(AnnulationSortieType::class,$sortie);
+        $formMotifAnnulation->handleRequest($request);
+
+        if ($sortie->getOrganisateur() === $user)
+            if ($formMotifAnnulation->isSubmitted() && $formMotifAnnulation->isValid()) {
+                $sortie->setEtats($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                return $this->redirectToRoute('accueil_index');
+            }
+        return $this->renderForm('sortie/annulation.html.twig',
+            compact('formMotifAnnulation', 'sortie')
+        );
     }
 
     // Afficher sortie annulée
@@ -193,8 +247,4 @@ class SortieController extends AbstractController
             "sortie" => $id,
         ]);
     }
-
-    // Filtres
-
-
 }
