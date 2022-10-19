@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,7 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class,[
-                'label'=>'Nom de la sortie:',
+                'label'=>'Nom de la sortie :',
                 'constraints'=>[
                     new notBlank(),
                     new length(['max'=> 30])
@@ -39,7 +40,7 @@ class SortieType extends AbstractType
                     new notBlank()
                 ]])
             ->add('duree', NumberType::class,['label'=>'Durée :'])
-            ->add('infosSortie', TextType::class, ['label'=>'Descritpion Sortie :',
+            ->add('infosSortie', TextareaType::class, ['label'=>'Description Sortie :',
                 'constraints'=>[
                     new notBlank(),
                 ]])

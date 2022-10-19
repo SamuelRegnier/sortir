@@ -8,7 +8,7 @@ nav ul{
     width: 100%;
     overflow: hidden;
     text-align: center;
-    opacity: 0.9;
+    opacity: 0.85;
 }
 nav li{
     list-style: none;
@@ -25,15 +25,22 @@ nav li a {
     border: 1px solid #5eb5e0;
 }
 nav li a:hover{
-    background-color: deepskyblue;
+    background-color: black;
+    color: #5eb5e0;
     transition: 0.2s ease-in-out;
     transform: scale(1.04);
-    opacity: 0.95;
+    opacity: 0.90;
 }
 /************************* FOOTER **********************/
 
 footer{
     text-align: center;
+    background-color:black;
+    color: #5eb5e0;
+    opacity: 0.85;
+}
+footer:hover{
+    color: goldenrod;;
 }
 
 /************************* AFFICHER SORTIES **********************/
@@ -148,11 +155,17 @@ footer{
     min-height: 100vh;
     background-color: black;
     color: #5eb5e0;
+    margin-bottom: 0;
+    opacity: 0.85;
 }
 #titreLogin{
     margin-top: 80px;
     padding-bottom: 80px;
     font-size: 2.5em;
+}
+#titreLogin:hover{
+    transition: 0.3s ease-in-out;
+    transform: scale(1.20);
 }
 #buttonLogin{
     margin-top: 50px;
@@ -164,3 +177,143 @@ footer{
     transform: scale(1.06);
 }
 
+/************************** ACCUEIL *************************/
+#bodyAccueil{
+    min-height: 90vh;
+    background-color: black;
+    color: #5eb5e0;
+    margin-bottom: 0;
+    padding-top: 0;
+    opacity: 0.85;
+    text-align: center;
+}
+#bodyAccueil h4{
+    padding-top: 12px;
+    text-align: right;
+    color: #ffc800;
+}
+.filtre{
+    display:inline-block;
+    text-align: left;
+    justify-content: space-between;
+    margin: 0 100px 20px;
+}
+#table1{
+    color: #5eb5e0;
+}
+#table1 a{
+    text-decoration: none;
+    color: #5eb5e0;
+    font-weight: bold;
+}
+#table1 a:hover{
+    color: #ffc800;
+}
+.enteteAccueil{
+    display: flex;
+    justify-content: center;
+    margin: -16px 30px 10px 0;
+}
+.formAccueil{
+    text-align: center;
+}
+.formAccueil legend:hover{
+    color: #ffc800;
+}
+.labelForm{
+    padding-top: 5px;
+}
+.buttonForm{
+    background-color: #ffc800;
+    border-radius: 10px;
+    width: 150px;
+    height: 45px;
+}
+#refreshButton{
+    margin-left: 75%;
+}
+.buttonForm:hover{
+    background-color: white;
+    color: #5eb5e0;
+    transition: 0.3s ease-in-out;
+    transform: scale(1.06);
+}
+.scroller{
+    width: 85%;
+    display: block;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    height: auto;
+    margin-bottom: 20px;
+}
+.scroller #tr{
+    font-size: 1.1em;
+}
+#bodyAccueil h2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#bodyAccueil h2:hover{
+    color: #ffc800;
+}
+#table1{
+    border: 1px solid #5eb5e0;
+}
+
+
+/***************************** CREER SORTIE ********************************/
+#bodyCreerSortie{
+    min-height: 90vh;
+    background-color: black;
+    color: #5eb5e0;
+    margin: 0 auto;
+    padding-top: 0;
+    opacity: 0.85;
+    text-align: center;
+    margin: -16px 0 0 0;
+}
+#bodyCreerSortie h1{
+    padding: 50px;
+}
+#bodyCreerSortie h1:hover{
+    transition: 0.3s ease-in-out;
+    transform: scale(1.20);
+    color: #ffc800;
+}
+.buttonCreer{
+    background-color: #ffc800;
+    border-radius: 10px;
+    width: 150px;
+    height: 45px;
+    margin-top: 10px;
+}
+.buttonCreer:hover{
+    background-color: white;
+    color: #5eb5e0;
+    transition: 0.3s ease-in-out;
+    transform: scale(1.06);
+}
+.creerSortieLigne{
+    margin: 30px 75px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.labelForm{
+    font-size: 1.2em;
+}
+.ligneSortie{
+    display: flex;
+    justify-content: left;
+    margin: 0 70px;
+}
+#descriptionSortie{
+    height: 150px;
+    margin-bottom: 20px;
+    padding: 0 200px;
+}
+#formCreerSortie{
+    margin-top: 50px;
+}

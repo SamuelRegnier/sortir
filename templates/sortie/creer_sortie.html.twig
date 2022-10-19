@@ -1,16 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }}| Creer sortie{% endblock %}
+{% block title %}{{ parent() }} | Creer sortie{% endblock %}
 {% block javascripts %}<script src="{{ asset('JavaScript/script.js') }}" defer></script>{% endblock %}
 
 {% block body %}
-    <h1>Créer une Sortie</h1>
-
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Enregistrer" name="enregistrer">
-    <input type="submit" value="Publier" name="publier">
-    {{ form_end(form) }}
-    <a href="{{ path('accueil_index') }}"><button >Annuler</button></a>
-
+    <div id="bodyCreerSortie">
+        <h1>Créer une Sortie</h1>
+        <div id="formCreerSortie">
+            {{ form_start(form) }}
+            <div class="creerSortieLigne">
+                <div class="ligneSortie labelForm">
+                    {{ form_label(form.nom) }}
+                </div>
+                <div class="ligneSortie">
+                    {{ form_widget(form.nom) }}
+                </div>
+                <div class="ligneSortie labelForm">
+                    {{ form_label(form.lieux) }}
+                </div>
+                <div class="ligneSortie">
+                    {{ form_widget(form.lieux) }}
+                </div>
+            </div>
+            <div class="creerSortieLigne">
+                <div class="ligneSortie labelForm">
+                    {{ form_label(form.dateHeureDebut) }}
+                </div>
+                <div class="ligneSortie">
+                    {{ form_widget(form.dateHeureDebut) }}
+                </div>
+                <div class="ligneSortie labelForm">
+                    {{ form_label(form.dateLimiteInscription) }}
+                </div>
+                <div class="ligneSortie">
+                    {{ form_widget(form.dateLimiteInscription) }}
+                </div>
+            </div>
+            <div class="creerSortieLigne">
+                <div class="ligneSortie labelForm">
+                    {{ form_label(form.nbInscriptionsMax) }}
+                </div>
+                <div class="ligneSortie">
+                    {{ form_widget(form.nbInscriptionsMax) }}
+                </div>
+                <div class="ligneSortie labelForm">
+                    {{ form_label(form.duree) }}
+                </div>
+                <div class="ligneSortie">
+                    {{ form_widget(form.duree) }}
+                </div>
+            </div>
+            <div class="creerSortieLigne labelForm">
+                {{ form_label(form.infosSortie) }}
+            </div>
+            <div class="ligneSortie" id="descriptionSortie">
+                {{ form_widget(form.infosSortie) }}
+            </div>
+            <input class="buttonCreer" type="submit" value="Enregistrer" name="enregistrer">
+            <input class="buttonCreer" type="submit" value="Publier" name="publier">
+            {{ form_end(form) }}
+            <a href="{{ path('accueil_index') }}"><button class="buttonCreer">Annuler</button></a>
+        </div>
+    </div>
 {% endblock %}
