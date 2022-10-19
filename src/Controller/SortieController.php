@@ -76,7 +76,7 @@ class SortieController extends AbstractController
 
             $detailLieu = $request->get("sortie")["lieux"];
             $lieu = $lieuRepository->find($detailLieu);
-            $nomLieu = $lieu->getNom();
+            $nomLieu = $lieu->getVilles()->getNom();
             $rueLieu = $lieu->getRue();
             $this->client = $client;
             $response = $this->client->request(
