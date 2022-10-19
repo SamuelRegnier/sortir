@@ -38,17 +38,14 @@ nav li a:hover{
     align-content:center;
 }
 
+/*Taille de la map*/
 #map {
     float: left;
-    height: 100%;
-    width: 50%;
+    height: 300px;
+    width: 300px; /*largeur*/
 }
 
-.filtre {
-
-
-}
-
+/*Scroll du tableau de sorties de la page d'accueil*/
 .scroller {
     width: 100%;
     height: 400px;
@@ -57,14 +54,18 @@ nav li a:hover{
     scrollbar-width: thin;
 }
 
+
 .imageVitrine {
     max-height: 100%;
     max-width: 100%;
     cursor: url("../image/Bière 64px.png"), pointer;
 }
+
+
 .bodyVitrine {
     background: black;
 }
+
 .containerVitrine {
     display:flex;
     flex-wrap:wrap;
@@ -136,22 +137,4 @@ nav li a:hover{
 .containerVitrine .entreeLogin a:hover {
     text-decoration: none;
     color: #ffc800;
-}
-
-@media (min-width:768px) and (max-width: 1388px) {
-
-    .containerVitrine .cachee {
-        visibility: hidden;
-        /*display: none;*/
-    }
-
-}
-
-@media screen and (max-width: 767px) {
-
-
-}
-footer{
-    text-align: center;
-
 }

@@ -2,7 +2,6 @@
 
 {% block title %}{{parent()}} | Accueil{% endblock %}
 
-
 {% block body %}
     <h4>Date du jour : {{'now'|date('d/m/Y') }}</h4>
     <h4>Participant :  {{ app.user.pseudo }}</h4>
@@ -113,7 +112,7 @@
                             {% endif %}
                             {% if app.user.id == sortie.organisateur.id %}
                                 <span> - </span>
-                                <a href="{{ path('sortie_annulation', {'id': sortie.id}) }}">Annuler</a>
+                                <a href="{{ path('sortie_annulee', {'id': sortie.id}) }}">Annuler</a>
                             {% endif %}
                         {% endif %}
 
@@ -129,7 +128,7 @@
                                 {% endif %}
                                 {% if app.user.id == sortie.organisateur.id %}
                                     <span> - </span>
-                                    <a href="{{ path('sortie_annulation', {'id': sortie.id}) }}">Annuler</a>
+                                    <a href="{{ path('sortie_annulee', {'id': sortie.id}) }}">Annuler</a>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}

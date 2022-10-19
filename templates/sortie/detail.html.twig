@@ -50,6 +50,7 @@
             <p>{{ sortie.lieux.longitude }}</p>
         </div>
     </div>
+    <hr>
     <div class="affSortie">
         <div>
             <h3>Liste des participants inscrit</h3>
@@ -70,23 +71,39 @@
                 {% endfor %}
             </table>
         </div>
-        <div onload="initialize()">
+        <div>
             <div id="map"></div>
         </div>
     </div>
 {% endblock %}
 
 {% block script %}
-    <script type="text/javascript">
-        function initialize() {
-            let map = L.map('map').setView([48.833, 2.333], 7); // LIGNE 18
+    <script>
+        var lat = {% if sortie.lieux.latitude == null %}
+                        47.218371
+                    {% else %}
+                        {{ sortie.lieux.latitude }}
+                    {% endif %};
+        var lon = {% if sortie.lieux.latitude == null %}
+                        -1.553621
+                    {% else %}
+                        {{ sortie.lieux.longitude }}
+                    {% endif %};
 
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
-            var marker = L.marker([51.5, -0.09]).addTo(map);
-        }
+        var zoom = {% if sortie.lieux.latitude == null and sortie.lieux.latitude == null %}
+                        11
+                    {% else %}
+                        13
+                    {% endif %};
+
+        var map = L.map('map').setView([lat, lon], zoom);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var marker = L.marker([lat, lon]).addTo(map);
     </script>
 {% endblock %}
 
