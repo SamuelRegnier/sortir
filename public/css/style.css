@@ -2,6 +2,7 @@ body {
 
 }
 
+/************************* NAVBAR **********************/
 nav ul{
     background: #5eb5e0;
     width: 100%;
@@ -29,11 +30,13 @@ nav li a:hover{
     transform: scale(1.04);
     opacity: 0.95;
 }
+/************************* FOOTER **********************/
 
 footer{
     text-align: center;
 }
 
+/************************* AFFICHER SORTIES **********************/
 .affSortie {
     display: flex;
     flex-direction: row;
@@ -41,6 +44,7 @@ footer{
     align-items:center;
     align-content:center;
 }
+/************************* VITRINE **********************/
 
 /*Taille de la map*/
 #map {
@@ -139,12 +143,24 @@ footer{
     color: #ffc800;
 }
 
+/************************* LOGIN **********************/
 #bodyLogin{
     min-height: 100vh;
     background-color: black;
     color: #5eb5e0;
 }
-#bodyMain{
-    margin-top: 50vh;
+#titreLogin{
+    margin-top: 80px;
+    padding-bottom: 80px;
+    font-size: 2.5em;
+}
+#buttonLogin{
+    margin-top: 50px;
+}
+#buttonLogin:hover{
+    background-color: white;
+    color: #5eb5e0;
+    transition: 0.3s ease-in-out;
+    transform: scale(1.06);
 }
 
