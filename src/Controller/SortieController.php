@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Inscription;
+use App\Entity\Lieu;
+use App\Entity\Participant;
 use App\Entity\Sortie;
+use App\Form\AnnulationSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\InscriptionRepository;
@@ -13,9 +17,11 @@ use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SortieController extends AbstractController
 {
@@ -23,6 +29,7 @@ class SortieController extends AbstractController
 
     #[Route('/sortie/creer', name: 'sortie_creer')]
     public function creer(
+        HttpClientInterface $client,
         Request $request,
         EntityManagerInterface $entityManager,
         EtatRepository $etatRepository,
@@ -66,6 +73,31 @@ class SortieController extends AbstractController
             if (!$user->isAdministrateur()) {
                 $entityManager->persist($inscription);
             }
+
+            $detailLieu = $request->get("sortie")["lieux"];
+            $lieu = $lieuRepository->find($detailLieu);
+//            dd($lieu);
+            $nomLieu = $lieu->getNom();
+//            dd($nomLieu);
+            $rueLieu = $lieu->getRue();
+//            dd($rueLieu);
+
+            $this->client = $client;
+            $response = $this->client->request(
+                'GET',
+                'http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$nomLieu
+            );
+
+            $content = $response->toArray();
+
+//            $json=file_get_contents('http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$nomLieu);
+//            $obj = json_decode($json, true);
+            $latitude = $content[0]['lat'];
+//            dd($latitude);
+            $longitude = $content[0]['lon'];
+            $lieu->setLatitude($latitude);
+            $lieu->setlongitude($longitude);
+
             $entityManager->persist($sortie);
             $entityManager->flush();
             return $this->redirectToRoute('accueil_index');
@@ -180,19 +212,28 @@ class SortieController extends AbstractController
         Sortie $id,
         SortieRepository $SortieRepository,
         EtatRepository $etatRepository,
-        EntityManagerInterface $entityManager
+        InscriptionRepository $inscriptionRepository,
+        EntityManagerInterface $entityManager,
+        Request $request
     ): Response
     {
         $user = $this->getUser();
         $sortie = $SortieRepository->find($id);
         $etat = $etatRepository->findOneBy(array('id'=> 6));
 
-        if ($sortie->getOrganisateur() === $user) {
-            $sortie->setEtats($etat);
-            $entityManager->persist($sortie);
-            $entityManager->flush();
-        }
-        return $this->redirectToRoute('accueil_index');
+        $formMotifAnnulation = $this->createForm(AnnulationSortieType::class,$sortie);
+        $formMotifAnnulation->handleRequest($request);
+
+        if ($sortie->getOrganisateur() === $user)
+            if ($formMotifAnnulation->isSubmitted() && $formMotifAnnulation->isValid()) {
+                $sortie->setEtats($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                return $this->redirectToRoute('accueil_index');
+            }
+        return $this->renderForm('sortie/annulation.html.twig',
+            compact('formMotifAnnulation', 'sortie')
+        );
     }
 
     // Afficher sortie annulée
@@ -206,8 +247,4 @@ class SortieController extends AbstractController
             "sortie" => $id,
         ]);
     }
-
-    // Filtres
-
-
 }

@@ -9,12 +9,14 @@
                 <p>Date de la sortie : </p>
                 <p>Site organisateur : </p>
                 <p>Lieu : </p>
+                <p>Motif : </p>
             </div>
             <div>
                 <p>{{ sortie.nom }}</p>
                 <p>{{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
                 <p>{{ sortie.site.nom }}</p>
                 <p>{{ sortie.lieux.nom }}</p>
+                <p>{{ sortie.motifAnnulation }}</p>
             </div>
         </div>
         <input type="button" value="Retour" onclick="history.back()">

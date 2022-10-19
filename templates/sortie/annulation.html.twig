@@ -3,21 +3,25 @@
 {% block body %}
     {% if app.user.id == sortie.organisateur.id and sortie.etats.id != 6 %}
         <h1>Annuler une sortie</h1>
+        {{ form_start(formMotifAnnulation) }}
         <div class="affSortie">
             <div>
                 <p>Nom de la sortie : </p>
                 <p>Date de la sortie : </p>
                 <p>Site organisateur : </p>
                 <p>Lieu : </p>
+                {{ form_label(formMotifAnnulation.motifAnnulation) }}
             </div>
             <div>
                 <p>{{ sortie.nom }}</p>
                 <p>{{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
                 <p>{{ sortie.site.nom }}</p>
                 <p>{{ sortie.lieux.nom }}</p>
+                {{ form_widget(formMotifAnnulation.motifAnnulation) }}
             </div>
         </div>
-        <a href="{{ path('sortie_annulee', {'id': sortie.id}) }}"><input type="submit" value="Enregistrer"></a>
+        <input type="submit" value="Enregistrer">
         <input type="button" value="Annuler" onclick="history.back()">
+        {{ form_end(formMotifAnnulation) }}
     {% endif %}
 {% endblock %}

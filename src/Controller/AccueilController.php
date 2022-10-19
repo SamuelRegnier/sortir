@@ -30,7 +30,6 @@ class AccueilController extends AbstractController
         $inscription = $inscriptionRepository->findAll();
         $participant = $participantRepository->findAll();
 
-
         if($request->request) {
 
             if ($request->request->get('sortiesOrga')) {

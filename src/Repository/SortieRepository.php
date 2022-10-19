@@ -46,44 +46,66 @@ class SortieRepository extends ServiceEntityRepository
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
     public function findByFiltre($organisateur, $site, $estInscrit, $pasInscrit, $passee, $nom, $date1, $date2 ,$user): array
-   {
-       $db = $this->createQueryBuilder('s');
+    {
+        $db = $this->createQueryBuilder('s')
+            ->select('s');
 
-            if($organisateur != null){
-                $db->where('s.organisateur = :organisateur');
-                $db->setParameter('organisateur', $organisateur);
-            }
-            if($site != null){
-                $db->andWhere('s.site = :site');
-                $db->setParameter('site', $site);
-            }
-            if($estInscrit){
-                $db->join('s.inscriptions_sortie', 'ins');
-                $db->andWhere('ins.participant = :inscrit');
-                $db->setParameter('inscrit', $estInscrit);
-            }
-            if($pasInscrit){
-                $db->join('s.inscriptions_sortie', 'ins');
-                $db->andWhere('ins.participant <> :pasInscrit');
-                $db->setParameter('pasInscrit', $pasInscrit);
-            }
-            if($passee){
-                $db->andWhere('s.etats = :etat');
-                $db->setParameter('etat', $passee);
-            }
-            if($nom){
-                $db->andWhere('s.nom LIKE :nom');
-                $db->setParameter('nom', $nom);
-            }
-            if($date1 != null && $date2 != null){
-                $db->andWhere('s.dateHeureDebut > :date1');
-                $db->andWhere('s.dateHeureDebut < :date2');
-                $db->setParameter('date1', $date1);
-                $db->setParameter('date2', $date2);
-            }
+        if ($organisateur != null) {
+            $db->where('s.organisateur = :organisateur');
+            $db->setParameter('organisateur', $organisateur);
+        }
+        if ($site != null) {
+            $db->andWhere('s.site = :site');
+            $db->setParameter('site', $site);
+        }
+        if ($estInscrit) {
+            $db->join('s.inscriptions_sortie', 'ins');
+            $db->andWhere('ins.participant = :inscrit');
+            $db->setParameter('inscrit', $estInscrit);
+        }
+//        if($pasInscrit){
+//            $tp = $this->createQueryBuilder('so')
+//            ->select('sortie.id')
+//                ->from('App:Sortie', 's')
+//            ->leftJoin('s.inscriptions_sortie', 'i' )
+//            ->andWhere('i.id = :pasInscrit');
+//
+//            $db = $tp
+//            ->andWhere('s.id NOT IN ('.$tp->getDQL().')')
+//            ->setParameter('pasInscrit', $pasInscrit);
+//        }
 
-       $db->getQuery();
-        return $db->getQuery()->getResult();
+        if ($passee) {
+            $db->andWhere('s.etats = :etat');
+            $db->setParameter('etat', $passee);
+        }
+        if ($nom) {
+            $db->andWhere('s.nom LIKE :nom');
+            $db->setParameter('nom', $nom);
+        }
+        if ($date1 != null && $date2 != null) {
+            $db->andWhere('s.dateHeureDebut > :date1');
+            $db->andWhere('s.dateHeureDebut < :date2');
+            $db->setParameter('date1', $date1);
+            $db->setParameter('date2', $date2);
+        }
+
+        $db->getQuery();
+        $response = $db->getQuery()->getResult();
+
+        if ($pasInscrit) {
+            $inscriptions = $pasInscrit->getInscriptionsParticipant();
+            foreach ($inscriptions as $inscription) {
+                $inscrit = $this->findOneBy(['id' => $inscription->getSortie()]);
+                $tab[] = $inscrit;
+            }
+            if ($estInscrit) {
+                return array_merge($response, $tab);
+            } else {
+                return array_diff($response, $tab);
+            }
+        }
+        return $response;
     }
 
 
