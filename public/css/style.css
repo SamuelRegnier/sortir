@@ -30,6 +30,10 @@ nav li a:hover{
     opacity: 0.95;
 }
 
+footer{
+    text-align: center;
+}
+
 .affSortie {
     display: flex;
     flex-direction: row;
@@ -54,18 +58,14 @@ nav li a:hover{
     scrollbar-width: thin;
 }
 
-
 .imageVitrine {
     max-height: 100%;
     max-width: 100%;
     cursor: url("../image/Bière 64px.png"), pointer;
 }
-
-
 .bodyVitrine {
     background: black;
 }
-
 .containerVitrine {
     display:flex;
     flex-wrap:wrap;
@@ -138,3 +138,13 @@ nav li a:hover{
     text-decoration: none;
     color: #ffc800;
 }
+
+#bodyLogin{
+    min-height: 100vh;
+    background-color: black;
+    color: #5eb5e0;
+}
+#bodyMain{
+    margin-top: 50vh;
+}
+
