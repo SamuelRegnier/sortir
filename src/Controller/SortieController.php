@@ -75,24 +75,15 @@ class SortieController extends AbstractController
 
             $detailLieu = $request->get("sortie")["lieux"];
             $lieu = $lieuRepository->find($detailLieu);
-//            dd($lieu);
             $nomLieu = $lieu->getNom();
-//            dd($nomLieu);
             $rueLieu = $lieu->getRue();
-//            dd($rueLieu);
-
             $this->client = $client;
             $response = $this->client->request(
                 'GET',
                 'http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$nomLieu
             );
-
             $content = $response->toArray();
-
-//            $json=file_get_contents('http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$nomLieu);
-//            $obj = json_decode($json, true);
             $latitude = $content[0]['lat'];
-//            dd($latitude);
             $longitude = $content[0]['lon'];
             $lieu->setLatitude($latitude);
             $lieu->setlongitude($longitude);
