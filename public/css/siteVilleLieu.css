@@ -13,3 +13,12 @@
     height: 400px;
     width: 400px; /*largeur*/
 }
+
+/************************* LISTE LIEUX VILLES SITES **********************/
+.listeLieux .scroller th{
+    color: #ffc800;
+    font-size: 1.2em;
+}
+.listeLieux h1{
+    padding: 50px 0;
+}

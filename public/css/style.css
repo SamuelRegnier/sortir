@@ -179,35 +179,3 @@ footer:hover{
     text-decoration: none;
     color: #ffc800;
 }
-
-/************************* LOGIN **********************/
-#titreLogin{
-    margin-top: 80px;
-    padding-bottom: 80px;
-    font-size: 2.5em;
-}
-#titreLogin:hover{
-    transition: 0.3s ease-in-out;
-    transform: scale(1.20);
-}
-#buttonLogin{
-    margin-top: 50px;
-}
-#buttonLogin:hover{
-    background-color: white;
-    color: #5eb5e0;
-    transition: 0.3s ease-in-out;
-    transform: scale(1.06);
-}
-#bodyLogin img{
-    display: block;
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: -20px;
-}
-
-/************************** ACCUEIL *************************/
-
-
-/********************* INFOS PROFIL *******************************/
