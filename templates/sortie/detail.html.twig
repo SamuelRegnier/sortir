@@ -3,6 +3,7 @@
 {% block title %}{{ parent() }}|Sortie{% endblock %}
 
 {% block body %}
+<div id="bodyDetail">
     <h1>Afficher une sortie</h1>
     <div class="affSortie">
         <div class="affLieuInfos">
@@ -94,4 +95,5 @@
 
         var marker = L.marker([lat, lon]).addTo(map);
     </script>
+</div>
 {% endblock %}

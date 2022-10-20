@@ -65,6 +65,9 @@
     margin: 15px 15px;
     width: 300px;
 }
+#bodyDetail{
+    margin: 0 0 -80px 0;
+}
 
 /************************* AFFICHER SORTIES **********************/
 .affSortie {
@@ -100,7 +103,6 @@
     font-size: 1.3em;
     margin-left: 10px;
 }
-
 .divMap {
     border: 5px solid #5eb5e0;
 }
