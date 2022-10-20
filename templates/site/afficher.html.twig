@@ -3,21 +3,23 @@
 {% block title %}{{parent()}} | {{ site.nom }}{% endblock %}
 
 {% block body %}
-    <div class="small-text-center">
-        <h1>Information site : {{ site.nom }}</h1>
-    </div>
-    <div class="affSortie">
-        <div>
-            <p>Nom : </p>
+    <div class="infosLieu">
+        <div class="small-text-center">
+            <h1>Information site : {{ site.nom }}</h1>
         </div>
-        <div>
-            <p>{{ site.nom }}</p>
+        <div class="affSortie" id="infosLieuText">
+            <div id="labelLieu">
+                <p>Nom : </p>
+            </div>
+            <div>
+                <p>{{ site.nom }}</p>
+            </div>
         </div>
-    </div>
-    <div class="affSortie">
-        <a href="{{ path('site_modifier', {'id': site.id}) }}" class="btn btn-warning">Modifier</a>
-        <a href="{{ path('site_supprimer', {'id': site.id}) }}" class="btn btn-warning">Supprimer</a>
-        <a href="{{ path('site_liste') }}" class="btn btn-warning">Retour</a>
+        <div class="affSortie" id="buttonLieu">
+            <a href="{{ path('site_modifier', {'id': site.id}) }}"><button class="buttonForm">Modifier</button></a>
+            <a href="{{ path('site_supprimer', {'id': site.id}) }}"><button class="buttonForm">Supprimer</button></a>
+            <a href="{{ path('site_liste') }}"><button class="buttonForm">Retour</button></a>
+        </div>
     </div>
 {% endblock %}
 

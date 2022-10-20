@@ -22,3 +22,20 @@
 .listeLieux h1{
     padding: 50px 0;
 }
+
+/************************ INFOS LIEUX VILLES SITES **********************/
+
+.infosLieu{
+    padding: 50px 0;
+}
+.infosLieu #infosLieuText{
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0 250px;
+}
+#labelLieu{
+    color: #ffc800;
+}
+#buttonLieu{
+    padding: 0 400px;
+}

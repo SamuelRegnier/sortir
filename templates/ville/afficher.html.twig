@@ -3,21 +3,23 @@
 {% block title %}{{parent()}} | {{ ville.nom }}{% endblock %}
 
 {% block body %}
-<h1>Information ville : {{ ville.nom }}</h1>
-    <div class="affSortie">
-        <div>
-            <p>Nom : </p>
-            <p>Code Postal : </p>
+    <div class="infosLieu">
+        <h1>Information ville : {{ ville.nom }}</h1>
+        <div class="affSortie" id="infosLieuText">
+            <div id="labelLieu">
+                <p>Nom : </p>
+                <p>Code Postal : </p>
+            </div>
+            <div>
+                <p>{{ ville.nom }}</p>
+                <p>{{ ville.codePostal }}</p>
+            </div>
         </div>
-        <div>
-            <p>{{ ville.nom }}</p>
-            <p>{{ ville.codePostal }}</p>
+        <div class="affSortie" id="buttonLieu">
+            <a href="{{ path('ville_modifier', {'id': ville.id}) }}"><button class="buttonForm">Modifier</button></a>
+            <a href="{{ path('ville_supprimer', {'id': ville.id}) }}"><button class="buttonForm">Supprimer</button></a>
+            <a href="{{ path('ville_liste') }}"><button class="buttonForm">Retour</button></a>
         </div>
-    </div>
-    <div class="affSortie">
-        <a href="{{ path('ville_modifier', {'id': ville.id}) }}" class="btn btn-warning">Modifier</a>
-        <a href="{{ path('ville_supprimer', {'id': ville.id}) }}" class="btn btn-warning">Supprimer</a>
-        <a href="{{ path('ville_liste') }}" class="btn btn-warning">Retour</a>
     </div>
 {% endblock %}
 
