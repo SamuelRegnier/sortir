@@ -63,17 +63,6 @@ class SortieRepository extends ServiceEntityRepository
             $db->andWhere('ins.participant = :inscrit');
             $db->setParameter('inscrit', $estInscrit);
         }
-//        if($pasInscrit){
-//            $tp = $this->createQueryBuilder('so')
-//            ->select('sortie.id')
-//                ->from('App:Sortie', 's')
-//            ->leftJoin('s.inscriptions_sortie', 'i' )
-//            ->andWhere('i.id = :pasInscrit');
-//
-//            $db = $tp
-//            ->andWhere('s.id NOT IN ('.$tp->getDQL().')')
-//            ->setParameter('pasInscrit', $pasInscrit);
-//        }
 
         if ($passee) {
             $db->andWhere('s.etats = :etat');
@@ -103,6 +92,7 @@ class SortieRepository extends ServiceEntityRepository
                 return array_merge($response, $tab);
             } else {
                 return array_diff($response, $tab);
+
             }
         }
         return $response;

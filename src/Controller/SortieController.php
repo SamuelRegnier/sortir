@@ -74,14 +74,16 @@ class SortieController extends AbstractController
                 $entityManager->persist($inscription);
             }
 
+//            Méthode pour transformer l'adresse en Latitdue et Longitude
             $detailLieu = $request->get("sortie")["lieux"];
             $lieu = $lieuRepository->find($detailLieu);
             $nomLieu = $lieu->getVilles()->getNom();
+            $cpLieu = $lieu->getVilles()->getCodePostal();
             $rueLieu = $lieu->getRue();
             $this->client = $client;
             $response = $this->client->request(
                 'GET',
-                'http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$nomLieu
+                'http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$cpLieu.' '.$nomLieu
             );
             $content = $response->toArray();
             $latitude = $content[0]['lat'];

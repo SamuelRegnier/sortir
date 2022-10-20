@@ -1,0 +1,92 @@
+#monCanvas {
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    background-image: url("../image/carte.jpg");
+    background-size: 100%;
+}
+
+.container{
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+
+body {
+    background-color: black;
+    text-align: center;
+
+}
+
+#bouton{
+    text-align: center;
+
+}
+
+button{
+    width: 60px;
+    margin-top: 5px;
+    border: darkmagenta 1px solid;
+    border-radius: 5px;
+    background: pink;
+    color: darkmagenta;
+}
+
+button:hover{
+    background: goldenrod;
+    border: gold 1px solid;
+    margin-top: 5px;
+    cursor: grab;
+}
+
+button:active{
+    background: grey;
+    border: gold 1px solid;
+    margin-top: 5px;
+    cursor: grabbing;
+}
+
+a{
+    text-decoration: none;
+    color: goldenrod;
+}
+
+footer{
+    margin-top: 5%;
+    flex: 1 100%;
+}
+
+hr{
+    width : 30%;
+    background-color: goldenrod;
+}
+h1{
+    color: white;
+}
+
+    @media screen, (max-width: 425px){
+    .container{
+        flex-direction: column;
+        align-content: center;
+    }
+
+    #monCanvas{
+        width: 100%;
+        max-width: 500px;
+    }
+
+}
+
+#sarahGauche{
+    margin-right: 170px;
+    margin-bottom: 170px;
+}
+#sarahDroite{
+    margin-left: 150px;
+    margin-bottom: 170px;
+}

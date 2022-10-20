@@ -3,17 +3,24 @@
 {% block title %}{{parent()}} | Accueil{% endblock %}
 
 {% block body %}
-<div>
-    <h4>Date du jour : {{'now'|date('d/m/Y') }}</h4>
-    <h4>Participant :  {{ app.user.pseudo }}</h4>
+<div id="bodyAccueil">
+    <div class="enteteAccueil">
+        <h2>SORTIR.COM</h2>
+    </div>
+    <div class="enteteAccueil">
+        <div>
+        <h4>Date du jour : {{'now'|date('d/m/Y') }}</h4>
+        <h4>Participant :  {{ app.user.pseudo }}</h4>
+        </div>
+    </div>
     <hr>
-    <form action="{{ path('accueil_index') }}" method="post">
-        <fieldset>
+    <form action="{{ path('accueil_index') }}" method="post" class="formAccueil">
+        <fieldset class="formAccueil">
             <legend>Filtrer les sorties</legend>
-            <div class="affSortie">
+
                 <div class="filtre">
                     <div>
-                        <label for="site">Site : </label>
+                        <label class="labelForm" for="site">Site : </label>
                         <select name="site" id="site">
                             <option value="selectDeBase" disabled selected>Selectionner un site</option>
                             {% for site in sites %}
@@ -22,37 +29,47 @@
                         </select>
                     </div>
                     <div>
-                        <label for="search">Le nom de la sortie contient : </label>
+                        <label class="labelForm" for="search">Le nom de la sortie contient : </label>
                         <input type="search" id="search" name="search" placeholder="search">
                     </div>
                     <div>
-                        <label for="dateDebut">Entre </label>
+                        <label class="labelForm" for="dateDebut">Entre </label>
                         <input type="date" id="dateDebut" name="dateDebut">
-                        <label for="dateFin"> et </label>
+                        <label class="labelForm" for="dateFin"> et </label>
                         <input type="date" id="dateFin" name="dateFin">
                     </div>
                 </div>
-                <div>
-                    <input type="checkbox" id="sortiesOrga" name="sortiesOrga">
-                    <label for="sortiesOrga">Sorties dont je suis l'organisateur/trice</label><br>
-                    <input type="checkbox" id="sortiesInscrit" name="sortiesInscrit">
-                    <label for="sortiesInscrit">Sorties auxquelles je suis inscrit/e</label><br>
+                <div class="filtre">
+                    <div class="labelForm">
+                        <input type="checkbox" id="sortiesOrga" name="sortiesOrga">
+                        <label for="sortiesOrga">Sorties dont je suis l'organisateur/trice</label><br>
+                    </div>
+                    <div class="labelForm">
+                        <input type="checkbox" id="sortiesInscrit" name="sortiesInscrit">
+                        <label for="sortiesInscrit">Sorties auxquelles je suis inscrit/e</label><br>
+                    </div>
+                   {# <div class="labelForm">
                     <input type="checkbox" id="sortiesNonInscrit" name="sortiesNonInscrit">
                     <label for="sortiesNonInscrit">Sorties auxquelles je ne suis pas inscrit/e</label><br>
-                    <input type="checkbox" id="sortiesPassees" name="sortiesPassees">
-                    <label for="sortiesPassees">Sorties passées</label>
+                    div></#}
+                    <div class="labelForm">
+                        <input type="checkbox" id="sortiesPassees" name="sortiesPassees">
+                        <label for="sortiesPassees">Sorties passées</label>
+                    </div>
                 </div>
                 <div>
-                    <input type="submit" value="Rechercher">
+                    <input type="submit" value="Rechercher" class="buttonForm">
                 </div>
-            </div>
+
         </fieldset>
-        <a href="{{ path('accueil_index') }}"><button>Rafraîchir</button></a>
+
     </form>
     <hr>
+    <h2>Les Sorties</h2>
+    <a href="{{ path('accueil_index') }}"><button class="buttonForm" id="refreshButton">Rafraîchir</button ></a>
     <div class="scroller">
         <table class="table" id="table1">
-            <tr>
+            <tr id="tr">
                 <th scope="col">Nom de la sortie</th>
                 <th scope="col">Date de la sortie</th>
                 <th scope="col">Clôture des inscriptions</th>
@@ -153,7 +170,8 @@
             {% endfor %}
         </table>
     </div>
-    <div class="affSortie">
-        <a href="{{ path('sortie_creer') }}" class="btn btn-warning">Créer une sortie</a>
-    </div>
+
+        <a href="{{ path('sortie_creer') }}"><button class="buttonForm">Créer une sortie</button></a>
+
+</div>
 {% endblock %}
