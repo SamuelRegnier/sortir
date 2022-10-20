@@ -44,6 +44,7 @@ footer{
     background-color:black;
     color: #5eb5e0;
     opacity: 0.85;
+    margin-bottom: -17px;
 }
 footer:hover{
     color: goldenrod;
