@@ -17,11 +17,9 @@ use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SortieController extends AbstractController
 {
@@ -29,7 +27,6 @@ class SortieController extends AbstractController
 
     #[Route('/sortie/creer', name: 'sortie_creer')]
     public function creer(
-        HttpClientInterface $client,
         Request $request,
         EntityManagerInterface $entityManager,
         EtatRepository $etatRepository,
@@ -73,23 +70,6 @@ class SortieController extends AbstractController
             if (!$user->isAdministrateur()) {
                 $entityManager->persist($inscription);
             }
-
-//            Méthode pour transformer l'adresse en Latitdue et Longitude
-            $detailLieu = $request->get("sortie")["lieux"];
-            $lieu = $lieuRepository->find($detailLieu);
-            $nomLieu = $lieu->getVilles()->getNom();
-            $cpLieu = $lieu->getVilles()->getCodePostal();
-            $rueLieu = $lieu->getRue();
-            $this->client = $client;
-            $response = $this->client->request(
-                'GET',
-                'http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$cpLieu.' '.$nomLieu
-            );
-            $content = $response->toArray();
-            $latitude = $content[0]['lat'];
-            $longitude = $content[0]['lon'];
-            $lieu->setLatitude($latitude);
-            $lieu->setlongitude($longitude);
 
             $entityManager->persist($sortie);
             $entityManager->flush();

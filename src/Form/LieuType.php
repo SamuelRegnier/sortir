@@ -26,12 +26,6 @@ class LieuType extends AbstractType
             ->add('rue', TextType::class,[
                 'label'=>'Nom de la rue :',
             ])
-            ->add('latitude', TextType::class,[
-                'label'=>'Latitude :',
-            ])
-            ->add('longitude', TextType::class,[
-                'label'=>'Longitude :',
-            ])
         ;
     }
 

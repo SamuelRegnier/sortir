@@ -51,13 +51,23 @@ footer:hover{
     align-items:center;
     align-content:center;
 }
+
+/************************* AFFICHER LIEU **********************/
+.affLieu {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items:center;
+    align-content:center;
+}
+
 /************************* VITRINE **********************/
 
 /*Taille de la map*/
 #map {
     float: left;
-    height: 300px;
-    width: 300px; /*largeur*/
+    height: 400px;
+    width: 400px; /*largeur*/
 }
 
 /*Scroll du tableau de sorties de la page d'accueil*/
