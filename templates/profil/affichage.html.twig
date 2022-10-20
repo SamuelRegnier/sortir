@@ -3,14 +3,14 @@
 {% block body %}
     <h1>{{ profil.pseudo }}</h1>
     <div class="affSortie">
-        <div>
-            <p>Prénom : </p>
+        <div id="labelInfos">
             <p>Nom : </p>
+            <p>Prénom : </p>
             <p>Téléphone : </p>
             <p>Email : </p>
             <p>Site de rattachement : </p>
         </div>
-        <div>
+        <div id="donneesInfos">
             <p>{{ profil.nom }}</p>
             <p>{{ profil.prenom }}</p>
             <p>{{ profil.telephone }}</p>
@@ -18,10 +18,9 @@
             <p>{{ profil.site.nom }}</p>
         </div>
     </div>
-    <a href="{{ path('profil_modifierProfil') }}"><input type="button" value="Modifier"></a>
-    <a href="{{ path('accueil_index') }}"><input type="button" value="Retour"></a>
+    <a href="{{ path('profil_modifierProfil') }}"><input type="button" value="Modifier" class="buttonForm"></a>
+    <a href="{{ path('accueil_index') }}"><input type="button" value="Retour" class="buttonForm"></a>
 {% endblock %}
-
 {% block title %}
-
+    {{ parent() }} | Afficher Profil
 {% endblock %}
