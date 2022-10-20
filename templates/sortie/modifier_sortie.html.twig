@@ -4,15 +4,49 @@
 {% block javascripts %}<script src="{{ asset('JavaScript/script.js') }}" defer></script>{% endblock %}
 
 {% block body %}
-    <h1>Modifier une Sortie</h1>
-
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Enregistrer" name="enregistrer">
-    <input type="submit" value="Publier" name="publier">
-    <input type="submit" value="Supprimer" name="supprimer">
+<div id="bodyCreerSortie">
+    <h1>Créer une Sortie</h1>
+    <div id="formCreerSortie">
+        {{ form_start(form) }}
+        <div id="formulaireSortie">
+            <div class="CreerSortie">
+                <div class="labelInfosSortie">
+                    <p>{{ form_label(form.nom) }}</p>
+                    <p> {{ form_label(form.dateHeureDebut) }}</p>
+                    <p>{{ form_label(form.nbInscriptionsMax) }}</p>
+                </div>
+                <div class="donneesInfosSortie">
+                    <p>{{ form_widget(form.nom) }}</p>
+                    <p>{{ form_widget(form.dateHeureDebut)}}</p>
+                    <p>{{ form_widget(form.nbInscriptionsMax) }}</p>
+                </div>
+            </div>
+            <div class="CreerSortie">
+                <div class="labelInfosSortie">
+                    <p>{{ form_label(form.lieux) }}</p>
+                    <p>{{ form_label(form.dateLimiteInscription) }}</p>
+                    <p>{{ form_label(form.duree) }}</p>
+                </div>
+                <div class="donneesInfosSortie">
+                    <p>{{ form_widget(form.lieux) }}</p>
+                    <p>{{ form_widget(form.dateLimiteInscription) }}</p>
+                    <p>{{ form_widget(form.duree) }}</p>
+                </div>
+            </div>
+        </div>
+        <div id="descriptionSortie">
+            <div id="labelDescription">
+                {{ form_label(form.infosSortie) }}
+            </div>
+            <div id="inputDescription">
+                {{ form_widget(form.infosSortie) }}
+            </div>
+        </div>
+    <input type="submit" value="Enregistrer" name="enregistrer" class="buttonForm">
+    <input type="submit" value="Publier" name="publier" class="buttonForm">
+    <input type="submit" value="Supprimer" name="supprimer" class="buttonForm">
     {{ form_end(form) }}
-    <a href="{{ path('accueil_index') }}"><input type="button" value="Retour"></a>
+    <a href="{{ path('accueil_index') }}"><input type="button" value="Retour" class="buttonForm"></a>
 
 {% endblock %}
 
