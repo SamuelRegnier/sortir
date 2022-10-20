@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LieuController extends AbstractController
 {
@@ -17,6 +18,7 @@ class LieuController extends AbstractController
     public function ajouter(
         Request $request,
         EntityManagerInterface $entityManager,
+        HttpClientInterface $client,
     ): Response
     {
         if (!$this->getUser()->isAdministrateur()){
@@ -29,6 +31,22 @@ class LieuController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Méthode pour transformer l'adresse en Latitdue et Longitude
+            $nomLieu = $lieu->getVilles()->getNom();
+            $cpLieu = $lieu->getVilles()->getCodePostal();
+            $rueLieu = $lieu->getRue();
+            $this->client = $client;
+            $response = $this->client->request(
+                'GET',
+                'http://nominatim.openstreetmap.org/search?format=json&limit=1&q='.$rueLieu.' '.$cpLieu.' '.$nomLieu
+            );
+            $content = $response->toArray();
+            $latitude = $content[0]['lat'];
+            $longitude = $content[0]['lon'];
+            $lieu->setLatitude($latitude);
+            $lieu->setlongitude($longitude);
+
             $this->addFlash('success', 'Création du lieu réalisé avec succès!');
             $entityManager->persist($lieu);
             $entityManager->flush();
