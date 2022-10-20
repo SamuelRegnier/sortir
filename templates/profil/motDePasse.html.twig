@@ -1,12 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="small-text-center">
     <h1>Modification Mot De Passe</h1>
+</div>
     {{ form_start(formMdp) }}
-    {{ form_widget(formMdp) }}
-    <input type="submit" value="Valider">
-    <a href="{{ path('profil_modifierProfil') }}"><input type="button" value="Retour"></a>
+{#    {{ form_widget(formMdp) }}#}
+<div class="affLieuComplet">
+    <div class="affLieuInfos">
+        <div id="labelInfosLieu">
+            <p>{{ form_label(formMdp.Password) }}</p>
+            <p>{{ form_label(formMdp.NouveauPassword) }}</p>
+            <p>{{ form_label(formMdp.ConfirmationPassword) }}</p>
+        </div>
+        <div id="donneesInfosLieu">
+            <p>{{ form_widget(formMdp.Password) }}</p>
+            <p>{{ form_widget(formMdp.NouveauPassword) }}</p>
+            <p>{{ form_widget(formMdp.ConfirmationPassword) }}</p>
+        </div>
+    </div>
+</div>
+<div>
+    <input type="submit" class="btn btn-warning buttonForm" value="Valider">
+    <a href="{{ path('profil_modifierProfil') }}"><input type="button" class="btn btn-warning buttonForm" value="Retour"></a>
     {{ form_end(formMdp) }}
+</div>
 {% endblock %}
 
 {% block title %}
