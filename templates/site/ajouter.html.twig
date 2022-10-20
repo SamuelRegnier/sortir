@@ -1,14 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}} | Création site{% endblock %}
+{% block title %}{{ parent() }} | Création site{% endblock %}
 
 {% block body %}
+    <div class="small-text-center">
+        <h1>Création d'un site</h1>
+    </div>
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Ajouter">
-    {{ form_end(form) }}
-    <a href="{{ path('site_liste') }}">
-        <input type="button" class="btn btn-warning buttonForm" value="Retour">
-    </a>
+    {#    {{ form_widget(form) }} #}
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>{{ form_label(form.nom) }}</p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ form_widget(form.nom) }}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="buttonForm"  value="Ajouter">
+        {{ form_end(form) }}
+        <a href="{{ path('site_liste') }}">
+            <input type="button" class="btn btn-warning buttonForm" value="Retour">
+        </a>
+    </div>
 {% endblock %}
 

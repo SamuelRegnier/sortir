@@ -1,25 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}} | {{ site.nom }}{% endblock %}
+{% block title %}{{ parent() }} | {{ site.nom }}{% endblock %}
 
 {% block body %}
-    <div class="infosLieu">
-        <div class="small-text-center">
-            <h1>Information site : {{ site.nom }}</h1>
-        </div>
-        <div class="affSortie" id="infosLieuText">
-            <div id="labelLieu">
+    <div class="small-text-center">
+        <h1>Information site : {{ site.nom }}</h1>
+    </div>
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
                 <p>Nom : </p>
             </div>
-            <div>
+            <div id="donneesInfosLieu">
                 <p>{{ site.nom }}</p>
             </div>
         </div>
-        <div class="affSortie" id="buttonLieu">
-            <a href="{{ path('site_modifier', {'id': site.id}) }}"><button class="buttonForm">Modifier</button></a>
-            <a href="{{ path('site_supprimer', {'id': site.id}) }}"><button class="buttonForm">Supprimer</button></a>
-            <a href="{{ path('site_liste') }}"><button class="buttonForm">Retour</button></a>
-        </div>
+    </div>
+    <div class="affSortie" id="buttonLieu">
+        <a href="{{ path('site_modifier', {'id': site.id}) }}">
+            <button class="buttonForm">Modifier</button>
+        </a>
+        <a href="{{ path('site_supprimer', {'id': site.id}) }}">
+            <button class="buttonForm">Supprimer</button>
+        </a>
+        <a href="{{ path('site_liste') }}">
+            <button class="buttonForm">Retour</button>
+        </a>
     </div>
 {% endblock %}
 

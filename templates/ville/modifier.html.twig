@@ -1,11 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}} | Modification ville{% endblock %}
+{% block title %}{{ parent() }} | Modification ville{% endblock %}
 
 {% block body %}
+    <div class="small-text-center">
+        <h1>Modification d'une ville</h1>
+    </div>
     {{ form_start(formVille) }}
-    {{ form_widget(formVille) }}
-    <input type="submit" value="Modifier">
-    {{ form_end(formVille) }}
-    <input type="button" value="Retour" onclick="history.back()">
+    {#    {{ form_widget(formVille) }} #}
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>{{ form_label(formVille.nom) }}</p>
+                <p>{{ form_label(formVille.codePostal) }}</p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ form_widget(formVille.nom) }}</p>
+                <p>{{ form_widget(formVille.codePostal) }}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="buttonForm" value="Modifier">
+        {{ form_end(formVille) }}
+        <input type="button" class="buttonForm" value="Retour" onclick="history.back()">
+    </div>
 {% endblock %}
