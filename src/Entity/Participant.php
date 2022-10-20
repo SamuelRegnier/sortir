@@ -39,7 +39,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $telephone = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message:'Merci d\'indiquer si il s\'agit d\'un administrateur ou non.')]
     private ?bool $administrateur = null;
 
     #[ORM\Column]

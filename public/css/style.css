@@ -81,7 +81,7 @@ footer:hover{
     margin-left: 10px;
 }
 
-/*Taille de la map*/
+/************************* MAP **********************/
 #map {
     float: left;
     height: 400px;
@@ -178,4 +178,17 @@ footer:hover{
 .containerVitrine .entreeLogin a:hover {
     text-decoration: none;
     color: #ffc800;
+}
+
+/************************* ADD FLASH **********************/
+.flash-success{
+     text-align: center;
+     background-color: #1b9448;
+     margin-top: -17px;
+}
+
+.flash-danger{
+    text-align: center;
+    background-color: #B91C1C;
+    margin-top: -17px;
 }
