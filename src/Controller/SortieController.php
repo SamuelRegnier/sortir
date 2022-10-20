@@ -82,6 +82,9 @@ class SortieController extends AbstractController
         Sortie $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $user = $this->getUser()->getId();
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $etatSortie = $sortie->getEtats();
@@ -129,6 +132,9 @@ class SortieController extends AbstractController
         Sortie $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $etatOuvert = $etatRepository->findOneBy(array('id'=> 2));
         $etat = $sortie->setEtats($etatOuvert);
@@ -146,6 +152,9 @@ class SortieController extends AbstractController
         Sortie $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $this->addFlash('success', 'Suppression de la sortie réalisée avec succès!');
         $entityManager->remove($sortie);
@@ -160,6 +169,9 @@ class SortieController extends AbstractController
                             InscriptionRepository $inscriptionRepository
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $Participant = $participantRepository->findAll();
         $inscription = $inscriptionRepository->findAll();
         return $this->render('sortie/detail.html.twig', [
@@ -181,6 +193,9 @@ class SortieController extends AbstractController
         Request $request
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $user = $this->getUser();
         $sortie = $SortieRepository->find($id);
         $etat = $etatRepository->findOneBy(array('id'=> 6));
@@ -207,6 +222,9 @@ class SortieController extends AbstractController
         Sortie $id,
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         return $this->render('sortie/annulee_detail.html.twig', [
             "sortie" => $id,
         ]);

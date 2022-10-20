@@ -19,6 +19,9 @@ class SiteController extends AbstractController
         EntityManagerInterface $entityManager,
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('site_liste');
         }
@@ -48,6 +51,10 @@ class SiteController extends AbstractController
         Site $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
+
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('site_liste');
         }
@@ -73,6 +80,9 @@ class SiteController extends AbstractController
         SiteRepository $siteRepository
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $sites = $siteRepository->findAll();
 
         return $this->render('site/liste.html.twig',
@@ -86,6 +96,9 @@ class SiteController extends AbstractController
         Site $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $site = $siteRepository->findOneBy(array('id' => $id));
 
         if (!$this->getUser()->isAdministrateur()) {
@@ -104,6 +117,9 @@ class SiteController extends AbstractController
         Site $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('site_liste');
         }

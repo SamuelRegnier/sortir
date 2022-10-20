@@ -1,25 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ profil.pseudo }}</h1>
+    <div class="small-text-center">
+        <h1>{{ profil.pseudo }}</h1>
+    </div>
     <div class="affSortie">
-        <div id="labelInfos">
-            <p>Nom : </p>
-            <p>Prénom : </p>
-            <p>Téléphone : </p>
-            <p>Email : </p>
-            <p>Site de rattachement : </p>
-        </div>
-        <div id="donneesInfos">
-            <p>{{ profil.nom }}</p>
-            <p>{{ profil.prenom }}</p>
-            <p>{{ profil.telephone }}</p>
-            <p>{{ profil.email }}</p>
-            <p>{{ profil.site.nom }}</p>
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>Nom : </p>
+                <p>Prénom : </p>
+                <p>Téléphone : </p>
+                <p>Email : </p>
+                <p>Site de rattachement : </p>
+            </div>
+            <div class="donneesInfosLieu">
+                <p>{{ profil.nom }}</p>
+                <p>{{ profil.prenom }}</p>
+                <p>{{ profil.telephone }}</p>
+                <p>{{ profil.email }}</p>
+                <p>{{ profil.site.nom }}</p>
+            </div>
         </div>
     </div>
-    <a href="{{ path('profil_modifierProfil') }}"><input type="button" value="Modifier" class="buttonForm"></a>
-    <a href="{{ path('accueil_index') }}"><input type="button" value="Retour" class="buttonForm"></a>
+    <div>
+        <a href="{{ path('profil_modifierProfil') }}"><input type="button" value="Modifier" class="buttonForm"></a>
+        <a href="{{ path('accueil_index') }}"><input type="button" value="Retour" class="buttonForm"></a>
+    </div>
 {% endblock %}
 {% block title %}
     {{ parent() }} | Afficher Profil

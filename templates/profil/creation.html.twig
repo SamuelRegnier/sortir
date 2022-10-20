@@ -3,12 +3,48 @@
 {% block title %}{{ parent() }}| Créer Profil{% endblock %}
 
 {% block body %}
-    <h1>Création Profil</h1>
+    <div class="small-text-center">
+        <h1>Création Profil</h1>
+    </div>
     {{ form_start(formProfil) }}
-    {{ form_widget(formProfil) }}
-    <input type="submit" value="Enregistrer">
-    <a href="{{ path('accueil_index') }}"><input type="button" value="Annuler"></a>
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>{{ form_label(formProfil.administrateur) }}</p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ form_widget(formProfil.administrateur) }}</p>
+            </div>
+        </div>
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>{{ form_label(formProfil.nom) }}</p>
+                <p>{{ form_label(formProfil.prenom) }}</p>
+                <p>{{ form_label(formProfil.pseudo) }}</p>
+                <p>{{ form_label(formProfil.telephone) }}</p>
+                <p>{{ form_label(formProfil.email) }}</p>
+                <p>{{ form_label(formProfil.password) }}</p>
+                <p>{{ form_label(formProfil.confirmationPassword) }}</p>
+                <p>{{ form_label(formProfil.site) }}</p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ form_widget(formProfil.nom) }}</p>
+                <p>{{ form_widget(formProfil.prenom) }}</p>
+                <p>{{ form_widget(formProfil.pseudo) }}</p>
+                <p>{{ form_widget(formProfil.telephone) }}</p>
+                <p>{{ form_widget(formProfil.email) }}</p>
+                <p>{{ form_widget(formProfil.password) }}</p>
+                <p>{{ form_widget(formProfil.confirmationPassword) }}</p>
+                <p>{{ form_widget(formProfil.site) }}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="buttonForm" value="Enregistrer">
+        <a href="{{ path('accueil_index') }}"><input type="button" class="buttonForm" value="Annuler"></a>
+    </div>
     {{ form_end(formProfil) }}
+
 {% endblock %}
 
 

@@ -7,58 +7,45 @@
         <h1>Créer une Sortie</h1>
         <div id="formCreerSortie">
             {{ form_start(form) }}
-            <div class="creerSortieLigne">
-                <div class="ligneSortie labelForm">
-                    {{ form_label(form.nom) }}
+            <div id="formulaireSortie">
+                <div class="CreerSortie">
+                    <div class="labelInfosSortie">
+                        <p>{{ form_label(form.nom) }}</p>
+                        <p> {{ form_label(form.dateHeureDebut) }}</p>
+                        <p>{{ form_label(form.nbInscriptionsMax) }}</p>
+                    </div>
+                    <div class="donneesInfosSortie">
+                        <p>{{ form_widget(form.nom) }}</p>
+                        <p>{{ form_widget(form.dateHeureDebut)}}</p>
+                        <p>{{ form_widget(form.nbInscriptionsMax) }}</p>
+                    </div>
                 </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.nom) }}
-                </div>
-                <div class="ligneSortie labelForm">
-                    {{ form_label(form.lieux) }}
-                </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.lieux) }}
-                </div>
-            </div>
-            <div class="creerSortieLigne">
-                <div class="ligneSortie labelForm">
-                    {{ form_label(form.dateHeureDebut) }}
-                </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.dateHeureDebut) }}
-                </div>
-                <div class="ligneSortie labelForm">
-                    {{ form_label(form.dateLimiteInscription) }}
-                </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.dateLimiteInscription) }}
+                <div class="CreerSortie">
+                    <div class="labelInfosSortie">
+                        <p>{{ form_label(form.lieux) }}</p>
+                        <p>{{ form_label(form.dateLimiteInscription) }}</p>
+                        <p>{{ form_label(form.duree) }}</p>
+                    </div>
+                    <div class="donneesInfosSortie">
+                        <p>{{ form_widget(form.lieux) }}</p>
+                        <p>{{ form_widget(form.dateLimiteInscription) }}</p>
+                        <p>{{ form_widget(form.duree) }}</p>
+                    </div>
                 </div>
             </div>
-            <div class="creerSortieLigne">
-                <div class="ligneSortie labelForm">
-                    {{ form_label(form.nbInscriptionsMax) }}
+                <div id="descriptionSortie">
+                    <div id="labelDescription">
+                        {{ form_label(form.infosSortie) }}
+                    </div>
+                    <div id="inputDescription">
+                        {{ form_widget(form.infosSortie) }}
+                    </div>
                 </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.nbInscriptionsMax) }}
-                </div>
-                <div class="ligneSortie labelForm">
-                    {{ form_label(form.duree) }}
-                </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.duree) }}
-                </div>
-            </div>
-            <div class="creerSortieLigne labelForm">
-                {{ form_label(form.infosSortie) }}
-            </div>
-            <div class="ligneSortie" id="descriptionSortie">
-                {{ form_widget(form.infosSortie) }}
-            </div>
-            <input class="buttonCreer" type="submit" value="Enregistrer" name="enregistrer">
-            <input class="buttonCreer" type="submit" value="Publier" name="publier">
-            {{ form_end(form) }}
-            <a href="{{ path('accueil_index') }}"><button class="buttonCreer">Annuler</button></a>
+
+                <input class="buttonCreer" type="submit" value="Enregistrer" name="enregistrer">
+                <input class="buttonCreer" type="submit" value="Publier" name="publier">
         </div>
+                {{ form_end(form) }}
+                <a href="{{ path('accueil_index') }}"><button class="buttonCreer">Annuler</button></a>
     </div>
 {% endblock %}

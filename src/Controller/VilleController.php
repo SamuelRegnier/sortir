@@ -19,6 +19,9 @@ class VilleController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('ville_liste');
         }
@@ -51,6 +54,9 @@ class VilleController extends AbstractController
         Ville $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('ville_liste');
         }
@@ -80,7 +86,9 @@ class VilleController extends AbstractController
         VilleRepository $villeRepository
     ): Response
     {
-
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $villes = $villeRepository->findAll();
 
         return $this->render('ville/liste.html.twig',
@@ -94,6 +102,9 @@ class VilleController extends AbstractController
         Ville $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $ville = $villeRepository->findOneBy(array('id'=>$id));
 
         if (!$this->getUser()->isAdministrateur()) {
@@ -113,6 +124,9 @@ class VilleController extends AbstractController
         Ville $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('ville_liste');
         }

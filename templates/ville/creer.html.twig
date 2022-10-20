@@ -3,9 +3,25 @@
 {% block title %}{{parent()}} | Création ville{% endblock %}
 
 {% block body %}
+    <div class="small-text-center">
+        <h1>Création d'une ville</h1>
+    </div>
     {{ form_start(formVille) }}
-    {{ form_widget(formVille) }}
-    <input type="submit" value="Ajouter">
-    {{ form_end(formVille) }}
-    <a href="{{ path('ville_liste') }}"><button >Retour</button></a>
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>{{ form_label(formVille.nom) }}</p>
+                <p>{{ form_label(formVille.codePostal) }}</p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ form_widget(formVille.nom) }}</p>
+                <p>{{ form_widget(formVille.codePostal) }}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-warning buttonForm" value="Ajouter">
+        {{ form_end(formVille) }}
+        <a href="{{ path('ville_liste') }}"><button class="btn btn-warning buttonForm">Retour</button></a>
+    </div>
 {% endblock %}

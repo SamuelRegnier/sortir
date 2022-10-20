@@ -6,6 +6,7 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -19,19 +20,26 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un nom')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le nom de doit pas dépasser 30 caracères.')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un prénom')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le prénom de doit pas dépasser 30 caracères.')]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un pseudo')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le pseudo de doit pas dépasser 30 caracères.')]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 15, nullable: true)]
+    #[Assert\Length(max: 15 ,maxMessage:'Le numéro de téléphone ne doit pas dépasser 15 caractères.')]
     private ?string $telephone = null;
 
-
     #[ORM\Column]
+    #[Assert\NotBlank(message:'Merci d\'indiquer si il s\'agit d\'un administrateur ou non.')]
     private ?bool $administrateur = null;
 
     #[ORM\Column]

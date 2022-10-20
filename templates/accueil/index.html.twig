@@ -1,30 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}} | Accueil{% endblock %}
+{% block title %}{{ parent() }} | Accueil{% endblock %}
 
 {% block body %}
-<div id="bodyAccueil">
-    <div class="enteteAccueil">
-        <h1>SORTIR.COM</h1>
-    </div>
-    <div class="enteteAccueil">
-        <div>
-        <h4>Date du jour : {{'now'|date('d/m/Y') }}</h4>
-        <h4>Participant :  {{ app.user.pseudo }}</h4>
+    <div id="bodyAccueil">
+        <div class="affLieu">
+            <div class="enteteAccueil">
+                <h1>SORTIR.COM</h1>
+            </div>
+            <div class="enteteAccueil">
+                <div>
+                    <h6>Date du jour : {{ 'now'|date('d/m/Y') }}</h6>
+                    <h6>Participant : {{ app.user.pseudo }}</h6>
+                </div>
+            </div>
         </div>
-    </div>
-    <hr>
-    <form action="{{ path('accueil_index') }}" method="post" class="formAccueil">
-        <fieldset class="formAccueil">
-            <legend>Filtrer les sorties</legend>
-
+        <div>
+            <h3>Filtrer les sorties</h3>
+        </div>
+        <form action="{{ path('accueil_index') }}" method="post" class="formAccueil affLieuComplet">
+            <div class="formAccueil affLieuInfos">
                 <div class="filtre">
                     <div>
                         <label class="labelForm" for="site">Site : </label>
                         <select name="site" id="site">
                             <option value="selectDeBase" disabled selected>Selectionner un site</option>
                             {% for site in sites %}
-                            <option value="{{ site.id }}">{{ site.nom }}</option>
+                                <option value="{{ site.id }}">{{ site.nom }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -48,25 +50,24 @@
                         <input type="checkbox" id="sortiesInscrit" name="sortiesInscrit">
                         <label for="sortiesInscrit">Sorties auxquelles je suis inscrit/e</label><br>
                     </div>
-                   {# <div class="labelForm">
+                    {# <div class="labelForm">
                     <input type="checkbox" id="sortiesNonInscrit" name="sortiesNonInscrit">
                     <label for="sortiesNonInscrit">Sorties auxquelles je ne suis pas inscrit/e</label><br>
-                    div></#}
+                    div></ #}
                     <div class="labelForm">
                         <input type="checkbox" id="sortiesPassees" name="sortiesPassees">
                         <label for="sortiesPassees">Sorties passées</label>
                     </div>
                 </div>
                 <div>
-                    <input type="submit" value="Rechercher" class="buttonForm">
+                    <input type="submit" value="Rechercher" class="buttonForm bouton">
                 </div>
-
-        </fieldset>
-
-    </form>
-    <hr>
-    <h2>Les Sorties</h2>
-    <a href="{{ path('accueil_index') }}"><button class="buttonForm" id="refreshButton">Rafraîchir</button ></a>
+            </div>
+        </form>
+        <h3>Les Sorties</h3>
+    <a href="{{ path('accueil_index') }}">
+        <button class="buttonForm" id="refreshButton">Rafraîchir</button >
+    </a>
     <div class="scroller">
         <table class="table" id="table1">
             <tr id="tr">
@@ -79,7 +80,6 @@
                 <th scope="col">Organisateur</th>
                 <th scope="col">Actions</th>
             </tr>
-
             {% for sortie in sorties%}
                 <tr>
                     <td>{{ sortie.nom }}</td>
@@ -152,27 +152,30 @@
                             {% endif %}
                         {% endif %}
 
-                        {# Etat Sortie En cours #}
-                        {% if sortie.etats.id == 4 %}
-                            <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
-                        {% endif %}
+                            {# Etat Sortie En cours #}
+                            {% if sortie.etats.id == 4 %}
+                                <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
+                            {% endif %}
 
-                        {# Etat Sortie Passée #}
-                        {% if sortie.etats.id == 5 %}
-                            <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
-                        {% endif %}
+                            {# Etat Sortie Passée #}
+                            {% if sortie.etats.id == 5 %}
+                                <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
+                            {% endif %}
 
-                        {# Etat Sortie Annulée #}
-                        {% if sortie.etats.id == 6 %}
-                            <span><font color="red">Sortie annulée !</font> - (<a href="{{ path('sortie_annulee_Detail', {'id': sortie.id}) }}">Détail</a>)</span>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+                            {# Etat Sortie Annulée #}
+                            {% if sortie.etats.id == 6 %}
+                                <span><font color="red">Sortie annulée !</font> - (<a
+                                            href="{{ path('sortie_annulee_Detail', {'id': sortie.id}) }}">Détail</a>)</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <a href="{{ path('sortie_creer') }}">
+            <button class="buttonForm">Créer une sortie</button>
+        </a>
+
     </div>
-
-        <a href="{{ path('sortie_creer') }}"><button class="buttonForm">Créer une sortie</button></a>
-
-</div>
 {% endblock %}

@@ -3,11 +3,34 @@
 {% block title %}{{ parent() }}|Modifier Profil{% endblock %}
 
 {% block body %}
-    <h1>Mon Profil</h1>
+    <div class="small-text-center">
+        <h1>Mon Profil</h1>
+    </div>
     {{ form_start(formProfil) }}
-    {{ form_widget(formProfil) }}
-    <input type="submit" value="Valider">
-    <a href="{{ path('profil_modifierMdp') }}"><input type="button" value="Modifier Mot De passe"></a>
-    <a href="{{ path('profil_affichageProfil') }}"><input type="button" value="Retour"></a>
-    {{ form_end(formProfil) }}
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>{{ form_label(formProfil.nom) }}</p>
+                <p>{{ form_label(formProfil.prenom) }}</p>
+                <p>{{ form_label(formProfil.pseudo) }}</p>
+                <p>{{ form_label(formProfil.telephone) }}</p>
+                <p>{{ form_label(formProfil.email) }}</p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ form_widget(formProfil.nom) }}</p>
+                <p>{{ form_widget(formProfil.prenom) }}</p>
+                <p>{{ form_widget(formProfil.pseudo) }}</p>
+                <p>{{ form_widget(formProfil.telephone) }}</p>
+                <p>{{ form_widget(formProfil.email) }}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="buttonForm" value="Valider">
+        <a href="{{ path('profil_modifierMdp') }}"><input type="button" class="buttonForm"
+                                                          value="Modifier password"></a>
+        <a href="{{ path('profil_affichageProfil') }}"><input type="button" class="buttonForm"
+                                                              value="Retour"></a>
+        {{ form_end(formProfil) }}
+    </div>
 {% endblock %}

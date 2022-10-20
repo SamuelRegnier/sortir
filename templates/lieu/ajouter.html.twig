@@ -1,11 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}} | Création lieu{% endblock %}
+{% block title %}{{ parent() }} | Création lieu{% endblock %}
 
 {% block body %}
+    <div class="small-text-center">
+        <h1>Création d'un lieu</h1>
+    </div>
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Ajouter">
-    {{ form_end(form) }}
-    <a href="{{ path('lieu_liste') }}"><button >Retour</button></a>
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>{{ form_label(form.nom) }}</p>
+                <p>{{ form_label(form.villes) }}</p>
+                <p>{{ form_label(form.rue) }}</p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ form_widget(form.nom) }}</p>
+                <p>{{ form_widget(form.villes) }}</p>
+                <p>{{ form_widget(form.rue) }}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-warning buttonForm" value="Ajouter">
+        {{ form_end(form) }}
+        <a href="{{ path('lieu_liste') }}">
+            <button class="btn btn-warning buttonForm">Retour</button>
+        </a>
+    </div>
 {% endblock %}
