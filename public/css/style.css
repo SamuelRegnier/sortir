@@ -50,12 +50,35 @@ footer:hover{
 }
 
 /************************* AFFICHER LIEU **********************/
-.affLieu {
+.affLieuComplet {
     display: flex;
     flex-direction: row;
     justify-content:space-around;
     align-items:center;
     align-content:center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.affLieuInfos {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items:center;
+    align-content:center;
+}
+
+#labelInfosLieu{
+    color: #ffc800;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-align: right;
+    margin-right: 10px;
+}
+#donneesInfosLieu{
+    text-align: left;
+    font-size: 1.3em;
+    margin-left: 10px;
 }
 
 /*Taille de la map*/

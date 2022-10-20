@@ -65,17 +65,22 @@ class MajEtatCommand extends Command
         foreach ($sortiesCloturees as $sortieCloturee) {
             $inscriptionsSortieCloturee = $sortieCloturee->getNombreParticipants();
             $inscriptionsMax = $sortieCloturee->getNbInscriptionsMax();
-            if (($dateFormatee < $dateSortieOuverteFormatee) and ($inscriptionsSortieCloturee < $inscriptionsMax)) {
-                $sortieCloturee->setEtats($ouverte);
-                $this->manager->persist($sortieCloturee);
-            }
-        }
-        foreach ($sortiesCloturees as $sortieCloturee) {
+            $dateLimiteInscription = $sortieCloturee->getDateLimiteInscription()->format('Y-m-d H:i:s');
+            $dateLimiteInscriptionFormatee = strtotime($dateLimiteInscription);
             $dateSortieCloturee = $sortieCloturee->getDateHeureDebut()->format('Y-m-d H:i:s');
             $dateSortieClotureeFormatee = strtotime($dateSortieCloturee);
-            if ($dateFormatee > $dateSortieClotureeFormatee) {
-                $sortieCloturee->setEtats($enCours);
+            if (($dateFormatee < $dateLimiteInscriptionFormatee) and ($inscriptionsSortieCloturee < $inscriptionsMax)) {
+                $sortieCloturee->setEtats($ouverte);
                 $this->manager->persist($sortieCloturee);
+                $this->manager->flush();
+            }
+            if ($dateFormatee > $dateSortieClotureeFormatee) {
+                //var_dump($dateFormatee);
+                //var_dump($dateSortieClotureeFormatee);
+                $sortieCloturee->setEtats($enCours);
+                //dd($sortieCloturee);
+                $this->manager->persist($sortieCloturee);
+                $this->manager->flush();
             }
         }
         foreach ($sortiesEnCours as $sortieEnCours) {
@@ -87,6 +92,7 @@ class MajEtatCommand extends Command
             if ($dateFormatee > $dateSortieEnCoursFormatee) {
                 $sortieEnCours->setEtats($passee);
                 $this->manager->persist($sortieEnCours);
+                $this->manager->flush();
             }
         }
         foreach ($sortiesPassees as $sortiePassee) {
@@ -97,10 +103,9 @@ class MajEtatCommand extends Command
             if ($dateFormatee > $dateSortieArchiveFormatee) {
                 $sortieEnCours->setEtats($archivee);
                 $this->manager->persist($sortiePassee);
+                $this->manager->flush();
             }
         }
-
-        $this->manager->flush();
 
         return Command::SUCCESS;
     }

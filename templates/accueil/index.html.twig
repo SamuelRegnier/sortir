@@ -144,11 +144,11 @@
                                         <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
                                     {% endif %}
                                 {% endif %}
-                                {% if app.user.id == sortie.organisateur.id %}
-                                    <span> - </span>
-                                    <a href="{{ path('sortie_annulee', {'id': sortie.id}) }}">Annuler</a>
-                                {% endif %}
                             {% endfor %}
+                            {% if app.user.id == sortie.organisateur.id %}
+                                <span> - </span>
+                                <a href="{{ path('sortie_annulee', {'id': sortie.id}) }}">Annuler</a>
+                            {% endif %}
                         {% endif %}
 
                         {# Etat Sortie En cours #}
