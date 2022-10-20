@@ -55,6 +55,7 @@
 .affSortie {
 
     margin: 80px auto;
+    background-color: black;
     display: flex;
     flex-direction: row;
     justify-content:space-around;

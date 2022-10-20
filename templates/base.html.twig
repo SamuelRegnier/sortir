@@ -42,7 +42,6 @@
                     <li><a href="{{ path('accueil_index') }}">Accueil</a></li>
                 </ul>
             </nav>
-
         {% endif %}
         <main id="bodyAccueil">
         {% block body %}{% endblock %}
@@ -50,33 +49,7 @@
         <footer>
             <p>&copy; ManyToOne Company - {{'now'|date('Y') }}</p>
         </footer>
-        <script>
-            var lat = {% if sortie.lieux.latitude == null %}
-                    47.218371
-                    {% else %}
-                    {{ sortie.lieux.latitude }}
-                    {% endif %};
-            var lon = {% if sortie.lieux.latitude == null %}
-                    -1.553621
-                    {% else %}
-                    {{ sortie.lieux.longitude }}
-                    {% endif %};
-
-            var zoom = {% if sortie.lieux.latitude == null and sortie.lieux.latitude == null %}
-                11
-            {% else %}
-            13
-            {% endif %};
-
-            var map = L.map('map').setView([lat, lon], zoom);
-
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
-
-            var marker = L.marker([lat, lon]).addTo(map);
-        </script>
+        {% block script %}{% endblock %}
     </body>
 </html>
 

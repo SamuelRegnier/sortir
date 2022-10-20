@@ -5,51 +5,52 @@
 {% block body %}
     <h1>Afficher une sortie</h1>
     <div class="affSortie">
-        <div>
-            <p>Nom de la sortie : </p>
-            <p>Date et heure de la sortie : </p>
-            <p>Date limite d'inscription : </p>
-            <p>Nombre de places : </p>
-            <p>Durée : </p>
-            <p>Description et infos : </p>
-        </div>
-        <div>
-            <p>{{ sortie.nom }}</p>
-            <p>{{ sortie.dateHeureDebut|date('d-m-Y H:i:s') }}</p>
-            <p>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</p>
-            <p>{{ sortie.nbInscriptionsMax }}</p>
-            <p>{{ sortie.duree }} minutes</p>
-            <p>{{ sortie.infosSortie }}</p>
-        </div>
-        <div>
-            <p>Lieu : </p>
-            <p>Rue : </p>
-            <p>Ville : </p>
-            <p>Code Postal : </p>
-            <p>Latitude : </p>
-            <p>Longitude : </p>
-        </div>
-        <div>
-            <p>{{ sortie.site.nom }}</p>
-            <p>{{ sortie.lieux.rue }}</p>
-            <p>{{ sortie.lieux.villes.nom }}</p>
-            <p>{{ sortie.lieux.villes.codePostal }}</p>
-            <p>{{ sortie.lieux.latitude }}</p>
-            <p>{{ sortie.lieux.longitude }}</p>
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>Nom de la sortie : </p>
+                <p>Date et heure de la sortie : </p>
+                <p>Date limite d'inscription : </p>
+                <p>Nombre de places : </p>
+                <p>Durée : </p>
+                <p>Description et infos : </p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ sortie.nom }}</p>
+                <p>{{ sortie.dateHeureDebut|date('d-m-Y H:i:s') }}</p>
+                <p>{{ sortie.dateLimiteInscription|date('d-m-Y') }}</p>
+                <p>{{ sortie.nbInscriptionsMax }}</p>
+                <p>{{ sortie.duree }} minutes</p>
+                <p>{{ sortie.infosSortie }}</p>
+            </div>
+            <div id="labelInfosLieu">
+                <p>Lieu : </p>
+                <p>Rue : </p>
+                <p>Ville : </p>
+                <p>Code Postal : </p>
+                <p>Latitude : </p>
+                <p>Longitude : </p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ sortie.site.nom }}</p>
+                <p>{{ sortie.lieux.rue }}</p>
+                <p>{{ sortie.lieux.villes.nom }}</p>
+                <p>{{ sortie.lieux.villes.codePostal }}</p>
+                <p>{{ sortie.lieux.latitude }}</p>
+                <p>{{ sortie.lieux.longitude }}</p>
+            </div>
         </div>
     </div>
-    <hr>
     <div class="affSortie">
         <div>
             <h3>Liste des participants inscrit</h3>
             <table class="table">
-                <tr>
+                <tr id="labelInfosLieu">
                     <th scope="col">Pseudo</th>
                     <th scope="col">Nom</th>
                 </tr>
                 {% for idParticipant in inscription %}
                     {% if idParticipant.sortie.id == sortie.id %}
-                        <tr>
+                        <tr id="donneesInfosLieu">
                             <td>
                                 <a href="{{ path('profil_affichageProfilInscrit', {'id' : idParticipant.participant.id}) }}">{{ idParticipant.participant.pseudo }}</a>
                             </td>
