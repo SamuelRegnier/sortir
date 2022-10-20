@@ -3,45 +3,45 @@
 {% block title %}{{ parent() }} | Lieux{% endblock %}
 
 {% block body %}
-    <h1>Liste des lieux existents en base</h1>
-
-    <div class="scroller">
-        <table class="table" id="table1">
-            <tr>
-                <th scope="col">Nom du lieu</th>
-                <th scope="col">Nom de la ville</th>
-                <th scope="col">Code Postal</th>
-                <th scope="col">Nom de la rue</th>
-                <th scope="col">Latitude</th>
-                <th scope="col">Longitude</th>
-                <th scope="col">Action</th>
-            </tr>
-            {% for lieu in lieux%}
-            <tr>
-                <td>{{ lieu.nom }}</td>
-                <td>{{ lieu.villes.nom }}</td>
-                <td>{{ lieu.villes.codePostal }}</td>
-                <td>{{ lieu.rue }}</td>
-                <td>{{ lieu.latitude }}</td>
-                <td>{{ lieu.longitude }}</td>
-                <td>
-                    {% if not app.user.administrateur %}
-                    <a href="{{ path('lieu_afficher', {'id': lieu.id}) }}">Afficher</a>
-                    {% endif %}
-                    {% if app.user.administrateur %}
-                    <a href="{{ path('lieu_afficher', {'id': lieu.id}) }}">Afficher / Modifier / Supprimer</a>
-                    {% endif %}
-                </td>
-            <tr>
-                {% endfor %}
-        </table>
+    <div class="listeLieux">
+        <h1>Liste des lieux</h1>
+        <div class="scroller">
+            <table class="table" id="table1">
+                <tr>
+                    <th scope="col">Nom du lieu</th>
+                    <th scope="col">Nom de la ville</th>
+                    <th scope="col">Code Postal</th>
+                    <th scope="col">Nom de la rue</th>
+                    <th scope="col">Latitude</th>
+                    <th scope="col">Longitude</th>
+                    <th scope="col">Action</th>
+                </tr>
+                {% for lieu in lieux%}
+                <tr>
+                    <td>{{ lieu.nom }}</td>
+                    <td>{{ lieu.villes.nom }}</td>
+                    <td>{{ lieu.villes.codePostal }}</td>
+                    <td>{{ lieu.rue }}</td>
+                    <td>{{ lieu.latitude }}</td>
+                    <td>{{ lieu.longitude }}</td>
+                    <td>
+                        {% if not app.user.administrateur %}
+                        <a href="{{ path('lieu_afficher', {'id': lieu.id}) }}">Afficher</a>
+                        {% endif %}
+                        {% if app.user.administrateur %}
+                        <a href="{{ path('lieu_afficher', {'id': lieu.id}) }}">Afficher / Modifier / Supprimer</a>
+                        {% endif %}
+                    </td>
+                <tr>
+                    {% endfor %}
+            </table>
+        </div>
+        {% if app.user.administrateur %}
+        <div class="affSortie">
+            <a href="{{ path('lieu_ajouter') }}"><button class="buttonForm">Créer un Lieu</button></a>
+        </div>
+        {% endif %}
     </div>
-    {% if app.user.administrateur %}
-    <div class="affSortie">
-        <a href="{{ path('lieu_ajouter') }}" class="btn btn-warning">Créer un lieu</a>
-    </div>
-    {% endif %}
-
 {% endblock %}
 
 

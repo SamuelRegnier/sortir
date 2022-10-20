@@ -3,33 +3,33 @@
 {% block title %}{{ parent() }} | Sites{% endblock %}
 
 {% block body %}
-    <h1>Liste des sites existents en base</h1>
-
-    <div class="scroller">
-        <table class="table" id="table1">
-            <tr>
-                <th scope="col">Nom du site</th>
-                <th scope="col">Action</th>
-            </tr>
-            {% for site in sites%}
-            <tr>
-                <td>{{ site.nom }}</td>
-                <td>
-                    {% if not app.user.administrateur %}
-                    <a href="{{ path('site_afficher', {'id': site.id}) }}">Afficher</a>
-                    {% endif %}
-                    {% if app.user.administrateur %}
-                    <a href="{{ path('site_afficher', {'id': site.id}) }}">Afficher / Modifier / Supprimer</a>
-                    {% endif %}
-                </td>
-            <tr>
-                {% endfor %}
-        </table>
-    </div>
-    {% if app.user.administrateur %}
-        <div class="affSortie">
-            <a href="{{ path('site_ajouter') }}" class="btn btn-warning">Créer un site</a>
+    <div class="listeLieux">
+        <h1>Liste des sites</h1>
+        <div class="scroller">
+            <table class="table" id="table1">
+                <tr>
+                    <th scope="col">Nom du site</th>
+                    <th scope="col">Action</th>
+                </tr>
+                {% for site in sites%}
+                <tr>
+                    <td>{{ site.nom }}</td>
+                    <td>
+                        {% if not app.user.administrateur %}
+                        <a href="{{ path('site_afficher', {'id': site.id}) }}">Afficher</a>
+                        {% endif %}
+                        {% if app.user.administrateur %}
+                        <a href="{{ path('site_afficher', {'id': site.id}) }}">Afficher / Modifier / Supprimer</a>
+                        {% endif %}
+                    </td>
+                <tr>
+                    {% endfor %}
+            </table>
         </div>
-    {% endif %}
-
+        {% if app.user.administrateur %}
+            <div class="affSortie">
+                <a href="{{ path('site_ajouter') }}"><button class="buttonForm">Créer un Site</button></a>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
