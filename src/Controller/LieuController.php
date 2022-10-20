@@ -21,6 +21,9 @@ class LieuController extends AbstractController
         HttpClientInterface $client,
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('lieu_liste');
         }
@@ -66,6 +69,9 @@ class LieuController extends AbstractController
         Lieu $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('lieu_liste');
         }
@@ -91,9 +97,10 @@ class LieuController extends AbstractController
         LieuRepository $lieuRepository
     ): Response
     {
-
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $lieux = $lieuRepository->findAll();
-
         return $this->render('lieu/liste.html.twig',
             compact('lieux')
         );
@@ -105,6 +112,9 @@ class LieuController extends AbstractController
         Lieu $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $lieu = $lieuRepository->findOneBy(array('id'=>$id));
 
         if (!$this->getUser()->isAdministrateur()) {
@@ -123,6 +133,9 @@ class LieuController extends AbstractController
         Lieu $id
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         if (!$this->getUser()->isAdministrateur()){
             return $this->redirectToRoute('lieu_liste');
         }

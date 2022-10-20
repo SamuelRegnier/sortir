@@ -25,19 +25,45 @@
 }
 #descriptionSortie{
     height: 150px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 0 200px;
+}
+#labelDescription{
+    color: #ffc800;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 #formulaireSortie{
     margin: 30px auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content:space-around;
+    justify-content: center;
     align-items:center;
     align-content:center;
 }
 .CreerSortie{
+    display: flex;
+    flex-direction: row;
+    align-content:center;
+}
+.labelInfosSortie{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: #ffc800;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: left;
+    margin: 15px 15px;
 
+}
+.donneesInfosSortie{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: right;
+    margin: 15px 15px;
+    width: 300px;
 }
 
 /************************* AFFICHER SORTIES **********************/
@@ -48,14 +74,4 @@
     justify-content:space-around;
     align-items:center;
     align-content:center;
-}
-.labelInfosSortie{
-    color: #ffc800;
-    font-weight: bold;
-    font-size: 1.3em;
-    text-align: right;
-}
-.donneesInfosSortie{
-    text-align: left;
-    font-size: 1.3em;
 }

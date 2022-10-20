@@ -25,6 +25,10 @@ class AccueilController extends AbstractController
                           Request $request
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
+
         $sorties = $sortieRepository->findAll();
         $sites = $siteRepository->findAll();
         $inscription = $inscriptionRepository->findAll();

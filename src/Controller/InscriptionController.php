@@ -24,6 +24,10 @@ class InscriptionController extends AbstractController
         EtatRepository $etatRepository
     ):response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
+
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $user = $this->getUser();
         $dejaInscrit = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
@@ -60,6 +64,9 @@ class InscriptionController extends AbstractController
         EtatRepository $etatRepository
     ):response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $sortie = $sortieRepository->findOneBy(array('id'=>$id));
         $nbParticipants = $sortie->getNombreParticipants();
         $user = $this->getUser();

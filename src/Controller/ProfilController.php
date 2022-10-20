@@ -25,6 +25,9 @@ class ProfilController extends AbstractController
         Request $request,
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $profil = new Participant();
         $formProfil = $this->createForm(CreationProfilType::class,$profil);
 
@@ -57,6 +60,9 @@ class ProfilController extends AbstractController
     #[Route('accueil/profil/affichage', name: 'profil_affichageProfil')]
     public function affichageProfil(): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $profil = $this->getUser();
 
         return $this->render('profil/affichage.html.twig',
@@ -69,6 +75,9 @@ class ProfilController extends AbstractController
         Request $request,
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $profil = $this->getUser();
         $formProfil = $this->createForm(ParticipantType::class,$profil);
 
@@ -93,6 +102,9 @@ class ProfilController extends AbstractController
         Request $request,
     ): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         $ancienProfil = $this->getUser();
         $profil = $this->getUser();
         $formMdp = $this->createForm(MotDePasseType::class,$profil);
@@ -128,6 +140,9 @@ class ProfilController extends AbstractController
     #[Route('accueil/profil/affichage/{id}', name: 'profil_affichageProfilInscrit', requirements: ['id' => '\d+'])]
     public function affichageProfilInscrit(Participant $idParticipant, SortieRepository $sortieRepository, InscriptionRepository $inscriptionRepository): Response
     {
+        if(!$this->getUser()){
+            $this->redirectToRoute('app_login');
+        }
         return $this->render('profil/affichage_profil_inscrit.html.twig', [
             "affichageProfilInscrit" => $idParticipant,
         ]);
