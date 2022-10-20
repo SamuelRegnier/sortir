@@ -1,0 +1,15 @@
+/************************* AFFICHER LIEU **********************/
+.affLieu {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items:center;
+    align-content:center;
+}
+
+/*Taille de la map*/
+#map {
+    float: left;
+    height: 400px;
+    width: 400px; /*largeur*/
+}
