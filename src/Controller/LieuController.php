@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
-use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Repository\LieuRepository;
-use App\Repository\VilleRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,35 +13,106 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LieuController extends AbstractController
 {
-    #[Route('/lieu', name: 'app_lieu_ajout')]
-    public function index(
+    #[Route('/lieu/ajouter', name: 'lieu_ajouter')]
+    public function ajouter(
         Request $request,
         EntityManagerInterface $entityManager,
-        LieuRepository $lieuRepository,
-        VilleRepository $villeRepository
     ): Response
     {
+        if (!$this->getUser()->isAdministrateur()){
+            return $this->redirectToRoute('lieu_liste');
+        }
+
         $lieu = new Lieu();
-        $ville = new Ville();
 
         $form = $this->createForm(LieuType::class, $lieu);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-        $ville->setNom($form->get('ville')->getData());
-        $ville->setCodePostal($form->get('code_postal')->getData());
-
-        $lieu->setVilles($ville);
-
-            $entityManager->persist($ville);
+            $this->addFlash('success', 'Création du lieu réalisé avec succès!');
             $entityManager->persist($lieu);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_creer_sortie');
+            return $this->redirectToRoute('lieu_afficher', ['id'=> $lieu->getId() ]);
         }
 
-        return $this->render('lieu/index.html.twig', [
+        return $this->render('lieu/ajouter.html.twig', [
             'form'=>$form->createView(),
         ]);
+    }
+
+    #[Route('/lieu/modifier/{id}', name: 'lieu_modifier')]
+    public function modifier(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        LieuRepository $lieuRepository,
+        Lieu $id
+    ): Response
+    {
+        if (!$this->getUser()->isAdministrateur()){
+            return $this->redirectToRoute('lieu_liste');
+        }
+
+        $lieu = $lieuRepository->findOneBy(array('id'=>$id));
+        $formLieu = $this->createForm(LieuType::class, $lieu);
+        $formLieu->handleRequest($request);
+
+        if ($formLieu->isSubmitted() && $formLieu->isValid()){
+            $this->addFlash('success', 'Modification du lieu réalisé avec succès!');
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+            return $this->redirectToRoute('lieu_afficher', ['id'=> $lieu->getId() ]);
+        }
+
+        return $this->renderForm('lieu/modifier.html.twig',
+            compact('formLieu')
+        );
+    }
+
+    #[Route('/lieu', name: 'lieu_liste')]
+    public function liste(
+        LieuRepository $lieuRepository
+    ): Response
+    {
+
+        $lieux = $lieuRepository->findAll();
+
+        return $this->render('lieu/liste.html.twig',
+            compact('lieux')
+        );
+    }
+
+    #[Route('/lieu/afficher/{id}', name: 'lieu_afficher')]
+    public function afficher(
+        LieuRepository $lieuRepository,
+        Lieu $id
+    ): Response
+    {
+        $lieu = $lieuRepository->findOneBy(array('id'=>$id));
+
+        if (!$this->getUser()->isAdministrateur()) {
+            return $this->render('lieu/afficher_utilisateur.html.twig',
+                compact('lieu')
+            );
+        } return $this->render('lieu/afficher.html.twig',
+        compact('lieu')
+    );
+    }
+
+    #[Route('/lieu/supprimer/{id}', name: 'lieu_supprimer')]
+    public function supprimer(
+        LieuRepository $lieuRepository,
+        EntityManagerInterface $entityManager,
+        Lieu $id
+    ): Response
+    {
+        if (!$this->getUser()->isAdministrateur()){
+            return $this->redirectToRoute('lieu_liste');
+        }
+
+        $lieu = $lieuRepository->findOneBy(array('id'=>$id));
+        $entityManager->remove($lieu);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('lieu_liste');
     }
 }

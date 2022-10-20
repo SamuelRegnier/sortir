@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Villes{% endblock %}
+
+{% block body %}
+
+<h1>Liste des villes existentes en base</h1>
+
+<div class="scroller">
+    <table class="table" id="table1">
+        <tr>
+            <th scope="col">Nom de la ville</th>
+            <th scope="col">Code Postal</th>
+            <th scope="col">Action</th>
+        </tr>
+            {% for ville in villes%}
+                <tr>
+                    <td>{{ ville.nom }}</td>
+                    <td>{{ ville.codePostal }}</td>
+                    <td>
+                        {% if not app.user.administrateur %}
+                        <a href="{{ path('ville_afficher', {'id': ville.id}) }}">Afficher</a>
+                        {% endif %}
+                        {% if app.user.administrateur %}
+                        <a href="{{ path('ville_afficher', {'id': ville.id}) }}">Afficher / Modifier / Supprimer</a>
+                        {% endif %}
+                    </td>
+                <tr>
+            {% endfor %}
+    </table>
+</div>
+{% if app.user.administrateur %}
+    <div class="affSortie">
+        <a href="{{ path('ville_creer') }}" class="btn btn-warning">Créer une ville</a>
+    </div>
+{% endif %}
+{% endblock %}
+
+

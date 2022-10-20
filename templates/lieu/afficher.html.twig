@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | {{ lieu.nom }}{% endblock %}
+
+{% block body %}
+    <div class="small-text-center
+">
+    <h1>Information lieu : {{ lieu.nom }}</h1>
+    </div>
+    <div class="affSortie">
+        <div>
+            <p>Nom : </p>
+            <p>Ville : </p>
+            <p>Code Postal : </p>
+            <p>Rue : </p>
+            <p>Latitude : </p>
+            <p>Longitude : </p>
+        </div>
+        <div>
+            <p>{{ lieu.nom }}</p>
+            <p>{{ lieu.villes.nom }}</p>
+            <p>{{ lieu.villes.codePostal }}</p>
+            <p>{{ lieu.rue }}</p>
+            <p>{{ lieu.latitude }}</p>
+            <p>{{ lieu.longitude }}</p>
+        </div>
+    </div>
+    <div class="affSortie">
+        <a href="{{ path('lieu_modifier', {'id': lieu.id}) }}" class="btn btn-warning">Modifier</a>
+        <a href="{{ path('lieu_supprimer', {'id': lieu.id}) }}" class="btn btn-warning">Supprimer</a>
+        <a href="{{ path('lieu_liste') }}" class="btn btn-warning">Retour</a>
+    </div>
+{% endblock %}
+

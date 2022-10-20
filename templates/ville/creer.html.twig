@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Création ville{% endblock %}
+
+{% block body %}
+    {{ form_start(formVille) }}
+    {{ form_widget(formVille) }}
+    <input type="submit" value="Ajouter">
+    {{ form_end(formVille) }}
+    <a href="{{ path('ville_liste') }}"><button >Retour</button></a>
+{% endblock %}

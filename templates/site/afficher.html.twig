@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | {{ site.nom }}{% endblock %}
+
+{% block body %}
+    <div class="small-text-center">
+        <h1>Information site : {{ site.nom }}</h1>
+    </div>
+    <div class="affSortie">
+        <div>
+            <p>Nom : </p>
+        </div>
+        <div>
+            <p>{{ site.nom }}</p>
+        </div>
+    </div>
+    <div class="affSortie">
+        <a href="{{ path('site_modifier', {'id': site.id}) }}" class="btn btn-warning">Modifier</a>
+        <a href="{{ path('site_supprimer', {'id': site.id}) }}" class="btn btn-warning">Supprimer</a>
+        <a href="{{ path('site_liste') }}" class="btn btn-warning">Retour</a>
+    </div>
+{% endblock %}
+

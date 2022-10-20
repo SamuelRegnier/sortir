@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | Modification ville{% endblock %}
+
+{% block body %}
+    {{ form_start(formVille) }}
+    {{ form_widget(formVille) }}
+    <input type="submit" value="Modifier">
+    {{ form_end(formVille) }}
+    <input type="button" value="Retour" onclick="history.back()">
+{% endblock %}

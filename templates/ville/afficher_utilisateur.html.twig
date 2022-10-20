@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} | {{ ville.nom }}{% endblock %}
+
+{% block body %}
+    <h1>Information ville : {{ ville.nom }}</h1>
+    <div class="affSortie">
+        <div>
+            <p>Nom : </p>
+            <p>Code Postal : </p>
+        </div>
+        <div>
+            <p>{{ ville.nom }}</p>
+            <p>{{ ville.codePostal }}</p>
+        </div>
+    </div>
+    <div class="affSortie">
+        <a href="{{ path('ville_liste') }}" class="btn btn-warning">Retour</a>
+    </div>
+{% endblock %}
+
