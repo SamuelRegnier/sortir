@@ -1,18 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}}|Sortie{% endblock %}
-
-{% block javascripts %}
-{#    <script>#}
-{#        let map = L.map('map').setView([51.505, -0.09], 13);#}
-{#        let marker = L.marker([51.5, -0.09]).addTo(map);#}
-{#    </script>#}
-    <style>
-        #map {
-            height: 200px;
-        }
-    </style>
-{% endblock %}
+{% block title %}{{ parent() }}|Sortie{% endblock %}
 
 {% block body %}
     <h1>Afficher une sortie</h1>
@@ -61,12 +49,12 @@
                 </tr>
                 {% for idParticipant in inscription %}
                     {% if idParticipant.sortie.id == sortie.id %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('profil_affichageProfilInscrit', {'id' : idParticipant.participant.id}) }}">{{ idParticipant.participant.pseudo }}</a>
-                        </td>
-                        <td>{{ idParticipant.participant.prenom }} {{ idParticipant.participant.nom }}</td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <a href="{{ path('profil_affichageProfilInscrit', {'id' : idParticipant.participant.id}) }}">{{ idParticipant.participant.pseudo }}</a>
+                            </td>
+                            <td>{{ idParticipant.participant.prenom }} {{ idParticipant.participant.nom }}</td>
+                        </tr>
                     {% endif %}
                 {% endfor %}
             </table>
@@ -80,21 +68,21 @@
 {% block script %}
     <script>
         var lat = {% if sortie.lieux.latitude == null %}
-                        47.218371
-                    {% else %}
-                        {{ sortie.lieux.latitude }}
-                    {% endif %};
+                47.218371
+                {% else %}
+                {{ sortie.lieux.latitude }}
+                {% endif %};
         var lon = {% if sortie.lieux.latitude == null %}
-                        -1.553621
-                    {% else %}
-                        {{ sortie.lieux.longitude }}
-                    {% endif %};
+                -1.553621
+                {% else %}
+                {{ sortie.lieux.longitude }}
+                {% endif %};
 
         var zoom = {% if sortie.lieux.latitude == null and sortie.lieux.latitude == null %}
-                        11
-                    {% else %}
-                        13
-                    {% endif %};
+            11
+        {% else %}
+        13
+        {% endif %};
 
         var map = L.map('map').setView([lat, lon], zoom);
 
@@ -106,14 +94,3 @@
         var marker = L.marker([lat, lon]).addTo(map);
     </script>
 {% endblock %}
-
-{#var lat = {% if sortie.lieux.latitude == null %}#}
-{#    47.218371#}
-{#{% else %}#}
-{#    {{ sortie.lieux.latitude }}#}
-{#                    {% endif %};#}
-{#var lon = {% if sortie.lieux.latitude == null %}#}
-{#    -1.553621#}
-{#{% else %}#}
-{#    {{ sortie.lieux.longitude }}#}
-{#                    {% endif %};#}

@@ -104,14 +104,14 @@ footer:hover{
     margin-left: 10px;
 }
 
-/************************* VITRINE **********************/
-
 /*Taille de la map*/
 #map {
     float: left;
     height: 400px;
     width: 400px; /*largeur*/
 }
+
+/************************* VITRINE **********************/
 
 /*Scroll du tableau de sorties de la page d'accueil*/
 .scroller {
