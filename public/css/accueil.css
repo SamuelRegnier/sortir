@@ -116,11 +116,11 @@ nav li a:hover{
     transform: scale(1.20);
     color: #ffc800;
 }
-#bodyAccueil h2{
+#bodyAccueil h3{
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#bodyAccueil h2:hover{
+#bodyAccueil h3:hover{
     color: #ffc800;
 }
 #table1{
