@@ -2,11 +2,22 @@
 
 {% block body %}
     <h1>{{ profil.pseudo }}</h1>
-    <p>{{ profil.nom }}</p>
-    <p>{{ profil.prenom }}</p>
-    <p>{{ profil.telephone }}</p>
-    <p>{{ profil.email }}</p>
-    <p>{{ profil.site.nom }}</p>
+    <div class="affSortie">
+        <div>
+            <p>Prénom : </p>
+            <p>Nom : </p>
+            <p>Téléphone : </p>
+            <p>Email : </p>
+            <p>Site de rattachement : </p>
+        </div>
+        <div>
+            <p>{{ profil.nom }}</p>
+            <p>{{ profil.prenom }}</p>
+            <p>{{ profil.telephone }}</p>
+            <p>{{ profil.email }}</p>
+            <p>{{ profil.site.nom }}</p>
+        </div>
+    </div>
     <a href="{{ path('profil_modifierProfil') }}"><input type="button" value="Modifier"></a>
     <a href="{{ path('accueil_index') }}"><input type="button" value="Retour"></a>
 {% endblock %}
