@@ -69,7 +69,7 @@ h1{
     color: white;
 }
 
-@media screen, (max-width: 425px){
+    @media screen, (max-width: 425px){
     .container{
         flex-direction: column;
         align-content: center;
@@ -80,4 +80,13 @@ h1{
         max-width: 500px;
     }
 
+}
+
+#sarahGauche{
+    margin-right: 170px;
+    margin-bottom: 170px;
+}
+#sarahDroite{
+    margin-left: 150px;
+    margin-bottom: 170px;
 }

@@ -42,7 +42,7 @@ mickey.onload =() =>{
 
 //********************************  CREER SARAH  *****************************************
 let sarah1 = new Image(50, 50);
-sarah1.src = "../image/sss.gif";
+sarah1.src = "../image/Sarah1.gif";
 
 let sarah2 = new Image(50, 50);
 sarah2.src = "../image/SarahBis.gif";
@@ -85,7 +85,7 @@ function perdu(mechantX,mechantY,x,y){
     }
 }
 function loose(){
-    window.alert("T'as perdu biatch !")
+    window.alert("T'as perdu !")
     window.location.href="../jeu/toucher.html";
 }
 
@@ -286,6 +286,51 @@ function changerDirection(e){
     }
 }
 
+
+// *********************************** IMAGES SARAH COTE *************************************************
+                        // *************** GAUCHE ************************
+let nbImg = 2;
+let imgEnCours = 0;
+let anim = new Array();
+
+for(let i=0; i<nbImg; i++){
+    anim[i] = new Image(100,100);
+    anim[i].src = '../image/Sarah' + (i+1) + '.gif';
+}
+function mouv(){
+    document.getElementById('sarahGauche').src = anim[imgEnCours].src;
+    imgEnCours++;
+    if(imgEnCours >= nbImg) imgEnCours =0;
+}
+
+function animate(){
+    mouv();
+    setInterval(mouv,200);
+}
+                            // *************** DROITE ************************
+
+let nbImg2 = 2;
+let imgEnCours2 = 0;
+let anim2 = new Array();
+
+for(let i=0; i<nbImg2; i++){
+    anim2[i] = new Image(100,100);
+    anim2[i].src = '../image/Sarah' + (i+1) + '.gif';
+}
+function mouv2(){
+    document.getElementById('sarahDroite').src = anim2[imgEnCours2].src;
+    imgEnCours2++;
+    if(imgEnCours2 >= nbImg2) imgEnCours2 =0;
+}
+
+function animate2(){
+    mouv2();
+    setInterval(mouv2,200);
+}
+
+//*********************************************************************************************************
+
+
 document.getElementById("btnDroite").addEventListener("click", deplacerSarahDroite);
 document.getElementById("btnGauche").addEventListener("click", deplacerSarahGauche);
 document.getElementById("btnHaut").addEventListener("click", deplacerSarahHaut);
@@ -295,6 +340,8 @@ document.onkeydown = changerDirection;
 
 window.onload = setInterval(deplacementMechant, 150);
 window.onload = setInterval(deplacementMechant2, 150);
+window.onload = animate();
+window.onload = animate2();
 
 console.log(aleatoireMickeyX, aleatoireMickeyY);
 
