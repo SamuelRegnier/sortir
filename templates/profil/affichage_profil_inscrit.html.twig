@@ -1,28 +1,33 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-    <h1>{{ affichageProfilInscrit.pseudo }}</h1>
+    <div class="small-text-center">
+        <h1>{{ affichageProfilInscrit.pseudo }}</h1>
+    </div>
     <div class="affSortie">
-        <div class="labelInfosLieu">
-            <p>Nom : </p>
-            <p>Prénom : </p>
-            <p>Téléphone : </p>
-            <p>Email : </p>
-            <p>Site de rattachement : </p>
-        </div>
-        <div class="donneesInfosLieu">
-            <p>{{ affichageProfilInscrit.nom }}</p>
-            <p>{{ affichageProfilInscrit.prenom }}</p>
-            <p>{{ affichageProfilInscrit.telephone }}</p>
-            <p>{{ affichageProfilInscrit.email }}</p>
-            <p>{{ affichageProfilInscrit.site.nom }}</p>
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>Nom : </p>
+                <p>Prénom : </p>
+                <p>Téléphone : </p>
+                <p>Email : </p>
+                <p>Site de rattachement : </p>
+            </div>
+            <div class="donneesInfosLieu">
+                <p>{{ affichageProfilInscrit.nom }}</p>
+                <p>{{ affichageProfilInscrit.prenom }}</p>
+                <p>{{ affichageProfilInscrit.telephone }}</p>
+                <p>{{ affichageProfilInscrit.email }}</p>
+                <p>{{ affichageProfilInscrit.site.nom }}</p>
+            </div>
         </div>
     </div>
-    <input type="button" class="buttonForm" value="Retour" onclick="history.back()">
+    <div>
+        <input type="button" class="buttonForm" value="Retour" onclick="history.back()">
+    </div>
 {% endblock %}
 
 {% block title %}
-   {{ parent() }} | Afficher Profil
+    {{ parent() }} | Afficher Profil
 {% endblock %}
 
