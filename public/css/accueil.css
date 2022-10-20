@@ -134,6 +134,14 @@ nav li a:hover{
     margin-right: 100px;
 }
 
+.rouge {
+    color: red;
+}
+
+.vert {
+    color: #32cd32;
+}
+
 /************************* FOOTER **********************/
 
 footer{

@@ -91,10 +91,10 @@
                             {{ sortie.etats.libelle }}
                         {% endif %}
                         {% if sortie.etats.id == 2 %}
-                            <font color="#32cd32">{{ sortie.etats.libelle }}</font>
+                            <span class="vert">{{ sortie.etats.libelle }}</span>
                         {% endif %}
                         {% if sortie.etats.id == 6 %}
-                            <font color="red">{{ sortie.etats.libelle }}</font>
+                            <span class="rouge">{{ sortie.etats.libelle }}</span>
                         {% endif %}
                     </td>
                     <td>
@@ -166,8 +166,7 @@
 
                             {# Etat Sortie Annulée #}
                             {% if sortie.etats.id == 6 %}
-                                <span><font color="red">Sortie annulée !</font> - (<a
-                                            href="{{ path('sortie_annulee_Detail', {'id': sortie.id}) }}">Détail</a>)</span>
+                                <span class="rouge">Sortie annulée !</span><span> - (<a href="{{ path('sortie_annulee_Detail', {'id': sortie.id}) }}">Détail</a>)</span>
                             {% endif %}
                         </td>
                     </tr>
