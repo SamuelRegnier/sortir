@@ -2,11 +2,22 @@
 
 {% block body %}
     <h1>{{ affichageProfilInscrit.pseudo }}</h1>
-    <p>{{ affichageProfilInscrit.nom }}</p>
-    <p>{{ affichageProfilInscrit.prenom }}</p>
-    <p>{{ affichageProfilInscrit.telephone }}</p>
-    <p>{{ affichageProfilInscrit.email }}</p>
-    <p>{{ affichageProfilInscrit.site.nom }}</p>
+    <div class="affSortie">
+        <div>
+            <p>Prénom : </p>
+            <p>Nom : </p>
+            <p>Téléphone : </p>
+            <p>Email : </p>
+            <p>Site de rattachement : </p>
+        </div>
+        <div>
+            <p>{{ affichageProfilInscrit.nom }}</p>
+            <p>{{ affichageProfilInscrit.prenom }}</p>
+            <p>{{ affichageProfilInscrit.telephone }}</p>
+            <p>{{ affichageProfilInscrit.email }}</p>
+            <p>{{ affichageProfilInscrit.site.nom }}</p>
+        </div>
+    </div>
     <input type="button" value="Retour" onclick="history.back()">
 {% endblock %}
 

@@ -15,7 +15,7 @@
                 <p>{{ sortie.nom }}</p>
                 <p>{{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
                 <p>{{ sortie.site.nom }}</p>
-                <p>{{ sortie.lieux.nom }}</p>
+                <p>{{ sortie.lieux.nom }}, {{ sortie.lieux.rue }}, {{ sortie.lieux.villes.codePostal }} {{ sortie.lieux.villes.nom }}</p>
                 <p>{{ sortie.motifAnnulation }}</p>
             </div>
         </div>
