@@ -1,5 +1,11 @@
-body {
-
+#bodyAccueil{
+    min-height: 90vh;
+    background-color: black;
+    color: #5eb5e0;
+    margin: -20px 0 0 0;
+    padding-top: 0;
+    opacity: 0.85;
+    text-align: center;
 }
 
 /************************* NAVBAR **********************/
@@ -19,7 +25,7 @@ nav li{
 nav li a {
     text-decoration: none;
     text-align: center;
-    padding: 12px 12px;
+    padding: 17px 12px;
     color: white;
     display: block;
     border: 1px solid #5eb5e0;
@@ -45,11 +51,25 @@ footer:hover{
 
 /************************* AFFICHER SORTIES **********************/
 .affSortie {
+
+    margin: 80px auto;
     display: flex;
     flex-direction: row;
     justify-content:space-around;
     align-items:center;
     align-content:center;
+}
+#labelInfos{
+    color: #ffc800;
+    font-weight: bold;
+    margin-left: 30%;
+    font-size: 1.3em;
+    text-align: right;
+}
+#donneesInfos{
+    text-align: left;
+    margin-right: 30%;
+    font-size: 1.3em;
 }
 /************************* VITRINE **********************/
 
@@ -151,13 +171,6 @@ footer:hover{
 }
 
 /************************* LOGIN **********************/
-#bodyLogin{
-    min-height: 100vh;
-    background-color: black;
-    color: #5eb5e0;
-    margin-bottom: 0;
-    opacity: 0.85;
-}
 #titreLogin{
     margin-top: 80px;
     padding-bottom: 80px;
@@ -185,15 +198,7 @@ footer:hover{
 }
 
 /************************** ACCUEIL *************************/
-#bodyAccueil{
-    min-height: 90vh;
-    background-color: black;
-    color: #5eb5e0;
-    margin-bottom: 0;
-    padding-top: 0;
-    opacity: 0.85;
-    text-align: center;
-}
+
 #bodyAccueil h4{
     padding-top: 12px;
     text-align: right;
@@ -219,10 +224,13 @@ footer:hover{
 .enteteAccueil{
     display: flex;
     justify-content: center;
-    margin: -16px 30px 10px 0;
+    margin: -16px auto 10px auto;
 }
 .formAccueil{
     text-align: center;
+}
+.formAccueil legend{
+    font-size: 1.9em;
 }
 .formAccueil legend:hover{
     color: #ffc800;
@@ -257,6 +265,15 @@ footer:hover{
 .scroller #tr{
     font-size: 1.1em;
 }
+#bodyAccueil h1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#bodyAccueil h1:hover{
+    transition: 0.3s ease-in-out;
+    transform: scale(1.20);
+    color: #ffc800;
+}
 #bodyAccueil h2{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -274,11 +291,8 @@ footer:hover{
     min-height: 90vh;
     background-color: black;
     color: #5eb5e0;
-    margin: 0 auto;
-    padding-top: 0;
     opacity: 0.85;
-    text-align: center;
-    margin: -16px 0 0 0;
+    margin: -20px 0 0 0;
 }
 #bodyCreerSortie h1{
     padding: 50px;
@@ -304,17 +318,16 @@ footer:hover{
 .creerSortieLigne{
     margin: 30px 75px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-
 }
 .labelForm{
     font-size: 1.2em;
 }
 .ligneSortie{
     display: flex;
-    justify-content: left;
     margin: 0 70px;
+    justify-content: right;
 }
 #descriptionSortie{
     height: 150px;
@@ -324,3 +337,5 @@ footer:hover{
 #formCreerSortie{
     margin-top: 50px;
 }
+
+/********************* INFOS PROFIL *******************************/
