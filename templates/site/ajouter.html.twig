@@ -7,6 +7,8 @@
     {{ form_widget(form) }}
     <input type="submit" value="Ajouter">
     {{ form_end(form) }}
-    <a href="{{ path('site_liste') }}"><button >Retour</button></a>
+    <a href="{{ path('site_liste') }}">
+        <input type="button" class="btn btn-warning buttonForm" value="Retour">
+    </a>
 {% endblock %}
 
