@@ -65,7 +65,7 @@ class AccueilController extends AbstractController
                 $sortiesPassees = 5;
             }
 
-            $sortie = $sortieRepository->findByFiltre($organisateur, $site, $inscrit, $nonInscrit, $sortiesPassees, $nom, $dateDebut, $dateFin, $this->getUser());
+            $sortie = $sortieRepository->findByFiltre($organisateur, $site, $inscrit, $nonInscrit, $sortiesPassees, $nom, $dateDebut, $dateFin);
 
             return $this->render('accueil/index.html.twig',[
                 'sorties'=>$sortie,

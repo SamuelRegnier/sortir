@@ -188,7 +188,6 @@ class SortieController extends AbstractController
         Sortie $id,
         SortieRepository $SortieRepository,
         EtatRepository $etatRepository,
-        InscriptionRepository $inscriptionRepository,
         EntityManagerInterface $entityManager,
         Request $request
     ): Response
