@@ -42,7 +42,7 @@ nav li a:hover{
 
 #bodyAccueil h4{
     padding-top: 12px;
-    text-align: right;
+    /*text-align: right;*/
     color: #ffc800;
 }
 .filtre{
@@ -127,6 +127,11 @@ nav li a:hover{
     border: 1px solid #5eb5e0;
 }
 
+.bouton {
+    height: 100px;
+    width: 100px;
+    margin-right: 100px;
+}
 
 /************************* FOOTER **********************/
 
