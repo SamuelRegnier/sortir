@@ -274,7 +274,6 @@ footer:hover{
 }
 .scroller #tr{
     font-size: 1.1em;
-    color: #ffc800;
 }
 #bodyAccueil h1{
     margin-top: 20px;
@@ -294,6 +293,59 @@ footer:hover{
 }
 #table1{
     border: 1px solid #5eb5e0;
+}
+
+
+/***************************** CREER SORTIE ********************************/
+#bodyCreerSortie{
+    min-height: 90vh;
+    background-color: black;
+    color: #5eb5e0;
+    opacity: 0.85;
+    margin: -20px 0 0 0;
+}
+#bodyCreerSortie h1{
+    padding: 50px;
+}
+#bodyCreerSortie h1:hover{
+    transition: 0.3s ease-in-out;
+    transform: scale(1.20);
+    color: #ffc800;
+}
+.buttonCreer{
+    background-color: #ffc800;
+    border-radius: 10px;
+    width: 150px;
+    height: 45px;
+    margin-top: 10px;
+}
+.buttonCreer:hover{
+    background-color: white;
+    color: #5eb5e0;
+    transition: 0.3s ease-in-out;
+    transform: scale(1.06);
+}
+.creerSortieLigne{
+    margin: 30px 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.labelForm{
+    font-size: 1.2em;
+}
+.ligneSortie{
+    display: flex;
+    margin: 0 70px;
+    justify-content: right;
+}
+#descriptionSortie{
+    height: 150px;
+    margin-bottom: 20px;
+    padding: 0 200px;
+}
+#formCreerSortie{
+    margin-top: 50px;
 }
 
 /********************* INFOS PROFIL *******************************/

@@ -1,40 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}} | {{ lieu.nom }}{% endblock %}
+{% block title %}{{ parent() }} | {{ lieu.nom }}{% endblock %}
 
 {% block body %}
     <div class="small-text-center">
-    <h1>Information lieu : {{ lieu.nom }}</h1>
+        <h1>Information lieu : {{ lieu.nom }}</h1>
     </div>
-<div class="affLieuComplet">
-    <div class="affLieuInfos">
-        <div id="labelInfosLieu">
-            <p>Nom : </p>
-            <p>Ville : </p>
-            <p>Code Postal : </p>
-            <p>Rue : </p>
-            <p>Latitude : </p>
-            <p>Longitude : </p>
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>Nom : </p>
+                <p>Ville : </p>
+                <p>Code Postal : </p>
+                <p>Rue : </p>
+                <p>Latitude : </p>
+                <p>Longitude : </p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ lieu.nom }}</p>
+                <p>{{ lieu.villes.nom }}</p>
+                <p>{{ lieu.villes.codePostal }}</p>
+                <p>{{ lieu.rue }}</p>
+                <p>{{ lieu.latitude }}</p>
+                <p>{{ lieu.longitude }}</p>
+            </div>
         </div>
-        <div id="donneesInfosLieu">
-            <p>{{ lieu.nom }}</p>
-            <p>{{ lieu.villes.nom }}</p>
-            <p>{{ lieu.villes.codePostal }}</p>
-            <p>{{ lieu.rue }}</p>
-            <p>{{ lieu.latitude }}</p>
-            <p>{{ lieu.longitude }}</p>
+        <div>
+            <div id="map"></div>
         </div>
     </div>
-    <div>
-        <div id="map"></div>
-    </div>
-</div>
     <div>
         <a href="{{ path('lieu_modifier', {'id': lieu.id}) }}" class="btn btn-warning buttonForm">Modifier</a>
         <a href="{{ path('lieu_supprimer', {'id': lieu.id}) }}" class="btn btn-warning buttonForm">Supprimer</a>
         <a href="{{ path('lieu_liste') }}" class="btn btn-warning buttonForm">Retour</a>
     </div>
-
 {% endblock %}
 {% block script %}
     <script>
