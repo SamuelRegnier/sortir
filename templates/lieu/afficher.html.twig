@@ -29,10 +29,10 @@
             <div class="divMap" id="map"></div>
         </div>
     </div>
-    <div class="affSortie">
-        <a href="{{ path('lieu_modifier', {'id': lieu.id}) }}" class="buttonForm">Modifier</a>
-        <a href="{{ path('lieu_supprimer', {'id': lieu.id}) }}" class="buttonForm">Supprimer</a>
-        <a href="{{ path('lieu_liste') }}" class="buttonForm">Retour</a>
+    <div>
+        <a href="{{ path('lieu_modifier', {'id': lieu.id}) }}"><button class="buttonForm">Modifier</button></a>
+        <a href="{{ path('lieu_supprimer', {'id': lieu.id}) }}"><button class="buttonForm">Supprimer</button></a>
+        <a href="{{ path('lieu_liste') }}"><button class="buttonForm">Retour</button></a>
     </div>
 {% endblock %}
 
