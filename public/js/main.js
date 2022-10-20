@@ -222,7 +222,6 @@ function deplacerSarahDroite() {
     trouve(valeurX,valeurY,aleatoireMickeyX, aleatoireMickeyY);
     perdu(valeurX, valeurY,aleatoireMechant1X,aleatoireMechant1Y);
     perdu(valeurX,valeurY,aleatoireMechant2X, aleatoireMechant2Y);
-    console.log(valeurX, valeurY);
 }
 
 function deplacerSarahGauche() {
@@ -239,7 +238,6 @@ function deplacerSarahGauche() {
     trouve(valeurX,valeurY,aleatoireMickeyX, aleatoireMickeyY);
     perdu(valeurX, valeurY,aleatoireMechant1X,aleatoireMechant1Y);
     perdu(valeurX,valeurY,aleatoireMechant2X, aleatoireMechant2Y);
-    console.log(valeurX, valeurY);
 }
 
 function deplacerSarahHaut() {
@@ -256,7 +254,6 @@ function deplacerSarahHaut() {
     trouve(valeurX,valeurY,aleatoireMickeyX, aleatoireMickeyY);
     perdu(valeurX, valeurY,aleatoireMechant1X,aleatoireMechant1Y);
     perdu(valeurX,valeurY,aleatoireMechant2X, aleatoireMechant2Y);
-    console.log(valeurX, valeurY);
 }
 
 function deplacerSarahBas() {
@@ -273,7 +270,6 @@ function deplacerSarahBas() {
     trouve(valeurX,valeurY,aleatoireMickeyX, aleatoireMickeyY);
     perdu(valeurX, valeurY,aleatoireMechant1X,aleatoireMechant1Y);
     perdu(valeurX,valeurY,aleatoireMechant2X, aleatoireMechant2Y);
-    console.log(valeurX, valeurY);
     }
 
 
@@ -342,6 +338,4 @@ window.onload = setInterval(deplacementMechant, 150);
 window.onload = setInterval(deplacementMechant2, 150);
 window.onload = animate();
 window.onload = animate2();
-
-console.log(aleatoireMickeyX, aleatoireMickeyY);
 
