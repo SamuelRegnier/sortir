@@ -43,25 +43,25 @@
     <div class="affSortie">
         <div>
             <h3>Liste des participants inscrit</h3>
-            <table class="table">
-                <tr id="labelInfosLieu">
+            <table class="table" id="table1">
+                <tr id="inscritTH">
                     <th scope="col">Pseudo</th>
                     <th scope="col">Nom</th>
                 </tr>
                 {% for idParticipant in inscription %}
                     {% if idParticipant.sortie.id == sortie.id %}
-                        <tr id="donneesInfosLieu">
-                            <td>
+                        <tr>
+                            <td id="inscritTD">
                                 <a href="{{ path('profil_affichageProfilInscrit', {'id' : idParticipant.participant.id}) }}">{{ idParticipant.participant.pseudo }}</a>
                             </td>
-                            <td>{{ idParticipant.participant.prenom }} {{ idParticipant.participant.nom }}</td>
+                            <td  id="inscritTDi">{{ idParticipant.participant.prenom }} {{ idParticipant.participant.nom }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
             </table>
         </div>
         <div>
-            <div id="map"></div>
+            <div class="divMap" id="map"></div>
         </div>
     </div>
 {% endblock %}

@@ -3,30 +3,50 @@
 {% block title %}{{parent()}} | {{ lieu.nom }}{% endblock %}
 
 {% block body %}
-    <div class="small-text-center
-">
+    <div class="small-text-center">
         <h1>Information lieu : {{ lieu.nom }}</h1>
     </div>
-    <div class="affSortie">
-        <div>
-            <p>Nom : </p>
-            <p>Ville : </p>
-            <p>Code Postal : </p>
-            <p>Rue : </p>
-            <p>Latitude : </p>
-            <p>Longitude : </p>
+    <div class="affLieuComplet">
+        <div class="affLieuInfos">
+            <div id="labelInfosLieu">
+                <p>Nom : </p>
+                <p>Ville : </p>
+                <p>Code Postal : </p>
+                <p>Rue : </p>
+                <p>Latitude : </p>
+                <p>Longitude : </p>
+            </div>
+            <div id="donneesInfosLieu">
+                <p>{{ lieu.nom }}</p>
+                <p>{{ lieu.villes.nom }}</p>
+                <p>{{ lieu.villes.codePostal }}</p>
+                <p>{{ lieu.rue }}</p>
+                <p>{{ lieu.latitude }}</p>
+                <p>{{ lieu.longitude }}</p>
+            </div>
         </div>
         <div>
-            <p>{{ lieu.nom }}</p>
-            <p>{{ lieu.villes.nom }}</p>
-            <p>{{ lieu.villes.codePostal }}</p>
-            <p>{{ lieu.rue }}</p>
-            <p>{{ lieu.latitude }}</p>
-            <p>{{ lieu.longitude }}</p>
+            <div class="divMap" id="map"></div>
         </div>
     </div>
     <div class="affSortie">
-        <a href="{{ path('lieu_liste') }}" class="btn btn-warning">Retour</a>
+        <a href="{{ path('lieu_liste') }}"><button class="buttonForm">Retour</button></a>
     </div>
 {% endblock %}
 
+{% block script %}
+    <script>
+        var lat = {{ lieu.latitude }}
+        var lon = {{ lieu.longitude }}
+
+        var zoom = 16
+        var map = L.map('map').setView([lat, lon], zoom);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var marker = L.marker([lat, lon]).addTo(map);
+    </script>
+{% endblock %}

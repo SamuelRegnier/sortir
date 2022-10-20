@@ -26,15 +26,16 @@
             </div>
         </div>
         <div>
-            <div id="map"></div>
+            <div class="divMap" id="map"></div>
         </div>
     </div>
     <div>
-        <a href="{{ path('lieu_modifier', {'id': lieu.id}) }}" class="btn btn-warning buttonForm">Modifier</a>
-        <a href="{{ path('lieu_supprimer', {'id': lieu.id}) }}" class="btn btn-warning buttonForm">Supprimer</a>
-        <a href="{{ path('lieu_liste') }}" class="btn btn-warning buttonForm">Retour</a>
+        <a href="{{ path('lieu_modifier', {'id': lieu.id}) }}"><button class="buttonForm">Modifier</button></a>
+        <a href="{{ path('lieu_supprimer', {'id': lieu.id}) }}"><button class="buttonForm">Supprimer</button></a>
+        <a href="{{ path('lieu_liste') }}"><button class="buttonForm">Retour</button></a>
     </div>
 {% endblock %}
+
 {% block script %}
     <script>
         var lat = {{ lieu.latitude }}

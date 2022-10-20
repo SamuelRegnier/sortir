@@ -124,8 +124,10 @@
                                             {% endif %}
                                         {% endfor %}
                                     {% if boolean == 0 %}
-                                        <a href="{{ path('inscription_sortie', {'id': sortie.id}) }}">S'inscrire'</a>
+                                        <span> - </span>
+                                        <a href="{{ path('inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
                                     {% else %}
+                                        <span> - </span>
                                         <a href="{{ path('desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
                                     {% endif %}
                                 {% endif %}
