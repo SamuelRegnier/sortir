@@ -25,6 +25,7 @@ class AccueilController extends AbstractController
                           Request $request
     ): Response
     {
+        $user = $this->getUser();
         $sorties = $sortieRepository->findAll();
         $sites = $siteRepository->findAll();
         $inscription = $inscriptionRepository->findAll();

@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
 use App\Entity\Inscription;
-use App\Entity\Lieu;
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\AnnulationSortieType;
 use App\Form\SortieType;
@@ -46,16 +43,12 @@ class SortieController extends AbstractController
         $sortie->setOrganisateur($user);
         $sortie->setSite($site);
 
-        if ($user->isAdministrateur()) {
-            $sortie->setNombreParticipants(0);
-        }
-        if (!$user->isAdministrateur()) {
-            $inscription = new Inscription();
-            $inscription -> setSortie($sortie);
-            $inscription->setParticipant($user);
-            $inscription->setDateInscription(new \dateTime());
-            $sortie->setNombreParticipants(1);
-        }
+        $inscription = new Inscription();
+        $inscription -> setSortie($sortie);
+        $inscription->setParticipant($user);
+        $inscription->setDateInscription(new \dateTime());
+        $sortie->setNombreParticipants(1);
+
         $lieu = $lieuRepository->findOneBy(array('id'=>$sortie->getLieux()));
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
@@ -67,10 +60,8 @@ class SortieController extends AbstractController
             } else {
                 $sortie->setEtats($etatOuvert);
             }
-            if (!$user->isAdministrateur()) {
-                $entityManager->persist($inscription);
-            }
 
+            $entityManager->persist($inscription);
             $entityManager->persist($sortie);
             $entityManager->flush();
             return $this->redirectToRoute('accueil_index');

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class InscriptionController extends AbstractController
 {
-    #[Route('_inscription/{id}', name:'_inscription_sortie', requirements: ['id'=>'\d+'])]
+    #[Route('/accueil/inscription/{id}', name:'inscription_sortie', requirements: ['id'=>'\d+'])]
     public function inscription(
         Sortie $id,
         SortieRepository $sortieRepository,
@@ -51,7 +51,7 @@ class InscriptionController extends AbstractController
         ]);
     }
 
-    #[Route('_desinscription/{id}', name:'_desinscription_sortie', requirements: ['id'=>'\d+'])]
+    #[Route('/accueil/desinscription/{id}', name:'desinscription_sortie', requirements: ['id'=>'\d+'])]
     public function desinscription(
         Sortie $id,
         SortieRepository $sortieRepository,

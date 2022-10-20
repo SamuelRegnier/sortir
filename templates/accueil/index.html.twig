@@ -79,6 +79,7 @@
                 <th scope="col">Organisateur</th>
                 <th scope="col">Actions</th>
             </tr>
+
             {% for sortie in sorties%}
                 <tr>
                     <td>{{ sortie.nom }}</td>
@@ -115,19 +116,19 @@
                         {# Etat Sortie Ouverte #}
                         {% if sortie.etats.id == 2 %}
                             <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
-                            {% if app.user.id != sortie.organisateur.id %}
-                                {# or app.user.administrateur == 1 #}
-                                {% for inscrit in inscription %}
-                                    {% if inscrit.participant.id != app.user.id and inscrit.sortie.id == sortie.id %}
-                                        <span> - </span>
-                                        <a href="{{ path('_inscription_sortie', {'id': sortie.id}) }}">S'inscrire</a>
+                                {% if app.user != sortie.organisateur %}
+                                    {% set boolean = 0 %}
+                                        {% for i in sortie.inscriptionsSortie %}
+                                            {% if app.user == i.participant %}
+                                                {% set boolean = 1 %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% if boolean == 0 %}
+                                        <a href="{{ path('inscription_sortie', {'id': sortie.id}) }}">S'inscrire'</a>
+                                    {% else %}
+                                        <a href="{{ path('desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
                                     {% endif %}
-                                    {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
-                                        <span> - </span>
-                                        <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
+                                {% endif %}
                             {% if app.user.id == sortie.organisateur.id %}
                                 <span> - </span>
                                 <a href="{{ path('sortie_annulee', {'id': sortie.id}) }}">Annuler</a>
@@ -141,7 +142,7 @@
                                 {% if app.user.id != sortie.organisateur.id %}
                                     {% if inscrit.participant.id == app.user.id and inscrit.sortie.id == sortie.id %}
                                         <span> - </span>
-                                        <a href="{{ path('_desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
+                                        <a href="{{ path('desinscription_sortie', {'id': sortie.id}) }}">Se désister</a>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
