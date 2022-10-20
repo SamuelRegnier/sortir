@@ -46,12 +46,11 @@ footer{
     opacity: 0.85;
 }
 footer:hover{
-    color: goldenrod;;
+    color: goldenrod;
 }
 
 /************************* AFFICHER SORTIES **********************/
 .affSortie {
-
     margin: 80px auto;
     display: flex;
     flex-direction: row;
@@ -298,13 +297,13 @@ footer:hover{
 
 
 /***************************** CREER SORTIE ********************************/
-#bodyCreerSortie{
-    min-height: 90vh;
-    background-color: black;
-    color: #5eb5e0;
-    opacity: 0.85;
-    margin: -20px 0 0 0;
-}
+/*#bodyCreerSortie{*/
+/*    min-height: 90vh;*/
+/*    background-color: black;*/
+/*    color: #5eb5e0;*/
+/*    opacity: 0.85;*/
+/*    margin: -20px 0 0 0;*/
+/*}*/
 #bodyCreerSortie h1{
     padding: 50px;
 }
@@ -326,19 +325,8 @@ footer:hover{
     transition: 0.3s ease-in-out;
     transform: scale(1.06);
 }
-.creerSortieLigne{
-    margin: 30px 75px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 .labelForm{
     font-size: 1.2em;
-}
-.ligneSortie{
-    display: flex;
-    margin: 0 70px;
-    justify-content: right;
 }
 #descriptionSortie{
     height: 150px;
@@ -346,7 +334,13 @@ footer:hover{
     padding: 0 200px;
 }
 #formCreerSortie{
-    margin-top: 50px;
+    margin: 80px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items:center;
+    align-content:center;
 }
+
 
 /********************* INFOS PROFIL *******************************/

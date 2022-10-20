@@ -7,54 +7,49 @@
     <div id="bodyCreerSortie">
         <h1>Créer une Sortie</h1>
         <div id="formCreerSortie">
-            <div>
             {{ form_start(form) }}
-            <div class="creerSortieLigne">
-                <div class="ligneSortie labelForm">
+            <div class="CreerSortie">
+                <div id="labelInfos">
                     {{ form_label(form.nom) }}
                 </div>
-                <div class="ligneSortie">
+                <div id="donneesInfos">
                     {{ form_widget(form.nom) }}
                 </div>
-                <div class="ligneSortie labelForm">
-                    {{ form_label(form.lieux) }}
-                </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.lieux) }}
-                </div>
-            </div>
-            <div class="creerSortieLigne">
-                <div class="ligneSortie labelForm">
+                <div id="labelInfos">
                     {{ form_label(form.dateHeureDebut) }}
+                 </div>
+                <div id="donneesInfos">
+                    {{ form_widget(form.dateHeureDebut)}}
                 </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.dateHeureDebut) }}
-                </div>
-                <div class="ligneSortie labelForm">
-                    {{ form_label(form.dateLimiteInscription) }}
-                </div>
-                <div class="ligneSortie">
-                    {{ form_widget(form.dateLimiteInscription) }}
-                </div>
-            </div>
-            <div class="creerSortieLigne">
-                <div class="ligneSortie labelForm">
+                <div id="labelInfos">
                     {{ form_label(form.nbInscriptionsMax) }}
                 </div>
-                <div class="ligneSortie">
+                <div id="donneesInfos">
                     {{ form_widget(form.nbInscriptionsMax) }}
                 </div>
-                <div class="ligneSortie labelForm">
+            </div>
+            <div class="CreerSortie">
+                <div id="labelInfos">
+                    {{ form_label(form.lieux) }}
+                </div>
+                <div id="donneesInfos">
+                    {{ form_widget(form.lieux) }}
+                </div>
+                <div id="labelInfos">
+                    {{ form_label(form.dateLimiteInscription) }}
+                </div>
+                <div id="donneesInfos">
+                    {{ form_widget(form.dateLimiteInscription) }}
+                </div>
+                <div id="labelInfos">
                     {{ form_label(form.duree) }}
                 </div>
-                <div class="ligneSortie">
+                <div id="donneesInfos">
                     {{ form_widget(form.duree) }}
                 </div>
             </div>
-            <div class="creerSortieLigne labelForm">
+            <div id="descriptionSortie">
                 {{ form_label(form.infosSortie) }}
-            </div>
-            <div class="ligneSortie" id="descriptionSortie">
                 {{ form_widget(form.infosSortie) }}
             </div>
             <input class="buttonCreer" type="submit" value="Enregistrer" name="enregistrer">
