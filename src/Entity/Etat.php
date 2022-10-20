@@ -6,6 +6,7 @@ use App\Repository\EtatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EtatRepository::class)]
 class Etat
@@ -17,6 +18,7 @@ class Etat
 
     #[ORM\Column(length: 30)]
     #[Assert\NotBlank(message:'Merci d\'ajouter un libéllé')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le libéllé de doit pas dépasser 30 caracères.')]
     private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'etats', targetEntity: Sortie::class)]

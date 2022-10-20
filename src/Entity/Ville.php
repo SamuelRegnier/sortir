@@ -6,6 +6,8 @@ use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: VilleRepository::class)]
 class Ville
@@ -16,12 +18,12 @@ class Ville
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
-    #[Assert\Length(max: 30,message:'Le nom de la ville ne doit pas dépasser 30 caractères')]
+    #[Assert\Length(max: 30,maxMessage:'Le nom de la ville ne doit pas dépasser 30 caractères')]
     #[Assert\NotBlank(message:'Merci d\'ajouter un nom de la ville')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 10)]
-    #[Assert\Length(max: 10,message:'Le code postal ne doit pas dépasser 10 caractères')]
+    #[Assert\Length(max: 10,maxMessage:'Le code postal ne doit pas dépasser 10 caractères')]
     #[Assert\NotBlank(message:'Merci d\'ajouter un code postal à la ville')]
     private ?string $codePostal = null;
 
