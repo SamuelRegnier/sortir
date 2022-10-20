@@ -6,9 +6,9 @@
     <div class="small-text-center">
     <h1>Information lieu : {{ lieu.nom }}</h1>
     </div>
-<div class="affLieu">
-    <div class="affSortie">
-        <div>
+<div class="affLieuComplet">
+    <div class="affLieuInfos">
+        <div id="labelInfosLieu">
             <p>Nom : </p>
             <p>Ville : </p>
             <p>Code Postal : </p>
@@ -16,7 +16,7 @@
             <p>Latitude : </p>
             <p>Longitude : </p>
         </div>
-        <div>
+        <div id="donneesInfosLieu">
             <p>{{ lieu.nom }}</p>
             <p>{{ lieu.villes.nom }}</p>
             <p>{{ lieu.villes.codePostal }}</p>
@@ -29,11 +29,10 @@
         <div id="map"></div>
     </div>
 </div>
-    <hr>
     <div>
-        <a href="{{ path('lieu_modifier', {'id': lieu.id}) }}" class="btn btn-warning">Modifier</a>
-        <a href="{{ path('lieu_supprimer', {'id': lieu.id}) }}" class="btn btn-warning">Supprimer</a>
-        <a href="{{ path('lieu_liste') }}" class="btn btn-warning">Retour</a>
+        <a href="{{ path('lieu_modifier', {'id': lieu.id}) }}" class="btn btn-warning buttonForm">Modifier</a>
+        <a href="{{ path('lieu_supprimer', {'id': lieu.id}) }}" class="btn btn-warning buttonForm">Supprimer</a>
+        <a href="{{ path('lieu_liste') }}" class="btn btn-warning buttonForm">Retour</a>
     </div>
 
 {% endblock %}
