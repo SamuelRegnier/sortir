@@ -34,7 +34,7 @@ class SortieType extends AbstractType
                 'constraints'=>[
                     new notBlank()
                 ]])
-            ->add('nbInscriptionsMax', TextType::class, [
+            ->add('nbInscriptionsMax', NumberType::class, [
                 'label'=>'Nombre de place :',
                 'constraints'=>[
                     new notBlank()

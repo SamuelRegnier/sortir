@@ -2,26 +2,33 @@
 
 {% block body %}
     {% if app.user.id == sortie.organisateur.id and sortie.etats.id != 6 %}
-        <h1>Annuler une sortie</h1>
+        <div class="small-text-center">
+            <h1>Annuler une sortie</h1>
+        </div>
         {{ form_start(formMotifAnnulation) }}
-        <div class="affSortie">
-            <div>
-                <p>Nom de la sortie : </p>
-                <p>Date de la sortie : </p>
-                <p>Site organisateur : </p>
-                <p>Lieu : </p>
-                {{ form_label(formMotifAnnulation.motifAnnulation) }}
-            </div>
-            <div>
-                <p>{{ sortie.nom }}</p>
-                <p>{{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
-                <p>{{ sortie.site.nom }}</p>
-                <p>{{ sortie.lieux.nom }}, {{ sortie.lieux.rue }}, {{ sortie.lieux.villes.codePostal }} {{ sortie.lieux.villes.nom }}</p>
-                {{ form_widget(formMotifAnnulation.motifAnnulation) }}
+        <div class="affLieuComplet">
+            <div class="affLieuInfos">
+                <div id="labelInfosLieu">
+                    <p>Nom de la sortie : </p>
+                    <p>Date de la sortie : </p>
+                    <p>Site organisateur : </p>
+                    <p>Lieu : </p>
+                    {{ form_label(formMotifAnnulation.motifAnnulation) }}
+                </div>
+                <div id="donneesInfosLieu">
+                    <p>{{ sortie.nom }}</p>
+                    <p>{{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
+                    <p>{{ sortie.site.nom }}</p>
+                    <p>{{ sortie.lieux.nom }}, {{ sortie.lieux.rue }}
+                        , {{ sortie.lieux.villes.codePostal }} {{ sortie.lieux.villes.nom }}</p>
+                    {{ form_widget(formMotifAnnulation.motifAnnulation) }}
+                </div>
             </div>
         </div>
-        <input type="submit" value="Enregistrer">
-        <input type="button" value="Annuler" onclick="history.back()">
-        {{ form_end(formMotifAnnulation) }}
+        <div>
+            <input type="submit" value="Enregistrer" class="buttonForm">
+            <input type="button" value="Annuler" onclick="history.back()" class="buttonForm">
+            {{ form_end(formMotifAnnulation) }}
+        </div>
     {% endif %}
 {% endblock %}

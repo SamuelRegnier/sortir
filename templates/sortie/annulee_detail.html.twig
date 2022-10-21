@@ -2,23 +2,30 @@
 
 {% block body %}
     {% if sortie.etats.id == 6 %}
-        <h1>La sortie {{ sortie.nom }} est annulée !</h1>
-        <div class="affSortie">
-            <div>
-                <p>Nom de la sortie : </p>
-                <p>Date de la sortie : </p>
-                <p>Site organisateur : </p>
-                <p>Lieu : </p>
-                <p>Motif : </p>
-            </div>
-            <div>
-                <p>{{ sortie.nom }}</p>
-                <p>{{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
-                <p>{{ sortie.site.nom }}</p>
-                <p>{{ sortie.lieux.nom }}, {{ sortie.lieux.rue }}, {{ sortie.lieux.villes.codePostal }} {{ sortie.lieux.villes.nom }}</p>
-                <p>{{ sortie.motifAnnulation }}</p>
+        <div class="small-text-center">
+            <h1>La sortie {{ sortie.nom }} est annulée !</h1>
+        </div>
+        <div class="affLieuComplet">
+            <div class="affLieuInfos">
+                <div id="labelInfosLieu">
+                    <p>Nom de la sortie : </p>
+                    <p>Date de la sortie : </p>
+                    <p>Site organisateur : </p>
+                    <p>Lieu : </p>
+                    <p>Motif : </p>
+                </div>
+                <div id="donneesInfosLieu">
+                    <p>{{ sortie.nom }}</p>
+                    <p>{{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
+                    <p>{{ sortie.site.nom }}</p>
+                    <p>{{ sortie.lieux.nom }}, {{ sortie.lieux.rue }}
+                        , {{ sortie.lieux.villes.codePostal }} {{ sortie.lieux.villes.nom }}</p>
+                    <p>{{ sortie.motifAnnulation }}</p>
+                </div>
             </div>
         </div>
-        <input type="button" value="Retour" onclick="history.back()">
+        <div>
+        <input type="button" value="Retour" onclick="history.back()" class="buttonForm">
+        </div>
     {% endif %}
 {% endblock %}

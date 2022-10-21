@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Ville;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +17,7 @@ class CreationVilleType extends AbstractType
             ->add('nom',TextType::class,[
             'label'=>'Ville :',
              ])
-            ->add('codePostal',TextType::class,[
+            ->add('codePostal',NumberType::class,[
                 'label'=>'Code Postal :',
             ])
         ;
